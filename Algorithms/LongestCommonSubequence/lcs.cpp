@@ -52,6 +52,7 @@ int main()
 
     return 0;
 }
-
-
+/*
+    returns length of the longest subsequence
+*/
 // O(n * m) = O (n^2)
