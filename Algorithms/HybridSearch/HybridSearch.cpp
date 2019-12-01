@@ -4,12 +4,20 @@
 using namespace std;
 
 /*
-    Uzme vektor, range pocetnog trazenja (pocetak, kraj),
-    value ciji index zelis pronaci, na koliko elemenata ces podijeliti
-    vektor da ti ga nade
+    Arguments:
+        A => linear data structure
+        s => most left border index (start)
+        f => most right border index (finish)
+        x => value that is being searched
+        n => length of subsequence
+     
+    Binarysearch until A has length of n.
+    Then traverse vector sequentially until x is found.
+    
+    Function return index of element x.
 
-    Inputa:
-        A => V[i] = {3 * i}, i iz {0..99}
+    Input:
+        A => V[i] = {3 * i : i = {1..99}}
         s => 0
         f => V.size() - 1
         x => 159
@@ -20,8 +28,7 @@ using namespace std;
 int HybridSearch(vector<int>& A, int s, int f, int x, int n)
 {
     int middle = floor((f + s) / 2);
-
-
+    
     if((f - s) + 1 != n)
     {
         if(x == A[middle]) return middle;
@@ -51,20 +58,19 @@ int HybridSearch(vector<int>& A, int s, int f, int x, int n)
         return -1;
     }
 
-    cout << "zajeb" << endl;
+    cout << "shit, not good" << endl;
 }
 
 int main()
 {
-    vector<int> V; //[3 * i], [0, 3, 6, 9, 12, ..., 99 * 3]
+    vector<int> V;
 
     for(int i = 0; i < 100; i++)
     {
         V.push_back(3 * i);
     }
     
-    cout << HybridSearch(V, 0, V.size() - 1, 63, 3) << endl;
-
+    cout << HybridSearch(V, 0, V.size() - 1, 159, 29) << endl;
 
     return 0;
 }
