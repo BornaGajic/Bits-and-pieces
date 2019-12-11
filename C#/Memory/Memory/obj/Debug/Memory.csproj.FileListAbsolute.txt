@@ -1,0 +1,11 @@
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.csprojAssemblyReference.cache
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.Properties.Resources.resources
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.csproj.GenerateResource.cache
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.csproj.CoreCompileInputs.cache
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.MainForm.resources
+E:\oopVjezba\C#\Memory\Memory\bin\Debug\Memory.exe.config
+E:\oopVjezba\C#\Memory\Memory\bin\Debug\Memory.exe
+E:\oopVjezba\C#\Memory\Memory\bin\Debug\Memory.pdb
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.exe
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.pdb
+E:\oopVjezba\C#\Memory\Memory\obj\Debug\Memory.IntroScreen.resources
