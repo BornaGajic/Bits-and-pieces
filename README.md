@@ -1,2 +1,2 @@
 # Bits-and-pieces
-Implementation of some data structures &amp; college exams + C# code
+Implementation of some data structures, algorithms & college exams + C# code
