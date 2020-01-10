@@ -9,6 +9,7 @@ class CDLL {
 protected:
     Node* head;
     Node* tail;
+    int size;
 public:
     CDLL()
     {
@@ -52,7 +53,7 @@ public:
     void append(double value)
     {
         Node* element = new Node{value};
-
+        size++;
         if(empty())
         {
             head = element;
@@ -75,7 +76,8 @@ public:
     }
     // postavi vrijednost na kraj
     void prepend(double value)
-    {        
+    {   
+        size++;
         Node* element = new Node{value};
         
         if(empty())
@@ -102,6 +104,7 @@ public:
     // i vrati njegovu vrijednost
     double removeFromHead()
     {
+        size--;
         double val = head->value;
 
         head = head->next;
@@ -118,6 +121,7 @@ public:
     // i vrati njegovu vrijednost
     double removeFromTail()
     {
+        size--;
         double val = tail->value;
 
         tail = tail->prev;
@@ -145,21 +149,25 @@ public:
     }
     void sort()
     {
-        Node* iterator = head;
-        do
+        for (int i = 0; i < size; i++)
         {
-            if(iterator->value < iterator->next->value)
+            Node* border = head;
+            Node* iterator = head->next;
+            do
             {
-                iterator->swap(*(iterator->next));
-                
-            }
-        
-            iterator = iterator->next;
+                if(iterator->value < iterator->prev->value)
+                {
+                    iterator->swap(*(iterator->prev));
+                    
+                }
 
-        }while(iterator != head);
+                iterator = iterator->next;
+
+            }while(iterator != border);
+
+            border = border->prev;
+        }
     } 
 };
-
-
 
 #endif
