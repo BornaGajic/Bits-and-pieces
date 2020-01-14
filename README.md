@@ -10,3 +10,6 @@ Some are from Codeforces, Atcoder, or from other sources.
 Implementation of few basic containers/trees.
 #### Exams
 Few exams with interesting tasks.
+#### Random
+Content of that folder is mainly college stuff.
+From easier tasks to slightly more complex ones.
