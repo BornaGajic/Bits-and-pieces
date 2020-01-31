@@ -42,25 +42,39 @@ int main ()
 
     AVL tree200;
     for (int i = 1; i <= 10; i++)
-    {
         tree200.insert(i);
-    }
+
     tree200.inorderPrint(tree200.root);
+
+    cout << "Number of nodes greater: " << tree200.numberOfNodesGreater(6) << endl;
+    cout << "Number of nodes less: " << tree200.numberOfNodesLess(6) << endl;
+    cout << "Number of nodes in range: " << tree200.numberOfNodesInrange(7, 12) << endl;
+
     for (int i = 1; i <= 10; i++)
-    {
         tree200.erase(i);
-    }
 
-    
-    tree200.inorderPrint(tree200.root);
-    cout << "////" << endl;
+    cout << "--------------------------" << endl;
 
-    for (int i = 10; i <= 20; i++)
+    for (int i = 20; i >= 10; i--)
     {
         tree200.insert(i);
     }
+    tree200.inorderPrint(tree200.root);
+    
+    cout << "--------------------------" << endl;
 
+    cout << "DELETE: " << endl << endl;
+    for (int i = 20; i >= 10; i--)
+    {
+        cout << "I: " << i << endl;
+        tree200.erase(i);
+        tree200.inorderPrint(tree200.root);
+        cout << "--------------" << endl;
+    }
+    cout << "////" << endl;
+    cout << "empty" << endl;
     tree200.inorderPrint(tree200.root);
     cout << "////" << endl;
+
     return 0;
 }
