@@ -1,5 +1,5 @@
-#ifndef AVL_H
-#define AVL_H
+#ifndef AVL_HPP
+#define AVL_HPP
 
 #include <iostream>
 #include <algorithm>
@@ -203,9 +203,17 @@ class AVL
                         else
                         {
                             if (nodeToDelete->leftChild != nullptr)
+                            {
                                 nodeToDelete->parent->rightChild = nodeToDelete->leftChild;
-                            
-                            nodeToDelete->parent->rightChild = nullptr;
+                                nodeToDelete->leftChild->parent = nodeToDelete->parent;
+                            }
+
+                            _balanceOut(nodeToDelete->parent->rightChild);
+
+                            delete nodeToDelete;
+                            nodeToDelete = nullptr;
+                               
+                            break;
                         }
                     }
 
@@ -301,7 +309,55 @@ class AVL
         return 0;
     }
 
+    int numberOfNodesLess (int value)
+    {
+        return _numberOfNodesLess(value, root);
+    }
+
+    int numberOfNodesGreater (int value)
+    {
+        return _numberOfNodesGreater(value, root);
+    }
+
+    int numberOfNodesInrange (int a, int b)
+    {
+        return _numberOfNodesLess(b, root) - _numberOfNodesLess(a, root) + 1;
+    }
+
     private:
+
+    int _numberOfNodesLess (int value, Node* iter)
+    {
+        if (iter == nullptr)
+            return 0;
+        else if (iter->value < value)
+        {    
+            int x = 0;
+            x += 1 + _numberOfNodesLess(value, iter->leftChild);
+            x += _numberOfNodesLess(value, iter->rightChild);
+
+            return x;
+        }
+        else
+            return _numberOfNodesLess(value, iter->leftChild);
+    }
+
+    int _numberOfNodesGreater (int value, Node* iter)
+    {
+        if (iter == nullptr)
+            return 0;
+        else if (iter->value > value)
+        {    
+            int x = 0;
+            x += 1 + _numberOfNodesGreater(value, iter->rightChild);
+            x += _numberOfNodesGreater(value, iter->leftChild);
+
+            return x;
+        }
+        else
+            return _numberOfNodesGreater(value, iter->rightChild);
+    }
+
     void _incrementHeight (Node* iter)
     {
         iter->height = iter->height == -1 ? 0 : iter->height;
@@ -609,6 +665,5 @@ class AVL
         node = nullptr;
     }
 };
-
 
 #endif
