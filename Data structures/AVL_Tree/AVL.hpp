@@ -237,11 +237,6 @@ class AVL
 
                     if (nodeToDelete->leftChild == nullptr && nodeToDelete->rightChild == nullptr)
                     {
-                        if (nodeToDelete->parent->leftChild == nodeToDelete)
-                            nodeToDelete->parent->leftChild = nullptr;
-                        else
-                            nodeToDelete->parent->rightChild = nullptr;
-
                         _decrementHeight(nodeToDelete);
                         _balanceOut(nodeToDelete);
                         _deleteNode(nodeToDelete);
