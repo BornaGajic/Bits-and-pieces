@@ -4,50 +4,52 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
 template <typename T>
 class Graph
 {   
-    vector<list<T>> edges;
+    // first element of a pair represents vertex, and second its neighbours
+    vector<pair<T, list<T>>> data;
 
     public:
-        void AddEdge (T edge, T element)
+        void AddEdge (const T& edge_a , const T& edge_b)
         {
-            bool edge_pushed = false, element_pushed = false;
+            bool edge_a_pushed = false, edge_b_pushed = false;
 
-            for (auto& x : edges)
+            for (pair<T, list<T>>& x : data)
             {
-                if (x.front() == edge)
-                    x.push_back(element), element_pushed = true;
-                else if (x.front() == element)
-                    x.push_back(edge), edge_pushed = true;
+                if (x.first == edge_a)
+                    x.second.push_back(edge_b), edge_b_pushed = true;
+                else if (x.first == edge_b)
+                    x.second.push_back(edge_a), edge_a_pushed = true;
             }
             
-            if (!edge_pushed)
-                edges.push_back(list<T>{element, edge});
+            if (!edge_a_pushed)
+                data.push_back(make_pair(edge_b, list<T>{edge_a}));
                 
-            if (!element_pushed)
-                edges.push_back(list<T>{edge, element}); 
+            if (!edge_b_pushed)
+                data.push_back(make_pair(edge_a, list<T>{edge_b})); 
         }
-
-        void DeleteEdge (T element)
+        
+        void DeleteEdge (const T& edge)
         {
             int j = 0;
-            for (auto& edge : edges)
+            for (pair<T, list<T>>& x : data)
             {
-                if (element == edge.front())
-                    edges.erase(edges.begin() + j);
+                if (edge == x.first)
+                    data.erase(data.begin() + j);
 
                 int i = 0;
-                for (T& adj_node : edge)
+                for (T& adj_node : x.second)
                 {
-                    if (adj_node == element)
+                    if (adj_node == edge)
                     {
-                        typename list<T>::iterator it = edge.begin();
+                        typename list<T>::iterator it = x.second.begin();
                         advance(it, i);
-                        it = edge.erase(it);
+                        it = x.second.erase(it);
                         break;
                     }
 
@@ -58,24 +60,15 @@ class Graph
             }
         }
 
-        void print_graph ()
+        void print_graph () const
         {
-            for (auto& edge : edges)
+            for (pair<T, list<T>>& edge : data)
             {
-                cout << edge.front() << ": ";
-                for (auto& adj_edge : edge)
-                {
-                    if (adj_edge != edge.front())
-                        cout << adj_edge << " -> ";
-                }
-                    
-                cout << "NULL" << endl;
+                cout << edge.first << ": ";
+                for (T& adj_edge : edge.second)
+                    cout << adj_edge << " ";
+                cout << endl;
             }
-        }
-        
-        static Graph* MakeSet (T element)
-        {
-            return new Graph<T>{};
         }
 };
 

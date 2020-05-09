@@ -16,23 +16,10 @@ int main ()
     g.AddEdge(3, 4);
     g.AddEdge(4, 5);
 
-    g.print_graph();
-
-    g.DeleteEdge(2); cout << endl;
-
+    g.DeleteEdge(4);
+    
     g.print_graph(); cout << endl;
 
-    Graph<char>* x = Graph<char>::MakeSet('A');
-
-    x->AddEdge('A', 'B');
-    x->AddEdge('C', 'F');
-    x->AddEdge('D', 'Z');
-    x->AddEdge('C', 'U');
-    x->AddEdge('F', 'G');
-
-    x->print_graph();
-
-    delete x;
 
     return 0;
 }
