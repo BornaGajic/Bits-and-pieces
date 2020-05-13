@@ -4,7 +4,7 @@ Projects, games, etc.
 #### Algorithms
 Some are from Codeforces, Atcoder, or from other sources.
 #### Data structures
-Implementation of containers/trees.
+Implementation of containers/graphs.
 #### Exams
 Few exams with interesting tasks.
 #### Random
