@@ -17,9 +17,23 @@ struct Light
 struct Material
 {
     Vec_3_f diffuse_color;
+    
+    bool is_reflective = false;
+    bool is_refractive = false;
+
+    float index_of_refraction;
 
     Material (const Vec_3_f& color): diffuse_color(color) {}
+    Material (const Vec_3_f& color, bool reflective): diffuse_color(color), is_reflective(reflective) {}
+    Material (const Vec_3_f& color, bool reflective, bool refractive): diffuse_color(color), is_reflective(reflective), is_refractive(reflective) {}
+    Material (const Vec_3_f& color, bool reflective, bool refractive, float ior): 
+             diffuse_color(color), is_reflective(reflective), is_refractive(refractive), index_of_refraction(ior) {}
     Material (): diffuse_color() {}
+
+    float get_ior ()
+    {
+        return is_refractive ? index_of_refraction : 1;   
+    }
 };
 
 struct Object
