@@ -10,3 +10,5 @@ Few exams with interesting tasks.
 #### Random
 Content of that folder is mainly college stuff.
 From easier tasks to slightly more complex ones.
+#### Graphic
+Computer graphic with C++
