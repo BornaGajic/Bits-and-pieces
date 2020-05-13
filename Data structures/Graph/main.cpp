@@ -6,20 +6,24 @@ using namespace std;
 
 int main ()
 {
-    Graph<int> g;
+    undirected_graph<int> g;
 
-    g.AddEdge(1, 2);
-    g.AddEdge(1, 5);
-    g.AddEdge(2, 3);
-    g.AddEdge(2, 4);
-    g.AddEdge(2, 5);
-    g.AddEdge(3, 4);
-    g.AddEdge(4, 5);
+    g.add_edge(1, 2);
+    g.add_edge(2, 3);
+    g.add_edge(2, 4);
+    g.add_edge(2, 5);
+    g.add_edge(3, 4);
+    g.add_edge(4, 5);
+    g.add_edge(1, 6);
+    g.add_edge(6, 5);
 
-    g.DeleteEdge(4);
+    vector<int> path = g.shortest_path(1, 4);
+
+    for (auto& x : path)
+        cout << x << " ";
     
+    cout << endl;
     g.print_graph(); cout << endl;
-
 
     return 0;
 }
