@@ -4,9 +4,11 @@ Projects, games, etc.
 #### Algorithms
 Some are from Codeforces, Atcoder, or from other sources.
 #### Data structures
-Implementation of containers/trees.
+Implementation of containers/graphs.
 #### Exams
 Few exams with interesting tasks.
 #### Random
 Content of that folder is mainly college stuff.
 From easier tasks to slightly more complex ones.
+#### Graphic
+Computer graphic with C++
