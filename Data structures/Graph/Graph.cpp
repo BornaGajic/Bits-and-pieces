@@ -67,6 +67,7 @@ vector<pair<T, int>> GraphI<T>::_bfs (const T& start)
         T front = Q.front();
         Q.pop();
 
+        bool any_visited = false;
         for (auto& node : graph_map[front])
         {
             bool is_visited = visited.find(node) == visited.end() ? false : true;
@@ -76,10 +77,12 @@ vector<pair<T, int>> GraphI<T>::_bfs (const T& start)
                 Q.push(node);
                 visited[node] = true;
                 discovered->push_back(make_pair(node, last_discovered + 1));
+
+                any_visited = true;
             }
         }
 
-        last_discovered++;
+        last_discovered = any_visited ? last_discovered + 1 : last_discovered;
     }
 
     return *discovered;
@@ -102,6 +105,7 @@ vector<pair<T, int>> GraphI<T>::_bfs (const T& start, const T& finish)
         T front = Q.front();
         Q.pop();
 
+        bool any_visited = false;
         for (auto& node : graph_map[front])
         {
             if (node == finish)
@@ -117,10 +121,12 @@ vector<pair<T, int>> GraphI<T>::_bfs (const T& start, const T& finish)
                 Q.push(node);
                 visited[node] = true;
                 discovered->push_back(make_pair(node, last_discovered + 1));
+
+                any_visited = true;
             }
         }
 
-        last_discovered++;
+        last_discovered = any_visited ? last_discovered + 1 : last_discovered;
     }
 
     return *discovered;
@@ -162,57 +168,90 @@ vector<T> GraphI<T>::shortest_path (const T& start, const T& finish)
 }
 
 template <typename T>
-optional<vector<T>> GraphI<T>::articulation_points () const
+bool GraphI<T>::is_articulation_point (const T& vertex) const
 {
-    vector<T> articulation_points;
+    stack<T> S;
+    unordered_map<T, bool> visited;
 
-    for (auto& point : graph_data)
+    S.push(vertex);
+    visited[vertex] = true;
+
+    int counter = 0;
+
+    while(!S.empty())
     {
-        stack<T> S;
-        unordered_map<T, bool> visited;
+        bool AP = false;
+        bool any_visited = false;
 
-        S.push(point.first);
-        visited[point.first] = true;
-
-        int counter = 0;
-
-        while(!S.empty())
+        for (auto& adj_vertex : graph_map.at(S.top()))
         {
-            bool AP = false;
-            bool any_visited = false;
-
-            for (auto& adj_vertex : graph_map.at(S.top()))
+            if (visited.find(adj_vertex) != visited.end())
             {
-                if (visited.find(adj_vertex) != visited.end())
-                {
-                    continue;
-                }
+                continue;
+            }
 
-                counter = S.top() == point.first ? counter + 1 : counter;
+            counter = S.top() == vertex ? counter + 1 : counter;
 
-                if (counter == 2)
-                {
-                    AP = true;
-                    break;
-                }
-
-                S.push(adj_vertex);
-                visited[adj_vertex] = true;
-                any_visited = true;
-                
+            if (counter == 2)
+            {
+                AP = true;
                 break;
             }
 
-            if (AP)
-            {
-                articulation_points.push_back(point.first);
-                break;
-            }
-            else if (!any_visited) S.pop();
-        }    
+            S.push(adj_vertex);
+            visited[adj_vertex] = true;
+            any_visited = true;
+            
+            break;
+        }
+
+        if (AP) return true;
+        else if (!any_visited) S.pop();
     }
 
-    return make_optional(articulation_points);
+    return false;
+}
+
+template <typename T>
+void GraphI<T>::_articulation_points (umap_t_i& low, umap_t_i& disc, umap_t_b& visited, umap_t_t& parent, vector<T>& AP, T& vertex, int time)                                                 
+{
+    visited[vertex] = true;
+    disc[vertex] = time + 1;
+    low[vertex] = time + 1;
+
+    int children = 0;
+
+    for (auto& adj_vertex : graph_map[vertex])
+    {
+        if (visited.find(adj_vertex) == visited.end())
+        {
+            children++;
+            parent[adj_vertex] = vertex;
+            _articulation_points(low, disc, visited, parent, AP, adj_vertex, time + 1);
+
+            low[vertex] = min(low[vertex], low[adj_vertex]);
+
+            if (parent.find(vertex) == parent.end() && children > 1)
+                AP.push_back(vertex);
+            if (parent.find(vertex) != parent.end() && low[adj_vertex] >= disc[vertex])
+                AP.push_back(vertex);
+        }
+        else if (parent[vertex] != adj_vertex)
+            low[vertex] = min(low[vertex], disc[adj_vertex]);
+    }
+}
+
+template <typename T>
+optional<vector<T>> GraphI<T>::articulation_points ()
+{
+   umap_t_b visited;
+   umap_t_i disc, low;
+   umap_t_t parent;
+   vector<T>* AP = new vector<T>{};
+
+   _articulation_points(low, disc, visited, parent, *AP, graph_data[0].first, 0);
+
+   return *AP;
 }
 // ---------------------- END GRAPHI ----------------------------------
 
