@@ -7,7 +7,7 @@ using namespace std;
 
 // ---------------------- GRAPHI ----------------------------------
 template <typename T>
-void GraphI<T>::remove_vertex (const T& vertex)
+void IGraph<T>::remove_vertex (const T& vertex)
 {
     graph_map.erase(vertex);
 
@@ -39,7 +39,7 @@ void GraphI<T>::remove_vertex (const T& vertex)
 }
 
 template <typename T>
-void GraphI<T>::print_graph () const
+void IGraph<T>::print_graph () const
 {
     for (auto& edge : graph_data)
     {
@@ -51,7 +51,7 @@ void GraphI<T>::print_graph () const
 }
 
 template<typename T>
-vector<pair<T, int>> GraphI<T>::_bfs (const T& start)
+vector<pair<T, int>> IGraph<T>::_bfs (const T& start)
 {
     queue<T> Q;
     unordered_map<T, bool> visited{make_pair(start, true)};
@@ -89,7 +89,7 @@ vector<pair<T, int>> GraphI<T>::_bfs (const T& start)
 }
 
 template<typename T>
-vector<pair<T, int>> GraphI<T>::_bfs (const T& start, const T& finish)
+vector<pair<T, int>> IGraph<T>::_bfs (const T& start, const T& finish)
 {
     queue<T> Q;
     unordered_map<T, bool> visited{make_pair(start, true)};
@@ -133,7 +133,7 @@ vector<pair<T, int>> GraphI<T>::_bfs (const T& start, const T& finish)
 }
 
 template<typename T>
-vector<T> GraphI<T>::shortest_path (const T& start, const T& finish)
+vector<T> IGraph<T>::shortest_path (const T& start, const T& finish)
 {
     vector<pair<T, int>> discovered = _bfs(start, finish);
 
@@ -168,7 +168,7 @@ vector<T> GraphI<T>::shortest_path (const T& start, const T& finish)
 }
 
 template <typename T>
-bool GraphI<T>::is_articulation_point (const T& vertex) const
+bool IGraph<T>::is_articulation_point (const T& vertex) const
 {
     stack<T> S;
     unordered_map<T, bool> visited;
@@ -213,7 +213,7 @@ bool GraphI<T>::is_articulation_point (const T& vertex) const
 }
 
 template <typename T>
-void GraphI<T>::_articulation_points (umap_t_i& low, umap_t_i& disc, umap_t_b& visited, umap_t_t& parent, vector<T>& AP, T& vertex, int time)                                                 
+void IGraph<T>::_articulation_points (umap_t_i& low, umap_t_i& disc, umap_t_b& visited, umap_t_t& parent, vector<T>& AP, T& vertex, int time)                                                 
 {
     visited[vertex] = true;
     disc[vertex] = time + 1;
@@ -242,7 +242,7 @@ void GraphI<T>::_articulation_points (umap_t_i& low, umap_t_i& disc, umap_t_b& v
 }
 
 template <typename T>
-optional<vector<T>> GraphI<T>::articulation_points ()
+optional<vector<T>> IGraph<T>::articulation_points ()
 {
    umap_t_b visited;
    umap_t_i disc, low;

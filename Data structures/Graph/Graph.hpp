@@ -2,20 +2,21 @@
 #define GRAPH_HPP
 
 #include <iostream>
+
 #include <list>
 #include <vector>
-#include <utility>
 #include <queue>
 #include <stack>
-#include <algorithm>
 #include <unordered_map>
+
+#include <utility>
+#include <algorithm>
 #include <optional>
-#include <stack>
 
 using namespace std;
 
 template <typename T>
-class GraphI
+class IGraph
 {   
     typedef unordered_map<T, int> umap_t_i;
     typedef unordered_map<T, T> umap_t_t;
@@ -46,10 +47,10 @@ class GraphI
 };
 
 template <typename T>
-class undirected_graph : public GraphI<T>
+class undirected_graph : public IGraph<T>
 {
-    using GraphI<T>::graph_data;
-    using GraphI<T>::graph_map;
+    using IGraph<T>::graph_data;
+    using IGraph<T>::graph_map;
 
     public:
 
@@ -57,10 +58,36 @@ class undirected_graph : public GraphI<T>
 };
 
 template <typename T>
-class directed_graph : public GraphI<T>
+class directed_graph : public IGraph<T>
 {
-    using GraphI<T>::graph_data;
-    using GraphI<T>::graph_map;
+    using IGraph<T>::graph_data;
+    using IGraph<T>::graph_map;
+
+    public:
+
+    void add_edge (const T&, const T&);
+};
+
+template <typename T>
+class w_undirected_graph : public IGraph<T>
+{
+    using IGraph<T>::graph_data;
+    using IGraph<T>::graph_map;
+
+    // something for weight
+
+    public:
+
+    void add_edge (const T&, const T&);
+};
+
+template <typename T>
+class w_directed_graph : public IGraph<T>
+{
+    using IGraph<T>::graph_data;
+    using IGraph<T>::graph_map;
+
+    // something for weight
 
     public:
 
