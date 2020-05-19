@@ -25,10 +25,10 @@ int main ()
     cout << endl;
     g.print_graph(); cout << endl;
 
-    optional<vector<int>> v = g.articulation_points();
-
-    for (auto& x : v.value())
-        cout << x << " ";
+    if (g.is_articulation_point(2))
+        cout << "2 is an articulation point" << endl;
+    else
+        cout << "2 is not an articulation point" << endl;
 
     return 0;
 }

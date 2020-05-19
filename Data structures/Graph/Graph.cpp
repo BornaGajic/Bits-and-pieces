@@ -5,10 +5,12 @@
 
 using namespace std;
 
-// ---------------------- GRAPHI ----------------------------------
+// ---------------------- IGRAPH ----------------------------------
 template <typename T>
 void IGraph<T>::remove_vertex (const T& vertex)
 {
+    assert(graph_map.find(vertex) != graph_map.end());
+
     graph_map.erase(vertex);
 
     int j = 0;
@@ -18,7 +20,7 @@ void IGraph<T>::remove_vertex (const T& vertex)
             graph_data.erase(graph_data.begin() + j);
             
         int i = 0;
-        for (T& adj_node : x.second)
+        for (const T& adj_node : x.second)
         {
             if (adj_node == vertex)
             {
@@ -39,12 +41,12 @@ void IGraph<T>::remove_vertex (const T& vertex)
 }
 
 template <typename T>
-void IGraph<T>::print_graph () const
+void IGraph<T>::print_graph () const noexcept
 {
     for (auto& edge : graph_data)
     {
         cout << edge.first << ": ";
-        for (auto& adj_edge : edge.second)
+        for (const auto& adj_edge : edge.second)
             cout << adj_edge << " ";
         cout << endl;
     }
@@ -53,6 +55,8 @@ void IGraph<T>::print_graph () const
 template<typename T>
 vector<pair<T, int>> IGraph<T>::_bfs (const T& start)
 {
+    assert(graph_map.find(start) != graph_map.end());
+
     queue<T> Q;
     unordered_map<T, bool> visited{make_pair(start, true)};
     vector<pair<T, int>>* discovered = new vector<pair<T, int>>{};
@@ -68,7 +72,7 @@ vector<pair<T, int>> IGraph<T>::_bfs (const T& start)
         Q.pop();
 
         bool any_visited = false;
-        for (auto& node : graph_map[front])
+        for (const auto& node : graph_map[front])
         {
             bool is_visited = visited.find(node) == visited.end() ? false : true;
             
@@ -91,6 +95,9 @@ vector<pair<T, int>> IGraph<T>::_bfs (const T& start)
 template<typename T>
 vector<pair<T, int>> IGraph<T>::_bfs (const T& start, const T& finish)
 {
+    assert(graph_map.find(start) != graph_map.end());
+    assert(graph_map.find(finish) != graph_map.end());
+
     queue<T> Q;
     unordered_map<T, bool> visited{make_pair(start, true)};
     vector<pair<T, int>>* discovered = new vector<pair<T, int>>{};
@@ -106,7 +113,7 @@ vector<pair<T, int>> IGraph<T>::_bfs (const T& start, const T& finish)
         Q.pop();
 
         bool any_visited = false;
-        for (auto& node : graph_map[front])
+        for (const auto& node : graph_map[front])
         {
             if (node == finish)
             {
@@ -147,7 +154,7 @@ vector<T> IGraph<T>::shortest_path (const T& start, const T& finish)
     {
         if (discovered[i].second == d)
         {
-            for (auto& x : graph_map[discovered[i].first])
+            for (const auto& x : graph_map[discovered[i].first])
             {
                 if (x == parent)
                 {
@@ -168,8 +175,10 @@ vector<T> IGraph<T>::shortest_path (const T& start, const T& finish)
 }
 
 template <typename T>
-bool IGraph<T>::is_articulation_point (const T& vertex) const
+constexpr bool IGraph<T>::is_articulation_point (const T& vertex) const
 {
+    assert(graph_map.find(vertex) != graph_map.end());
+
     stack<T> S;
     unordered_map<T, bool> visited;
 
@@ -213,7 +222,7 @@ bool IGraph<T>::is_articulation_point (const T& vertex) const
 }
 
 template <typename T>
-void IGraph<T>::_articulation_points (umap_t_i& low, umap_t_i& disc, umap_t_b& visited, umap_t_t& parent, vector<T>& AP, T& vertex, int time)                                                 
+void IGraph<T>::_articulation_points (umap_t_i& low, umap_t_i& disc, umap_t_b& visited, umap_t_t& parent, vector<T>& AP, T& vertex, int time)                                             
 {
     visited[vertex] = true;
     disc[vertex] = time + 1;
@@ -253,12 +262,12 @@ optional<vector<T>> IGraph<T>::articulation_points ()
 
    return *AP;
 }
-// ---------------------- END GRAPHI ----------------------------------
+// ---------------------- END IGRAPH ----------------------------------
 
 
 // ---------------------- UNDIRECTED GRAPH ----------------------------------
 template<typename T>
-void undirected_graph<T>::add_edge (const T& vertex_a , const T& vertex_b)
+void undirected_graph<T>::add_edge (const T& vertex_a , const T& vertex_b) noexcept
 {
     bool edge_a_pushed = false, edge_b_pushed = false;
 
@@ -298,7 +307,7 @@ void undirected_graph<T>::add_edge (const T& vertex_a , const T& vertex_b)
 
 // ---------------------- DIRECTED GRAPH ----------------------------------
 template <typename T>
-void directed_graph<T>::add_edge (const T& vertex_a, const T& vertex_b)
+void directed_graph<T>::add_edge (const T& vertex_a, const T& vertex_b) noexcept
 {
     for (pair<T, list<T>>& edge : graph_data)
     {
