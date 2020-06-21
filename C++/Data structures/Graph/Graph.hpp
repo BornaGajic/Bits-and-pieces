@@ -21,10 +21,9 @@ template <typename T>
 class IGraph
 {   
     protected:
-
-    typedef unordered_map<T, int> umap_t_i;
-    typedef unordered_map<T, T> umap_t_t;
-    typedef unordered_map<T, bool> umap_t_b;
+    using umap_t_i = unordered_map<T, int>;
+    using umap_t_t = unordered_map<T, T>;
+    using umap_t_b = unordered_map<T, bool>;
 
     vector<pair<T, list<T>>> graph_data;
     unordered_map<T, list<T>> graph_map;
@@ -111,6 +110,9 @@ class w_directed_graph : public IGraph<T>
 /*
 Stuff that I learned along the way:
 
-https://stackoverflow.com/questions/1527849/how-do-you-understand-dependent-names-in-c  -- Two-phase name lookup
+https://stackoverflow.com/questions/1527849/how-do-you-understand-dependent-names-in-c   -- Two-phase name lookup
+https://en.cppreference.com/w/cpp/utility/optional                                       -- std::Optional
+https://stackoverflow.com/questions/48130611/c-can-i-create-compile-time-variable-object -- constexpr constructor
+
 */
 #endif
