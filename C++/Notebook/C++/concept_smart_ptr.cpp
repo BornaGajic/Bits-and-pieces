@@ -9,6 +9,7 @@ template <typename T>
 concept well_defined_math_type = std::is_fundamental<T>::value;
 
 enum class Spices {Salt, Pepper, Empty};
+// Spices could've been std::variant<Salt, Pepper, std::monostate (aka Empty)>
 
 template <well_defined_math_type T>
 class SpiceContainer
@@ -61,15 +62,15 @@ class SpiceRack : public SpiceContainer<T>
         }
 };
 
-SpiceRack<int> make_spicerack (int a, int b, Spices spice = Spices::Empty)
+SpiceRack<int> make_rvalue_spicerack (int a, int b, Spices spice = Spices::Empty)
 {
-    return SpiceRack<int>{spice, a, b};
+    return std::move(SpiceRack<int>{spice, a, b});
 }
 
 int main ()
 {
     SpiceRack<int> t1 {Spices::Salt, 11, 23};
-    SpiceRack<int> t2 = std::move(make_spicerack(1, 2, Spices::Pepper)); // std::move turns its argument to rvalue, even if it isn't
+    SpiceRack<int> t2 = make_rvalue_spicerack(1, 2, Spices::Pepper); // std::move turns its argument to rvalue, even if it isn't
     //SpiceRack<Spices> t3 {1,2}; requires well_defined_type -> concept
     
     if (t2.get_spice() == Spices::Salt)
@@ -83,17 +84,3 @@ int main ()
     
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
