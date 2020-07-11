@@ -6,88 +6,53 @@
 #include <algorithm>
 #include <stdexcept>
 #include <iterator>
+#include <iostream>
 
-template <size_t S = 4>
+template <size_t S>
 class BitArray
 {
-    std::array<uint32_t, S> data;
+    std::array<bool, S> data;
     
     public:
-        BitArray ()
-        {
-            data.fill(0);
-        }
-        BitArray (const bool default_init)
-        {
-            data.fill(default_init ? 1 : 0);
-        }
-        BitArray (std::initializer_list<unsigned> init)
-        {
-            if (init.size() > S)
-                throw std::out_of_range("initializer_list is larger than specified BitArray length.");
+        BitArray ();
+        BitArray (const bool& default_init);
+        BitArray (const std::initializer_list<unsigned> init);
+        BitArray (const BitArray<S>& BA);
+        BitArray (BitArray<S>&& rv_BA);
 
-            if (std::all_of(init.begin(), init.end(), [](int i) { return i == 0 || i == 1;}))
-            {
-                //std::fill_n(data.begin(), data.end(), init.begin(), init.end());
-            }
-        }
-        BitArray (const BitArray<S>& BA)
-        {
-            data.fill_n(BA.begin(), BA.end());
-        }
-        BitArray (const BitArray<S>&& rv_BA)
-        {
-            data.swap(rv_BA);
-        }
+        void set_bit (const unsigned i);
+        void set_bit (const unsigned i, const bool b);
 
-        void set_bit (const int i) const { data[i] = 1; }
-        void set_bit (const int i, const bool b) const { data[i] = static_cast<unsigned>(b); }
+        constexpr bool test_bit (const unsigned i) const;
 
-        constexpr bool test_bit (const int i) const { return data[i]; }
+        constexpr int size () const;
 
-        constexpr int size () const { return data.size(); }
-
-        void not_o ()
-        {
-            std::for_each(data.begin(), data.end(), [&](bool i) { return !i;});
-        }
-
-        void and_o (const BitArray<S>& BA)
-        {
-            for (int i = 0; i < S; i++)
-                data[i] = data[i] & BA[i];
-        }
-
-        void or_o (const BitArray<S>& BA)
-        {
-            for (int i = 0; i < S; i++)
-                data[i] = data[i] | BA[i];
-        }
-
+        void not_op ();
+        void and_op (const BitArray<S>& BA);
+        void or_op (const BitArray<S>& BA);
         // toggle k-th bit
-        void xor_o (const BitArray<S>& BA)
+        void xor_op (const BitArray<S>& BA);
+    
+        constexpr auto begin () noexcept;
+        constexpr auto end () noexcept;
+
+        bool& operator[] (const size_t idx);
+        const bool& operator[] (const size_t idx) const;
+
+        BitArray<S> operator& (const BitArray<S>& val) const;
+        BitArray<S> operator| (const BitArray<S> val) const;
+        BitArray<S> operator! ();
+
+        friend std::ostream& operator<< (std::ostream& os, const BitArray<S>& BA)
         {
-            for (int i = 0; i < S; i++)
-                data[i] = data[i] ^ BA[i];
+            for (const bool bit : BA.data)
+                os << bit << " ";
+            os << "\n";
+
+            return os;
         }
-        
-        BitArray operator& (const BitArray& lhs, const BitArray& rhs)
-        {
-            BitArray result {lhs.and_o(rhs)};
-            
-            return result;
-        }
-
-
-        unsigned& operator[] (size_t idx) { return data[idx]; }
-        const unsigned& operator[] (size_t idx) const { return data[idx]; }
-        
-
-
-        constexpr auto begin () noexcept { return data.begin(); }
-        constexpr auto end () noexcept { return data.end(); }
-
 };
 
+#include "BitArray.cpp"
 
 #endif
