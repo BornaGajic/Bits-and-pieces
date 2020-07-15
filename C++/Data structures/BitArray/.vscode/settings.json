@@ -1,9 +1,16 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "initializer_list": "cpp",
         "array": "cpp",
         "algorithm": "cpp",
         "concepts": "cpp",
+=======
+        "ostream": "cpp",
+        "algorithm": "cpp",
+        "array": "cpp",
+        "cmath": "cpp",
+>>>>>>> 8ea324e285b43d03b75e18729da6a8703e4d345d
         "cstddef": "cpp",
         "cstdint": "cpp",
         "cstdio": "cpp",
@@ -11,17 +18,40 @@
         "cstring": "cpp",
         "cwchar": "cpp",
         "exception": "cpp",
+<<<<<<< HEAD
         "iosfwd": "cpp",
+=======
+        "initializer_list": "cpp",
+        "ios": "cpp",
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "istream": "cpp",
+>>>>>>> 8ea324e285b43d03b75e18729da6a8703e4d345d
         "iterator": "cpp",
         "limits": "cpp",
         "memory": "cpp",
         "new": "cpp",
         "stdexcept": "cpp",
+<<<<<<< HEAD
+=======
+        "streambuf": "cpp",
+        "system_error": "cpp",
+>>>>>>> 8ea324e285b43d03b75e18729da6a8703e4d345d
         "tuple": "cpp",
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp",
+<<<<<<< HEAD
         "xmemory": "cpp",
+=======
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp",
+        "xmemory0": "cpp",
+>>>>>>> 8ea324e285b43d03b75e18729da6a8703e4d345d
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
