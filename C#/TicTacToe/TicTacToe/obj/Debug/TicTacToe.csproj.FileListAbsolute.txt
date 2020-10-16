@@ -8,3 +8,15 @@ E:\oopVjezba\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.CoreCompileInputs
 E:\oopVjezba\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
 E:\oopVjezba\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
 E:\oopVjezba\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.MainForm.resources
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe.config
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\bin\Debug\TicTacToe.pdb
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csprojAssemblyReference.cache
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.MainForm.resources
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.GenerateResource.cache
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.CoreCompileInputs.cache
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.StartForm.resources
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.NewSaveForm.resources
