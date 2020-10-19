@@ -12,40 +12,55 @@ namespace TicTacToe
 {
 	public partial class StartForm : Form
 	{
-		private List<Button> Saves = null;
-
 		public StartForm ()
 		{
 			InitializeComponent();
-
-			Saves = new List<Button> () 
-			{
-				button1, button2, button3, button4, button5
-			};
-
-			foreach (Button b in Saves)
-			{
-				b.Click += SaveButton_Click;
-			}
 		}
 
-		private void StartForm_Load (object sender, EventArgs e)
+		private void LogInButton_Click (object sender, EventArgs e)
 		{
-			string query = "select * from dbo.MyUser";
+			string username = UsernameTB.Text;
+			string password = PasswordTB.Text;
 
-			List<List<object>> users = SqlWrapper.ExecuteQuery(query);
-
-			for (int i = 0; i < users.Count; i++)
+			if (username.Length > 0 && password.Length > 0)
 			{
-				foreach(var element in users[i])
-				{
-					Console.WriteLine(element.ToString());
-				}
+				string query = "select PlayerID, Username, Wins, Loses " +
+							   "from dbo.Player " +
+							   "where Username = @username and " +
+							     	 "Password = @password";
 
-				Saves[i].Text = users[i][1].ToString();
+				var props = new Dictionary<string, object>
+				{
+					{"@username", username},
+					{"@password", password}
+				};
+
+				List<List<object>> matrixResult = SqlWrapper.ExecuteQuery(query, props);
+
+				if (matrixResult.Count > 0)
+				{
+					MenuForm menuChild = new MenuForm(matrixResult[0], this);
+
+					menuChild.Show();
+
+					this.Visible = false;
+				}
+				else
+				{
+					PasswordTB.Text = "";
+					WrongPassLabel.Visible = true;
+				}
 			}
+
 		}
 
+		private void NewPlayerButton_Click (object sender, EventArgs e)
+		{
+			NewAccount childForm = new NewAccount();
+			childForm.ShowDialog();
+		}
+	}
+		/*
 		private void SaveButton_Click (object sender, EventArgs args)
 		{
 			Button saveSlot = sender as Button;
@@ -58,5 +73,5 @@ namespace TicTacToe
 				StartForm_Load(this, null);
 			}
 		}
-	}
+	}*/
 }

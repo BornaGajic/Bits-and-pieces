@@ -28,119 +28,120 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.button5 = new System.Windows.Forms.Button();
-			this.button4 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
-			this.panel1.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.LogInButton = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.UsernameTB = new System.Windows.Forms.TextBox();
+			this.PasswordTB = new System.Windows.Forms.TextBox();
+			this.HeaderLabel = new System.Windows.Forms.Label();
+			this.NewPlayerButton = new System.Windows.Forms.Button();
+			this.WrongPassLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// panel1
+			// LogInButton
 			// 
-			this.panel1.Controls.Add(this.tableLayoutPanel1);
-			this.panel1.Location = new System.Drawing.Point(12, 12);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(665, 496);
-			this.panel1.TabIndex = 0;
+			this.LogInButton.Location = new System.Drawing.Point(82, 186);
+			this.LogInButton.Name = "LogInButton";
+			this.LogInButton.Size = new System.Drawing.Size(75, 23);
+			this.LogInButton.TabIndex = 0;
+			this.LogInButton.Text = "Log in";
+			this.LogInButton.UseVisualStyleBackColor = true;
+			this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
 			// 
-			// tableLayoutPanel1
+			// label1
 			// 
-			this.tableLayoutPanel1.ColumnCount = 5;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel1.Controls.Add(this.button5, 4, 0);
-			this.tableLayoutPanel1.Controls.Add(this.button4, 3, 0);
-			this.tableLayoutPanel1.Controls.Add(this.button3, 2, 0);
-			this.tableLayoutPanel1.Controls.Add(this.button2, 1, 0);
-			this.tableLayoutPanel1.Controls.Add(this.button1, 0, 0);
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 15);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-			this.tableLayoutPanel1.RowCount = 1;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(634, 468);
-			this.tableLayoutPanel1.TabIndex = 0;
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(12, 92);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(55, 13);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Username";
 			// 
-			// button5
+			// label2
 			// 
-			this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button5.Location = new System.Drawing.Point(506, 6);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(122, 456);
-			this.button5.TabIndex = 4;
-			this.button5.Text = "New Save";
-			this.button5.UseVisualStyleBackColor = true;
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(12, 145);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(53, 13);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Password";
 			// 
-			// button4
+			// UsernameTB
 			// 
-			this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button4.Location = new System.Drawing.Point(381, 6);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(119, 456);
-			this.button4.TabIndex = 3;
-			this.button4.Text = "New Save";
-			this.button4.UseVisualStyleBackColor = true;
+			this.UsernameTB.Location = new System.Drawing.Point(82, 89);
+			this.UsernameTB.MaxLength = 20;
+			this.UsernameTB.Name = "UsernameTB";
+			this.UsernameTB.Size = new System.Drawing.Size(151, 20);
+			this.UsernameTB.TabIndex = 3;
 			// 
-			// button3
+			// PasswordTB
 			// 
-			this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button3.Location = new System.Drawing.Point(256, 6);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(119, 456);
-			this.button3.TabIndex = 2;
-			this.button3.Text = "New Save";
-			this.button3.UseVisualStyleBackColor = true;
+			this.PasswordTB.Location = new System.Drawing.Point(82, 138);
+			this.PasswordTB.MaxLength = 20;
+			this.PasswordTB.Name = "PasswordTB";
+			this.PasswordTB.PasswordChar = '*';
+			this.PasswordTB.Size = new System.Drawing.Size(151, 20);
+			this.PasswordTB.TabIndex = 4;
 			// 
-			// button2
+			// HeaderLabel
 			// 
-			this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button2.Location = new System.Drawing.Point(131, 6);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(119, 456);
-			this.button2.TabIndex = 1;
-			this.button2.Text = "New Save";
-			this.button2.UseVisualStyleBackColor = true;
+			this.HeaderLabel.AutoSize = true;
+			this.HeaderLabel.Location = new System.Drawing.Point(79, 37);
+			this.HeaderLabel.Name = "HeaderLabel";
+			this.HeaderLabel.Size = new System.Drawing.Size(78, 13);
+			this.HeaderLabel.TabIndex = 5;
+			this.HeaderLabel.Text = "Tick-Tack-Toe";
+			this.HeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// button1
+			// NewPlayerButton
 			// 
-			this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button1.Location = new System.Drawing.Point(6, 6);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(119, 456);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "New Save";
-			this.button1.UseVisualStyleBackColor = true;
+			this.NewPlayerButton.Location = new System.Drawing.Point(65, 269);
+			this.NewPlayerButton.Name = "NewPlayerButton";
+			this.NewPlayerButton.Size = new System.Drawing.Size(112, 23);
+			this.NewPlayerButton.TabIndex = 6;
+			this.NewPlayerButton.Text = "Create new account";
+			this.NewPlayerButton.UseVisualStyleBackColor = true;
+			this.NewPlayerButton.Click += new System.EventHandler(this.NewPlayerButton_Click);
+			// 
+			// WrongPassLabel
+			// 
+			this.WrongPassLabel.AutoSize = true;
+			this.WrongPassLabel.Location = new System.Drawing.Point(44, 234);
+			this.WrongPassLabel.Name = "WrongPassLabel";
+			this.WrongPassLabel.Size = new System.Drawing.Size(151, 13);
+			this.WrongPassLabel.TabIndex = 7;
+			this.WrongPassLabel.Text = "Wrong Password or Username";
+			this.WrongPassLabel.Visible = false;
 			// 
 			// StartForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(689, 520);
-			this.Controls.Add(this.panel1);
+			this.ClientSize = new System.Drawing.Size(245, 304);
+			this.Controls.Add(this.WrongPassLabel);
+			this.Controls.Add(this.NewPlayerButton);
+			this.Controls.Add(this.HeaderLabel);
+			this.Controls.Add(this.PasswordTB);
+			this.Controls.Add(this.UsernameTB);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.LogInButton);
 			this.Name = "StartForm";
 			this.Text = "StartForm";
-			this.Load += new System.EventHandler(this.StartForm_Load);
-			this.panel1.ResumeLayout(false);
-			this.tableLayoutPanel1.ResumeLayout(false);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.Button button5;
-		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.Button button3;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button LogInButton;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox UsernameTB;
+		private System.Windows.Forms.TextBox PasswordTB;
+		private System.Windows.Forms.Label HeaderLabel;
+		private System.Windows.Forms.Button NewPlayerButton;
+		private System.Windows.Forms.Label WrongPassLabel;
 	}
 }

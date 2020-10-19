@@ -9,9 +9,9 @@ namespace TicTacToe
 {
 	public static class SqlWrapper
 	{
+		private const string connectionString = "Data Source=games-server.database.windows.net;Initial Catalog=Tick-Tack-Toe;Persist Security Info=True;User ID=gamesserver;Password=B2Zb5npE";
 		public static List<List<object>> ExecuteQuery (string query, Dictionary<string, object> parameters = null)
 		{
-			string connectionString = "Data Source=BORNA-PC\\SQLEXPRESS;Initial Catalog=TickTackToe;Integrated Security=True";
 			var result = new List<List<object>>();
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
@@ -74,7 +74,6 @@ namespace TicTacToe
 
 		public static bool ExeNonQuery (string query, Dictionary<string, object> parameters)
         {
-			string connectionString = "Data Source=BORNA-PC\\SQLEXPRESS;Initial Catalog=TickTackToe;Integrated Security=True";
             using (var connection = new SqlConnection(connectionString))
             {
                 try

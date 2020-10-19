@@ -18,8 +18,10 @@ namespace TicTacToe
         private enum Players { FirstPlayer, SecondPlayer };
 
         private static Players player = Players.FirstPlayer;
+
+        private string logedInUsername = "";
         
-        public MainForm()
+        public MainForm(string logedInPlayer)
         {
             InitializeComponent();
 
@@ -38,6 +40,7 @@ namespace TicTacToe
             };
 
             WhosTurn.Text = player.ToString();
+            logedInUsername = logedInPlayer;
         }
         
         private void MyButtonClick(object sender, EventArgs e)
@@ -70,8 +73,7 @@ namespace TicTacToe
                 }
                 
                 player = (player == Players.FirstPlayer) ? Players.SecondPlayer : Players.FirstPlayer;
-
-                WhosTurn.Text = player.ToString();
+                WhosTurn.Text = (player == Players.FirstPlayer) ? logedInUsername : "Second player";
             }
         }
 

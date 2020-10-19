@@ -19,4 +19,5 @@ D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.cspr
 D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
 D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
 D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.StartForm.resources
-D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.NewSaveForm.resources
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.NewAccount.resources
+D:\BitsAndPieces\Bits-and-pieces\C#\TicTacToe\TicTacToe\obj\Debug\TicTacToe.MenuForm.resources
