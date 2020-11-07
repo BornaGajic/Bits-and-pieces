@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "K9NQ4+FYaPvcSUlwb2646vPLrgRZ3trycE10eEmalY6V3EthE5cSkgTWDXcCKM9FMT5756oH5V+5BW2SR8eJ0g==",
+  "dgSpecHash": "6Oi/sNqYCaiN4NvqXy9x11Ji3BK8ehi26jkWN4tSoH5auTokRVgPbIcLh8/N5uLBrPCGAfDM1wDUMrSWqCehXw==",
   "success": true,
-  "projectFilePath": "D:\\Work\\C#\\NetworkingExample\\Chat-o-Tron\\Utility\\Utility.csproj",
+  "projectFilePath": "D:\\BitsAndPieces\\Bits-and-pieces\\C#\\Chat-o-Tron\\Utility\\Utility.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

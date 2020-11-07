@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Work\\C#\\NetworkingExample\\Chat-o-Tron\\Utility\\Utility.csproj",
+      "projectUniqueName": "D:\\BitsAndPieces\\Bits-and-pieces\\C#\\Chat-o-Tron\\Utility\\Utility.csproj",
       "projectName": "Utility",
-      "projectPath": "D:\\Work\\C#\\NetworkingExample\\Chat-o-Tron\\Utility\\Utility.csproj",
+      "projectPath": "D:\\BitsAndPieces\\Bits-and-pieces\\C#\\Chat-o-Tron\\Utility\\Utility.csproj",
       "packagesPath": "C:\\Users\\Borna\\.nuget\\packages\\",
-      "outputPath": "D:\\Work\\C#\\NetworkingExample\\Chat-o-Tron\\Utility\\obj\\",
+      "outputPath": "D:\\BitsAndPieces\\Bits-and-pieces\\C#\\Chat-o-Tron\\Utility\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

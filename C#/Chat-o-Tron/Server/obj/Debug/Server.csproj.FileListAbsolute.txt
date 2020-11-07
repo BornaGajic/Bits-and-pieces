@@ -8,3 +8,13 @@ D:\Work\C#\NetworkingExample\Chat-o-Tron\Server\obj\Debug\Server.csproj.CoreComp
 D:\Work\C#\NetworkingExample\Chat-o-Tron\Server\obj\Debug\Server.csproj.CopyComplete
 D:\Work\C#\NetworkingExample\Chat-o-Tron\Server\obj\Debug\Server.exe
 D:\Work\C#\NetworkingExample\Chat-o-Tron\Server\obj\Debug\Server.pdb
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\bin\Debug\Server.exe.config
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\bin\Debug\Server.exe
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\bin\Debug\Server.pdb
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\bin\Debug\Utility.dll
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\bin\Debug\Utility.pdb
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\obj\Debug\Server.csprojAssemblyReference.cache
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\obj\Debug\Server.csproj.CopyComplete
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\obj\Debug\Server.exe
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Server\obj\Debug\Server.pdb
