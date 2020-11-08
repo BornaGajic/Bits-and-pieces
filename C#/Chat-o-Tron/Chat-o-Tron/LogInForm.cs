@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using Utility;
+using System.Diagnostics;
 
 namespace Chat_o_Tron
 {
@@ -27,6 +28,8 @@ namespace Chat_o_Tron
 
 			var data = Encoding.ASCII.GetBytes("ConnectToServer");
 
+			this.Cursor = Cursors.WaitCursor;
+
 			udpClient.EnableBroadcast = true;
 			udpClient.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, 11000));
 			
@@ -36,10 +39,16 @@ namespace Chat_o_Tron
 
 			TcpClient tcpClient = new TcpClient(Dns.GetHostEntry(adress).HostName, 7777);
 
+			this.Cursor = Cursors.Default;
+
 			MenuForm childForm = new MenuForm(textBox1.Text, tcpClient);
 
 			this.Hide();
 			childForm.ShowDialog();
+
+			tcpClient.GetStream().Close();
+			tcpClient.Close();
+
 			this.Close();
 		}
 	}

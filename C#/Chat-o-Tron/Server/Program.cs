@@ -25,23 +25,14 @@ namespace ChatServer
 		{
 			var serverBroadcastThread = new Thread(new ThreadStart( () => {
 				UdpClient server = new UdpClient(11000);
-				var host = Dns.GetHostEntry(Dns.GetHostName());
 				
 				while (udpListenerFlag)
 				{
 					var clientEp = new IPEndPoint(IPAddress.Any, 0);
 					server.Receive(ref clientEp);
 					
-					foreach (var ip in host.AddressList)
-					{
-						if (clientEp.Address.ToString() == ip.ToString())
-						{
-							var adress = Encoding.ASCII.GetBytes(Utility.Utility.GetLocalIPAddress());
-							server.Send(adress, adress.Length, clientEp);
-
-							break;
-						}
-					}
+					var adress = Encoding.ASCII.GetBytes(Utility.Utility.GetLocalIPAddress());
+					server.Send(adress, adress.Length, clientEp);
 				}				
 			}));
 
@@ -116,6 +107,20 @@ namespace ChatServer
 			}
 		}
 
+		private static async void UpdateNumberOfParticipants (TcpClient caller, string command, string roomId)
+		{
+			string numberOfParticipants = RoomClients[Guid.Parse(roomId)].Count.ToString();
+			
+			foreach (TcpClient connectedClient in ConnectedClients)
+			{
+				if (connectedClient == caller && command == "leave") continue;
+
+				NetworkStream stream = connectedClient.GetStream();
+				byte[] data = Encoding.ASCII.GetBytes(numberOfParticipants + ';' + roomId);
+				await stream.WriteAsync(data, 0, data.Length);
+			}
+		}
+
 		private static async void NewRoom (TcpClient client)
 		{
 			NetworkStream ns = client.GetStream();
@@ -154,7 +159,7 @@ namespace ChatServer
 		private static async void RefreshRooms (TcpClient client)
 		{
 			NetworkStream ns = client.GetStream();
-			string stringifiedChatRooms = "None";
+			string stringifiedChatRooms = "refresh;None";
 			
 			if (RoomClients.Count > 0)
 			{
@@ -162,7 +167,9 @@ namespace ChatServer
 				for (int i = 0; i < RoomClients.Count; i++)
 				{
 					string roomId = RoomClients.Keys.ToList()[i].ToString();
-					stringifiedChatRooms += ";Room " + i.ToString() + '|' + roomId;
+					string numOfParticipants = RoomClients[Guid.Parse(roomId)].Count.ToString();
+
+					stringifiedChatRooms += ";Room " + i.ToString() + '|' + roomId + '|' + numOfParticipants;
 				}			
 			}
 			

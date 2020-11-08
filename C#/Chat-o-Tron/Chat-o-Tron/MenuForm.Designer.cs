@@ -55,7 +55,7 @@
 			// 
 			// RefreshButton
 			// 
-			this.RefreshButton.Location = new System.Drawing.Point(3, 249);
+			this.RefreshButton.Location = new System.Drawing.Point(3, 417);
 			this.RefreshButton.Name = "RefreshButton";
 			this.RefreshButton.Size = new System.Drawing.Size(94, 72);
 			this.RefreshButton.TabIndex = 5;
@@ -71,8 +71,8 @@
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.97566F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.02434F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 493);
 			this.tableLayoutPanel1.TabIndex = 6;
 			// 

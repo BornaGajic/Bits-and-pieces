@@ -37,6 +37,12 @@ namespace Chat_o_Tron
 			byte[] data = Encoding.ASCII.GetBytes("newroom");
 
 			await Client.GetStream().WriteAsync(data, 0, data.Length);
+
+			await Task.Run(() => {
+				Thread.Sleep(500);
+			});
+
+			RefreshRooms(null, null);
 		}
 
 		private async void RefreshRooms (object sender, EventArgs e)
@@ -46,7 +52,7 @@ namespace Chat_o_Tron
 			await Client.GetStream().WriteAsync(refreshCommand, 0, refreshCommand.Length);
 		}
 
-		private async void JoinRoom (string roomId)
+		private async void JoinRoom (string roomId, string roomName)
 		{
 			Guid id = Guid.Parse(roomId);
 
@@ -55,10 +61,13 @@ namespace Chat_o_Tron
 			await Client.GetStream().WriteAsync(data, 0, data.Length);
 
 			activeChatRooms[id] = new ChatForm(Client, id);
+			activeChatRooms[id].Text = roomName;
 			activeChatRooms[id].Show();
+
+			RefreshRooms(null, null);
 		}
 
-		private void ClientReciever ()
+		private async void ClientReciever ()
 		{	
 			// payload: 0 - keyword, 1 - id/None, 2 - message
 
@@ -75,7 +84,8 @@ namespace Chat_o_Tron
 
 				if (reciever.IsCompleted)
 				{
-					payload = Encoding.ASCII.GetString(serverData, 0, reciever.Result).Split(';');
+					int byteCount = await reciever;
+					payload = Encoding.ASCII.GetString(serverData, 0, byteCount).Split(';');
 
 					switch(payload[0])
 						{
@@ -99,13 +109,27 @@ namespace Chat_o_Tron
 								activeChatRooms[roomId] = new ChatForm(Client, roomId);
 								this.Invoke(new MethodInvoker(activeChatRooms[roomId].Show));
 
-								//var updateRoomList = new Action<string[]>(this.ShowRoomList);
-								//this.Invoke(updateRoomList, (object)payload); // array covariance
-								
+								break;
+							default: // update num of participants for a room
+								UpdateNumOfParticipants(payload[0], payload[1]);
 								break;
 						}
 
 					reciever = null;
+				}
+			}
+		}
+
+		private void UpdateNumOfParticipants (string newNumber, string roomId)
+		{
+			string roomName = activeChatRooms[Guid.Parse(roomId)].Text;
+
+			foreach (ListViewItem item in RoomList.Items)
+			{
+				if (item.Text == roomName)
+				{
+					item.SubItems[1].Text = newNumber;
+					break;
 				}
 			}
 		}
@@ -121,19 +145,21 @@ namespace Chat_o_Tron
 				string[] props = room.Split('|');
 				string roomName = props[0];
 				string roomId = props[1];
+				string numOfParticipants = props[2];
 
 				foreach (ListViewItem item in RoomList.Items)
 				{
 					if (item.Text == roomName)
 					{	
 						contains = true;
+						item.SubItems[1].Text = numOfParticipants;
 						break;
 					}
 				}
 
 				if (!contains)
 				{
-					var listItem = new ListViewItem(new string[] { roomName, "0" })
+					var listItem = new ListViewItem(new string[] { roomName,  numOfParticipants})
 					{
 						Font = new Font("Arial", 12),
 						Tag = roomId
@@ -150,13 +176,16 @@ namespace Chat_o_Tron
 		{
 			Thread recieverThread = new Thread(new ThreadStart(ClientReciever));
 			recieverThread.Start();
+
+			RefreshRooms(null, null);
 		}
 
 		private void RoomList_DoubleClick (object sender, EventArgs e)
 		{
 			string roomId = RoomList.SelectedItems[0].Tag.ToString();
+			string roomName = RoomList.SelectedItems[0].Text.ToString();
 
-			JoinRoom(roomId);
+			JoinRoom(roomId, roomName);
 		}
 	}
 }
