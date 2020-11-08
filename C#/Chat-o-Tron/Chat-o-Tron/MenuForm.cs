@@ -21,17 +21,13 @@ namespace Chat_o_Tron
 		private TcpClient Client { get; set; }
 
 		private Dictionary<Guid, ChatForm> activeChatRooms = new Dictionary<Guid, ChatForm>();
-		
+
 		public MenuForm (string username, TcpClient client)
 		{
 			InitializeComponent();
 
 			Username = username;
 			Client = client;
-
-			button1.Visible = false;
-			button2.Visible = false;
-			button3.Visible = false;
 
 			RefreshButton.Click += RefreshRooms;
 		}
@@ -50,19 +46,22 @@ namespace Chat_o_Tron
 			await Client.GetStream().WriteAsync(refreshCommand, 0, refreshCommand.Length);
 		}
 
-		private async void EnterRoom (object sender, EventArgs e)
+		private async void JoinRoom (string roomId)
 		{
-			Guid roomId = Guid.Parse((sender as Button).Tag.ToString());
+			Guid id = Guid.Parse(roomId);
 
-			var data = Encoding.ASCII.GetBytes("join;" + roomId.ToString());
+			var data = Encoding.ASCII.GetBytes("join;" + id.ToString());
 
 			await Client.GetStream().WriteAsync(data, 0, data.Length);
 
-			activeChatRooms[roomId].Show();
+			activeChatRooms[id] = new ChatForm(Client, id);
+			activeChatRooms[id].Show();
 		}
 
 		private void ClientReciever ()
 		{	
+			// payload: 0 - keyword, 1 - id/None, 2 - message
+
 			byte[] serverData = new byte[1024];
 			string[] payload = null;
 			Task<int> reciever = null;
@@ -84,16 +83,14 @@ namespace Chat_o_Tron
 								activeChatRooms.Remove(Guid.Parse(payload[1]));
 								break;
 							case "post":
-								this.Invoke(new Action<string>(activeChatRooms[Guid.Parse(payload[1])].ShowMessage), payload[2]);
+								ChatForm room = activeChatRooms[Guid.Parse(payload[1])];
+								this.Invoke(new Action<string>(room.ShowMessage), payload[2]);
 								break;
 							case "refresh":
-								if (payload[1] != "None" && button1.Visible == false)
+								if (payload[1] != "None")
 								{
-									var str = payload[1].Split('|')[0];
-									Guid roomid = Guid.Parse(payload[1].Split('|')[1]);
-
-									var func = new Action<string, bool, Guid>(this.ShowRoomList);
-									this.Invoke(func, str, true, roomid);
+									var func = new Action<string[]>(this.ShowRoomList);
+									this.Invoke(func, (object)payload); // array covariance
 								}
 								break;
 							case "newroom":
@@ -101,6 +98,9 @@ namespace Chat_o_Tron
 
 								activeChatRooms[roomId] = new ChatForm(Client, roomId);
 								this.Invoke(new MethodInvoker(activeChatRooms[roomId].Show));
+
+								//var updateRoomList = new Action<string[]>(this.ShowRoomList);
+								//this.Invoke(updateRoomList, (object)payload); // array covariance
 								
 								break;
 						}
@@ -110,19 +110,53 @@ namespace Chat_o_Tron
 			}
 		}
 
-		private void ShowRoomList (string text, bool visibility, Guid roomid)
+		private void ShowRoomList (string[] rooms)
 		{
-			button1.Text = text;
-			button1.Visible = visibility;
-			button1.Tag = roomid;
+			bool contains = false;
 
-			button1.Click += EnterRoom;	
+			foreach (string room in rooms)
+			{
+				if (room == "refresh" || room == "None") continue;
+
+				string[] props = room.Split('|');
+				string roomName = props[0];
+				string roomId = props[1];
+
+				foreach (ListViewItem item in RoomList.Items)
+				{
+					if (item.Text == roomName)
+					{	
+						contains = true;
+						break;
+					}
+				}
+
+				if (!contains)
+				{
+					var listItem = new ListViewItem(new string[] { roomName, "0" })
+					{
+						Font = new Font("Arial", 12),
+						Tag = roomId
+					};
+
+					RoomList.Items.Add(listItem);
+				}
+
+				contains = false;
+			}
 		}
 
 		private void MenuForm_Shown (object sender, EventArgs e)
 		{
 			Thread recieverThread = new Thread(new ThreadStart(ClientReciever));
 			recieverThread.Start();
+		}
+
+		private void RoomList_DoubleClick (object sender, EventArgs e)
+		{
+			string roomId = RoomList.SelectedItems[0].Tag.ToString();
+
+			JoinRoom(roomId);
 		}
 	}
 }

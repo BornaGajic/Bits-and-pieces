@@ -16,6 +16,8 @@ namespace ChatServer
 {
 	class Program
 	{
+		static bool udpListenerFlag = true;
+
 		private static Dictionary<Guid, List<TcpClient>> RoomClients = new Dictionary<Guid, List<TcpClient>>();
 		private static List<TcpClient> ConnectedClients = new List<TcpClient>();
 
@@ -24,8 +26,8 @@ namespace ChatServer
 			var serverBroadcastThread = new Thread(new ThreadStart( () => {
 				UdpClient server = new UdpClient(11000);
 				var host = Dns.GetHostEntry(Dns.GetHostName());
-
-				while (true)
+				
+				while (udpListenerFlag)
 				{
 					var clientEp = new IPEndPoint(IPAddress.Any, 0);
 					server.Receive(ref clientEp);
@@ -156,17 +158,20 @@ namespace ChatServer
 			
 			if (RoomClients.Count > 0)
 			{
-				stringifiedChatRooms = "";
+				stringifiedChatRooms = "refresh";
 				for (int i = 0; i < RoomClients.Count; i++)
 				{
 					string roomId = RoomClients.Keys.ToList()[i].ToString();
-					stringifiedChatRooms += "Room " + i.ToString() + '|' + roomId + ';';
+					stringifiedChatRooms += ";Room " + i.ToString() + '|' + roomId;
 				}			
 			}
 			
-			stringifiedChatRooms = "refresh;" + stringifiedChatRooms;
-
 			await ns.WriteAsync(Encoding.ASCII.GetBytes(stringifiedChatRooms), 0, stringifiedChatRooms.Length);	
+		}
+
+		~Program ()
+		{
+			udpListenerFlag = false;
 		}
 	}
 }
