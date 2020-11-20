@@ -8,9 +8,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat-o-Tron", "Chat-o-Tron\
 		{8DB333C8-EDD1-44FB-8ED2-39111EB61200} = {8DB333C8-EDD1-44FB-8ED2-39111EB61200}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{8DB333C8-EDD1-44FB-8ED2-39111EB61200}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatServer", "Server\ChatServer.csproj", "{8DB333C8-EDD1-44FB-8ED2-39111EB61200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{C592827A-9B94-4903-8066-B76F2EFC5291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{C592827A-9B94-4903-8066-B76F2EFC5291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -77,8 +77,11 @@ namespace ChatServer
 								leavers.Add(leaver);
 								LeaveRoom(connectedClient, payload[1]);
 								break;
+							case "leaveAll":
+								LeaveAll(connectedClient);
+								break;
 							case "post":
-								PostMessage(payload);
+								PostMessage(payload, connectedClient);
 								break;
 							case "join":
 								RoomClients[Guid.Parse(payload[1])].Add(connectedClient);
@@ -107,20 +110,6 @@ namespace ChatServer
 			}
 		}
 
-		private static async void UpdateNumberOfParticipants (TcpClient caller, string command, string roomId)
-		{
-			string numberOfParticipants = RoomClients[Guid.Parse(roomId)].Count.ToString();
-			
-			foreach (TcpClient connectedClient in ConnectedClients)
-			{
-				if (connectedClient == caller && command == "leave") continue;
-
-				NetworkStream stream = connectedClient.GetStream();
-				byte[] data = Encoding.ASCII.GetBytes(numberOfParticipants + ';' + roomId);
-				await stream.WriteAsync(data, 0, data.Length);
-			}
-		}
-
 		private static async void NewRoom (TcpClient client)
 		{
 			NetworkStream ns = client.GetStream();
@@ -142,14 +131,34 @@ namespace ChatServer
 			await ns.WriteAsync(Encoding.ASCII.GetBytes(response), 0, response.Length);
 		}
 
-		private static async void PostMessage (string[] payload)
+		private static async void LeaveAll (TcpClient client)
 		{
-			string data = payload[0] + ';' + payload[1] + ';' + payload[2];
+			NetworkStream ns = client.GetStream();
 
-			byte[] message = Encoding.ASCII.GetBytes(data);
+			foreach (var room in RoomClients)
+			{
+				if (room.Value.Contains(client))
+				{
+					string response = "leave;" + room.Key.ToString();
+
+					await ns.WriteAsync(Encoding.ASCII.GetBytes(response), 0, response.Length);	
+				}
+			}
+		}
+
+		private static async void PostMessage (string[] payload, TcpClient sender)
+		{
+			string data;
+			byte[] message;
 
 			foreach (TcpClient c in RoomClients[Guid.Parse(payload[1])])
 			{
+				string sameClient = c == sender ? ";1" : ";0";
+
+				data = payload[0] + ';' + payload[1] + ';' + payload[2] + sameClient;
+
+				message = Encoding.ASCII.GetBytes(data);
+
 				NetworkStream clientNs = c.GetStream();
 
 				await clientNs.WriteAsync(message, 0, message.Length);	

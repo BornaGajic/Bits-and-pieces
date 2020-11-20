@@ -18,7 +18,6 @@ D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\bin\Debug\Chat-o-Tro
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\bin\Debug\Chat-o-Tron.pdb
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\bin\Debug\Utility.dll
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\bin\Debug\Utility.pdb
-D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat-o-Tron.csprojAssemblyReference.cache
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat_o_Tron.ChatForm.resources
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat_o_Tron.LogInForm.resources
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat_o_Tron.MenuForm.resources
@@ -28,3 +27,4 @@ D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat-o-Tro
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat-o-Tron.csproj.CopyComplete
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat-o-Tron.exe
 D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat-o-Tron.pdb
+D:\BitsAndPieces\Bits-and-pieces\C#\Chat-o-Tron\Chat-o-Tron\obj\Debug\Chat-o-Tron.csprojAssemblyReference.cache

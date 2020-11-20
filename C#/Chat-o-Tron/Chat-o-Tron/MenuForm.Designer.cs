@@ -141,6 +141,7 @@
 			this.MinimumSize = new System.Drawing.Size(374, 577);
 			this.Name = "MenuForm";
 			this.Text = "Chat-o-Tron";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuForm_FormClosing);
 			this.Shown += new System.EventHandler(this.MenuForm_Shown);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);

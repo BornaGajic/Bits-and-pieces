@@ -28,20 +28,18 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.inputBox = new System.Windows.Forms.TextBox();
 			this.SendButton = new System.Windows.Forms.Button();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.ResponseLabel = new System.Windows.Forms.Label();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.chatBox = new System.Windows.Forms.TableLayoutPanel();
 			this.SuspendLayout();
 			// 
-			// textBox1
+			// inputBox
 			// 
-			this.textBox1.Location = new System.Drawing.Point(12, 317);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(376, 139);
-			this.textBox1.TabIndex = 1;
+			this.inputBox.Location = new System.Drawing.Point(12, 317);
+			this.inputBox.Multiline = true;
+			this.inputBox.Name = "inputBox";
+			this.inputBox.Size = new System.Drawing.Size(376, 139);
+			this.inputBox.TabIndex = 1;
 			// 
 			// SendButton
 			// 
@@ -53,27 +51,20 @@
 			this.SendButton.UseVisualStyleBackColor = true;
 			this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
 			// 
-			// tableLayoutPanel1
+			// chatBox
 			// 
-			this.tableLayoutPanel1.ColumnCount = 1;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Controls.Add(this.ResponseLabel, 0, 0);
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 1;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(376, 299);
-			this.tableLayoutPanel1.TabIndex = 3;
-			// 
-			// ResponseLabel
-			// 
-			this.ResponseLabel.AutoSize = true;
-			this.ResponseLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ResponseLabel.Location = new System.Drawing.Point(3, 0);
-			this.ResponseLabel.Name = "ResponseLabel";
-			this.ResponseLabel.Size = new System.Drawing.Size(370, 299);
-			this.ResponseLabel.TabIndex = 0;
-			this.ResponseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.chatBox.AutoScroll = true;
+			this.chatBox.AutoScrollMinSize = new System.Drawing.Size(200, 50);
+			this.chatBox.ColumnCount = 2;
+			this.chatBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.chatBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.chatBox.Location = new System.Drawing.Point(0, 0);
+			this.chatBox.Name = "chatBox";
+			this.chatBox.RowCount = 2;
+			this.chatBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.chatBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.chatBox.Size = new System.Drawing.Size(388, 311);
+			this.chatBox.TabIndex = 3;
 			// 
 			// ChatForm
 			// 
@@ -81,14 +72,14 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(400, 498);
-			this.Controls.Add(this.tableLayoutPanel1);
+			this.Controls.Add(this.chatBox);
 			this.Controls.Add(this.SendButton);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.inputBox);
+			this.MaximumSize = new System.Drawing.Size(416, 537);
+			this.MinimumSize = new System.Drawing.Size(416, 537);
 			this.Name = "ChatForm";
 			this.Text = "ChatForm";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatForm_FormClosing);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -96,9 +87,8 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox inputBox;
 		private System.Windows.Forms.Button SendButton;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.Label ResponseLabel;
+		private System.Windows.Forms.TableLayoutPanel chatBox;
 	}
 }

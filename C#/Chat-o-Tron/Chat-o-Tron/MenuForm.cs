@@ -88,48 +88,32 @@ namespace Chat_o_Tron
 					payload = Encoding.ASCII.GetString(serverData, 0, byteCount).Split(';');
 
 					switch(payload[0])
-						{
-							case "leave":
-								activeChatRooms.Remove(Guid.Parse(payload[1]));
-								break;
-							case "post":
-								ChatForm room = activeChatRooms[Guid.Parse(payload[1])];
-								this.Invoke(new Action<string>(room.ShowMessage), payload[2]);
-								break;
-							case "refresh":
-								if (payload[1] != "None")
-								{
-									var func = new Action<string[]>(this.ShowRoomList);
-									this.Invoke(func, (object)payload); // array covariance
-								}
-								break;
-							case "newroom":
-								Guid roomId = Guid.Parse(payload[1]);
+					{
+						case "leave":
+							activeChatRooms.Remove(Guid.Parse(payload[1]));
+							break;
+						case "post":
+							ChatForm room = activeChatRooms[Guid.Parse(payload[1])];
+							bool isMessageMine = payload[3] == "1" ? true : false;
+							this.Invoke(new Action<string, bool>(room.ShowMessage), payload[2], isMessageMine);
+							break;
+						case "refresh":
+							if (payload[1] != "None")
+							{
+								var func = new Action<string[]>(this.ShowRoomList);
+								this.Invoke(func, (object)payload); // array covariance
+							}
+							break;
+						case "newroom":
+							Guid roomId = Guid.Parse(payload[1]);
 
-								activeChatRooms[roomId] = new ChatForm(Client, roomId);
-								this.Invoke(new MethodInvoker(activeChatRooms[roomId].Show));
+							activeChatRooms[roomId] = new ChatForm(Client, roomId);
+							this.Invoke(new MethodInvoker(activeChatRooms[roomId].Show));
 
-								break;
-							default: // update num of participants for a room
-								UpdateNumOfParticipants(payload[0], payload[1]);
-								break;
-						}
+							break;
+					}
 
 					reciever = null;
-				}
-			}
-		}
-
-		private void UpdateNumOfParticipants (string newNumber, string roomId)
-		{
-			string roomName = activeChatRooms[Guid.Parse(roomId)].Text;
-
-			foreach (ListViewItem item in RoomList.Items)
-			{
-				if (item.Text == roomName)
-				{
-					item.SubItems[1].Text = newNumber;
-					break;
 				}
 			}
 		}
@@ -185,7 +169,19 @@ namespace Chat_o_Tron
 			string roomId = RoomList.SelectedItems[0].Tag.ToString();
 			string roomName = RoomList.SelectedItems[0].Text.ToString();
 
+			if (activeChatRooms.ContainsKey(Guid.Parse(roomId)))
+			{
+				return;
+			}
+
 			JoinRoom(roomId, roomName);
+		}
+
+		private void MenuForm_FormClosing (object sender, FormClosingEventArgs e)
+		{
+			var leave = Encoding.ASCII.GetBytes("leaveAll;");
+				
+			Client.GetStream().Write(leave, 0, leave.Length);
 		}
 	}
 }
