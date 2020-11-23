@@ -17,16 +17,14 @@ namespace Chat_o_Tron
 {
 	public partial class MenuForm : Form
 	{
-		private string Username { get; set; }
 		private TcpClient Client { get; set; }
 
 		private Dictionary<Guid, ChatForm> activeChatRooms = new Dictionary<Guid, ChatForm>();
 
-		public MenuForm (string username, TcpClient client)
+		public MenuForm (TcpClient client)
 		{
 			InitializeComponent();
 
-			Username = username;
 			Client = client;
 
 			RefreshButton.Click += RefreshRooms;
@@ -60,8 +58,10 @@ namespace Chat_o_Tron
 
 			await Client.GetStream().WriteAsync(data, 0, data.Length);
 
-			activeChatRooms[id] = new ChatForm(Client, id);
-			activeChatRooms[id].Text = roomName;
+			activeChatRooms[id] = new ChatForm(Client, id)
+			{
+				Text = roomName
+			};
 			activeChatRooms[id].Show();
 
 			RefreshRooms(null, null);
@@ -95,7 +95,7 @@ namespace Chat_o_Tron
 						case "post":
 							ChatForm room = activeChatRooms[Guid.Parse(payload[1])];
 							bool isMessageMine = payload[3] == "1" ? true : false;
-							this.Invoke(new Action<string, bool>(room.ShowMessage), payload[2], isMessageMine);
+							this.Invoke(new Action<string, bool, string>(room.ShowMessage), payload[2], isMessageMine, payload[4]);
 							break;
 						case "refresh":
 							if (payload[1] != "None")
@@ -159,6 +159,7 @@ namespace Chat_o_Tron
 		private void MenuForm_Shown (object sender, EventArgs e)
 		{
 			Thread recieverThread = new Thread(new ThreadStart(ClientReciever));
+			recieverThread.IsBackground = true;
 			recieverThread.Start();
 
 			RefreshRooms(null, null);
@@ -169,12 +170,10 @@ namespace Chat_o_Tron
 			string roomId = RoomList.SelectedItems[0].Tag.ToString();
 			string roomName = RoomList.SelectedItems[0].Text.ToString();
 
-			if (activeChatRooms.ContainsKey(Guid.Parse(roomId)))
+			if (!activeChatRooms.ContainsKey(Guid.Parse(roomId)))
 			{
-				return;
+				JoinRoom(roomId, roomName);	
 			}
-
-			JoinRoom(roomId, roomName);
 		}
 
 		private void MenuForm_FormClosing (object sender, FormClosingEventArgs e)

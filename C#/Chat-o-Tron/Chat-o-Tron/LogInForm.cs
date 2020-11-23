@@ -41,7 +41,9 @@ namespace Chat_o_Tron
 
 			this.Cursor = Cursors.Default;
 
-			MenuForm childForm = new MenuForm(textBox1.Text, tcpClient);
+			MenuForm childForm = new MenuForm(tcpClient);
+
+			Utility.Utility.username = textBox1.Text;
 
 			this.Hide();
 			childForm.ShowDialog();

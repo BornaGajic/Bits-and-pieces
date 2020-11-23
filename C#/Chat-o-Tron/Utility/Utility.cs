@@ -6,6 +6,8 @@ namespace Utility
 {
 	public class Utility
 	{
+        public static string username;
+
 		public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());

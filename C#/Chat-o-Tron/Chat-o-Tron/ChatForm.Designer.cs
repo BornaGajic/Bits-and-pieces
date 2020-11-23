@@ -35,6 +35,7 @@
 			// 
 			// inputBox
 			// 
+			this.inputBox.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.inputBox.Location = new System.Drawing.Point(12, 317);
 			this.inputBox.Multiline = true;
 			this.inputBox.Name = "inputBox";
@@ -54,16 +55,16 @@
 			// chatBox
 			// 
 			this.chatBox.AutoScroll = true;
-			this.chatBox.AutoScrollMinSize = new System.Drawing.Size(200, 50);
 			this.chatBox.ColumnCount = 2;
 			this.chatBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.chatBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.chatBox.Location = new System.Drawing.Point(0, 0);
+			this.chatBox.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chatBox.Location = new System.Drawing.Point(0, 3);
 			this.chatBox.Name = "chatBox";
 			this.chatBox.RowCount = 2;
-			this.chatBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.chatBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.chatBox.Size = new System.Drawing.Size(388, 311);
+			this.chatBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.97403F));
+			this.chatBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.02597F));
+			this.chatBox.Size = new System.Drawing.Size(388, 308);
 			this.chatBox.TabIndex = 3;
 			// 
 			// ChatForm
