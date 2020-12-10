@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Devbazaar.Repository
+namespace Devbazaar.Model.Common
 {
-    public class Class1
-    {
-    }
+	public interface ICategory
+	{
+		Guid Id { get; set; }
+		string Name { get; set; }
+	}
 }

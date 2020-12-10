@@ -49,6 +49,9 @@
     <Reference Include="Autofac, Version=6.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>packages\Autofac.6.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=6.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>packages\Autofac.WebApi2.6.0.1\lib\net472\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
@@ -162,10 +165,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AutoMapperProfiles\BusinessCardProfile.cs" />
+    <Compile Include="Controllers\BusinessCardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IRestModels\IBusinessCardRest\ICreateBusinessCardRest.cs" />
+    <Compile Include="IRestModels\IBusinessCardRest\IUpdateBusinessCardRest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestModels\BusinessCardRest\CreateBusinessCardRest.cs" />
+    <Compile Include="RestModels\BusinessCardRest\UpdateBusinessCardRest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -179,12 +188,39 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="IRestModels\CRUD\" />
-    <Folder Include="RestModels\CRUD\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Devbazaar.DAL\Devbazaar.DAL.csproj">
+      <Project>{b29d5eb1-ad26-436a-ad67-130a362d5631}</Project>
+      <Name>Devbazaar.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Model.Common\Devbazaar.Model.Common.csproj">
+      <Project>{68471875-4f49-4516-b163-dd08636a08cb}</Project>
+      <Name>Devbazaar.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Model\Devbazaar.Model.csproj">
+      <Project>{e980ba94-4bdf-4280-abcc-77a354b20c88}</Project>
+      <Name>Devbazaar.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Repository.Common\Devbazaar.Repository.Common.csproj">
+      <Project>{f4376b1e-e1c6-4ca9-b8f1-5fb1cf63e82e}</Project>
+      <Name>Devbazaar.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Repository\Devbazaar.Repository.csproj">
+      <Project>{7f6e36cd-2947-4483-8242-9a6cde6e589d}</Project>
+      <Name>Devbazaar.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Service.Common\Devbazaar.Service.Common.csproj">
+      <Project>{4debf804-c2df-4d68-93b7-49c65f527414}</Project>
+      <Name>Devbazaar.Service.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Service\Devbazaar.Service.csproj">
+      <Project>{2c061c36-9bb8-4bed-bce3-d84b4ab80a1b}</Project>
+      <Name>Devbazaar.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

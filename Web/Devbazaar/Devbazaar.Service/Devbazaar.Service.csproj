@@ -69,12 +69,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BusinessCardServices\BusinessCardService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceDIModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Devbazaar.DAL\Devbazaar.DAL.csproj">
+      <Project>{b29d5eb1-ad26-436a-ad67-130a362d5631}</Project>
+      <Name>Devbazaar.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Model.Common\Devbazaar.Model.Common.csproj">
+      <Project>{68471875-4f49-4516-b163-dd08636a08cb}</Project>
+      <Name>Devbazaar.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Repository.Common\Devbazaar.Repository.Common.csproj">
+      <Project>{f4376b1e-e1c6-4ca9-b8f1-5fb1cf63e82e}</Project>
+      <Name>Devbazaar.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Service.Common\Devbazaar.Service.Common.csproj">
+      <Project>{4debf804-c2df-4d68-93b7-49c65f527414}</Project>
+      <Name>Devbazaar.Service.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

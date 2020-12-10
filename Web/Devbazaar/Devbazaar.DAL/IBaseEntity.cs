@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Devbazaar.Service.Common
+namespace Devbazaar.DAL
 {
-    public class Class1
-    {
-    }
+	public interface IBaseEntity
+	{
+		Guid Id { get; set; }
+	}
 }

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Devbazaar.Model.Common
 {
-    public class Class1
-    {
-    }
+	public interface IClient
+	{
+		Guid Id { get; set; }
+		string Username { get; set; }
+		string Password { get; set; }
+		string Email { get; set; }
+	}
 }

@@ -79,7 +79,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Context\DevbazaarDbContext.cs" />
+    <Compile Include="EntityModels\AdressEntity.cs" />
+    <Compile Include="EntityModels\BusinessCardEntity.cs" />
+    <Compile Include="EntityModels\BusinessEntity.cs" />
+    <Compile Include="EntityModels\CategoryEntity.cs" />
+    <Compile Include="EntityModels\ClientEntity.cs" />
+    <Compile Include="EntityModels\TaskEntity.cs" />
+    <Compile Include="IBaseEntity.cs" />
+    <Compile Include="IEntityModels\IAdressEntity.cs" />
+    <Compile Include="IEntityModels\IBusinessCardEntity.cs" />
+    <Compile Include="IEntityModels\IBusinessEntity.cs" />
+    <Compile Include="IEntityModels\ICategoryEntity.cs" />
+    <Compile Include="IEntityModels\IClientEntity.cs" />
+    <Compile Include="IEntityModels\ITaskEntity.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
