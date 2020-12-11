@@ -33,9 +33,6 @@ namespace Devbazaar.DAL.Context
 			modelBuilder.Entity<AdressEntity>().Property(p => p.Country).IsRequired().HasMaxLength(50);
 
 			modelBuilder.Entity<BusinessEntity>().ToTable("Businesses").HasKey(b => b.Id).Property(p => p.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-			modelBuilder.Entity<BusinessEntity>().Property(p => p.Name).IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<BusinessEntity>().Property(p => p.Password).IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<BusinessEntity>().Property(p => p.Email).IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<BusinessEntity>().HasMany<AdressEntity>(b => b.Adresses).WithMany(a => a.Businesses).Map(ab => {
 				ab.MapLeftKey("BusinessRefId");
 				ab.MapRightKey("AdressRefId");
@@ -65,9 +62,6 @@ namespace Devbazaar.DAL.Context
 
 			modelBuilder.Entity<ClientEntity>().ToTable("Clients");
 			modelBuilder.Entity<ClientEntity>().HasKey(p => p.Id).Property(p => p.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-			modelBuilder.Entity<ClientEntity>().Property(p => p.Username).IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ClientEntity>().Property(p => p.Password).IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<ClientEntity>().Property(p => p.Email).IsRequired().HasMaxLength(50);
 
 			modelBuilder.Entity<TaskEntity>().ToTable("Tasks");
 			modelBuilder.Entity<TaskEntity>().HasKey(p => p.Id).Property(p => p.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -75,6 +69,13 @@ namespace Devbazaar.DAL.Context
 			modelBuilder.Entity<TaskEntity>().Property(p => p.LowPrice).IsOptional();
 			modelBuilder.Entity<TaskEntity>().Property(p => p.HighPrice).IsOptional();
 			modelBuilder.Entity<TaskEntity>().HasRequired<ClientEntity>(t => t.Client).WithMany(c => c.Tasks).HasForeignKey<Guid>(t => t.ClientId);
+
+			modelBuilder.Entity<UserEntity>().ToTable("Users").HasKey(p => p.Id);
+			modelBuilder.Entity<UserEntity>().Property(p => p.Username).IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<UserEntity>().Property(p => p.Password).IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<UserEntity>().Property(p => p.Email).IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<UserEntity>().HasRequired(u => u.Client).WithRequiredPrincipal(uc => uc.User);
+			modelBuilder.Entity<UserEntity>().HasRequired(u => u.Business).WithRequiredPrincipal(uc => uc.User);
 		}
 	}
 }

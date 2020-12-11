@@ -9,11 +9,8 @@ namespace Devbazaar.DAL.IEntityModels
 {
 	public interface IBusinessEntity : IBaseEntity
 	{
-		string Name { get; set; }
-		string Password { get; set; }
-		string Email { get; set; }
-
 		ICollection<AdressEntity> Adresses { get; set; }
 		BusinessCardEntity BusinessCard { get; set; }
+		UserEntity User { get; set; }
 	}
 }

@@ -14,11 +14,8 @@ namespace Devbazaar.DAL.EntityModels
 			this.Adresses = new HashSet<AdressEntity>();
 		}
 
-		public string Name { get; set; }
-		public string Password { get; set; }
-		public string Email { get; set; }
-
 		public virtual ICollection<AdressEntity> Adresses { get; set; }
 		public virtual BusinessCardEntity BusinessCard { get; set; }
+		public virtual UserEntity User { get; set; }
 	}
 }

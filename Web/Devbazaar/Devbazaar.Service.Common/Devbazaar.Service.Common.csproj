@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBusinessCardServices\IBusinessCardService.cs" />
+    <Compile Include="IUserService\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +85,10 @@
     <ProjectReference Include="..\Devbazaar.Model.Common\Devbazaar.Model.Common.csproj">
       <Project>{68471875-4f49-4516-b163-dd08636a08cb}</Project>
       <Name>Devbazaar.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Utility\Devbazaar.Utility.csproj">
+      <Project>{25d9bfdc-e4b4-4b79-8bc2-0c06f8d2ee66}</Project>
+      <Name>Devbazaar.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -34,7 +34,18 @@ namespace Devbazaar
 
 			builder.Register(context => new MapperConfiguration(cfg => {
 				cfg.AddProfile<BusinessCardProfile>();
-			}));
+				cfg.AddProfile<UserProfile>();
+			})).AsSelf().SingleInstance();
+
+			builder.Register(c =>
+			{
+				//This resolves a new context that can be used later.
+				var context = c.Resolve<IComponentContext>();
+				var mapperConfig = context.Resolve<MapperConfiguration>();
+				return mapperConfig.CreateMapper(context.Resolve);
+			})
+			.As<IMapper>()
+			.InstancePerLifetimeScope();
 
 			var container = builder.Build();
 			config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Autofac;
 using Devbazaar.Service.BusinessCardServices;
 using Devbazaar.Service.Common.IBusinessCardServices;
+using Devbazaar.Service.Common.IUserService;
+using AutoMapper;
+using Devbazaar.Service.UserServices;
 
 namespace Devbazaar.Service
 {
@@ -14,6 +17,7 @@ namespace Devbazaar.Service
 		protected override void Load (ContainerBuilder builder)
 		{
 			builder.RegisterType<BusinessCardService>().As<IBusinessCardService>();
+			builder.RegisterType<UserService>().As<IUserService>();
 		}
 	}
 }

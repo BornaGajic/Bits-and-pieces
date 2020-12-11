@@ -15,6 +15,7 @@ namespace Devbazaar.Repository
 		protected override void Load (ContainerBuilder builder)
 		{
 			builder.RegisterType<BusinessCardRepository>().As<IBusinessCardRepository>();
+			builder.RegisterType<UserRepository>().As<IUserRepository>();
 			builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 		}
 	}

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devbazaar.DAL", "..\Devbaza
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devbazaar.Common", "..\Devbazaar.Common\Devbazaar.Common.csproj", "{712F50F3-0CCB-4C7E-B783-5959BCC5B64E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devbazaar.Utility", "..\Devbazaar.Utility\Devbazaar.Utility.csproj", "{25D9BFDC-E4B4-4B79-8BC2-0C06F8D2EE66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{712F50F3-0CCB-4C7E-B783-5959BCC5B64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{712F50F3-0CCB-4C7E-B783-5959BCC5B64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{712F50F3-0CCB-4C7E-B783-5959BCC5B64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25D9BFDC-E4B4-4B79-8BC2-0C06F8D2EE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25D9BFDC-E4B4-4B79-8BC2-0C06F8D2EE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25D9BFDC-E4B4-4B79-8BC2-0C06F8D2EE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25D9BFDC-E4B4-4B79-8BC2-0C06F8D2EE66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

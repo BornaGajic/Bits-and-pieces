@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Microsoft.Owin.Security.OAuth;
 
 namespace Devbazaar
 {
@@ -9,7 +10,10 @@ namespace Devbazaar
 	{
 		public static void Register (HttpConfiguration config)
 		{
-			// Web API configuration and services
+			// Web API configuration and services	
+			config.EnableCors();
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
 			// Web API routes
 			config.MapHttpAttributeRoutes();

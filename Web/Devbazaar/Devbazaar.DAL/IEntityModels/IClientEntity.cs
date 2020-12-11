@@ -9,10 +9,7 @@ namespace Devbazaar.DAL.IEntityModels
 {
 	public interface IClientEntity : IBaseEntity
 	{
-		string Username { get; set; }
-		string Password { get; set; }
-		string Email { get; set; }
-
+		UserEntity User { get; set; }
 		ICollection<TaskEntity> Tasks { get; set; }
 	}
 }

@@ -75,6 +75,7 @@
     <Compile Include="ICategory\Category.cs" />
     <Compile Include="IClientTask\ClientTask.cs" />
     <Compile Include="IClient\Client.cs" />
+    <Compile Include="IUser\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
