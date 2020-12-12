@@ -11,6 +11,7 @@ using Devbazaar.RestModels.UserRest;
 using Devbazaar.Service.Common.IUserService;
 using Microsoft.AspNet.Identity;
 using static Devbazaar.Utility.Utility;
+using IUser = Devbazaar.Model.Common.IUser.IUser;
 
 namespace Devbazaar.Controllers
 {
@@ -28,15 +29,20 @@ namespace Devbazaar.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("x")]
+        [Route("Register")]
         public async Task<HttpResponseMessage> CreateAsync ([FromBody] CreateUserRest newUser, [FromUri] TypeOfUser tou)
         {
-            var user = Mapper.Map<Model.Common.IUser.IUser>(newUser);
+            var user = Mapper.Map<IUser>(newUser);
 
             string token;
             try
             {
-                token = await LoginService.CreateAsync(user, tou);            
+                token = await LoginService.CreateAsync(user, tou);
+
+                if (token == "User already exists")
+                {
+                    return Request.CreateResponse(HttpStatusCode.Conflict, token);
+                }
             }
             catch (Exception e)
             {
@@ -46,6 +52,58 @@ namespace Devbazaar.Controllers
             } 
 
             return Request.CreateResponse(HttpStatusCode.OK, token);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Login")]
+        public async Task<HttpResponseMessage> LoginAsync ([FromBody] LoginRest loginData)
+        {
+            var user = Mapper.Map<IUser>(loginData);
+
+            try
+            {
+                string token = await LoginService.LoginAsync(user);
+
+                return string.IsNullOrEmpty(token) ? Request.CreateResponse(HttpStatusCode.NotFound) : Request.CreateResponse(HttpStatusCode.OK, token);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Update")]
+        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData)
+        {
+            var user = Mapper.Map<IUser>(updateData);
+
+            return await LoginService.UpdateAsync(user) ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateResponse(HttpStatusCode.BadRequest);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<HttpResponseMessage> DeleteAsync ([FromBody] DeleteUserRest deleteUser)
+        {
+            var user = Mapper.Map<IUser>(deleteUser);
+
+            try
+            {
+                await LoginService.DeleteAsync(user);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

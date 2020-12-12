@@ -7,16 +7,13 @@ using Devbazaar.IRestModels.IUserRest;
 
 namespace Devbazaar.RestModels.UserRest
 {
-	public class CreateUserRest : ICreateUserRest
+	public class LoginRest : ILoginRest
 	{
-		[Required]
-		public string Username { get; set; }
-
-		[Required]
-		public string Password { get; set; }
-
 		[Required]
 		[EmailAddress]
 		public string Email { get; set; }
+
+		[Required]
+		public string Password { get; set; }
 	}
 }

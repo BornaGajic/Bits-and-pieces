@@ -8,6 +8,5 @@ namespace Devbazaar.Repository.Common.Repositories
 {
 	public interface IBusinessCardRepository
 	{
-
 	}
 }

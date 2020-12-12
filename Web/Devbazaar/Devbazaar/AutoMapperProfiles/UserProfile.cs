@@ -13,8 +13,12 @@ namespace Devbazaar.AutoMapperProfiles
 	{
 		public UserProfile ()
 		{
-			CreateMap<CreateUserRest, IUser>();
 			CreateMap<IUser, UserEntity>();
+
+			CreateMap<CreateUserRest, IUser>();
+			CreateMap<LoginRest, IUser>();
+			CreateMap<UpdateUserRest, IUser>();
+			CreateMap<DeleteUserRest, IUser>();
 		}
 	}
 }
