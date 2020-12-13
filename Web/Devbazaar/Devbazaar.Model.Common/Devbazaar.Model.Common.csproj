@@ -70,8 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdress\IAdress.cs" />
-    <Compile Include="IBusinessCard\BusinessCard.cs" />
-    <Compile Include="IBusiness\Business.cs" />
+    <Compile Include="IBusiness\IBusiness.cs" />
     <Compile Include="ICategory\Category.cs" />
     <Compile Include="IClientTask\ClientTask.cs" />
     <Compile Include="IClient\Client.cs" />

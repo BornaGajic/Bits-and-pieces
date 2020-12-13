@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Devbazaar.IRestModels.IBusinessCardRest
+namespace Devbazaar.IRestModels.IBusinessRest
 {
 	public interface IUpdateBusinessCardRest
 	{

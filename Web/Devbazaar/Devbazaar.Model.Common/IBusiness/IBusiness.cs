@@ -9,8 +9,8 @@ namespace Devbazaar.Model.Common
 	public interface IBusiness
 	{
 		Guid Id { get; set; }
-		string Name { get; set; }
-		string Password { get; set; }
-		string Email { get; set; }
+		string Description { get; set; }
+		string About { get; set; }
+		bool Available { get; set; }
 	}
 }

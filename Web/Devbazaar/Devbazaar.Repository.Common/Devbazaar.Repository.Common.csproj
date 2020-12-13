@@ -81,8 +81,9 @@
   <ItemGroup>
     <Compile Include="IBaseRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Repositories\IBusinessCardRepository.cs" />
+    <Compile Include="Repositories\IBusinessRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,11 +7,8 @@ using Devbazaar.Model.Common;
 
 namespace Devbazaar.Model
 {
-	public class Client : IClient
+	public class Client : Devbazaar.Model.User.User, IClient
 	{
-		public Guid Id { get; set; }
-		public string Username { get; set; }
-		public string Password { get; set; }
-		public string Email { get; set; }
+		
 	}
 }

@@ -12,12 +12,12 @@ namespace Devbazaar.DAL.EntityModels
 		public CategoryEntity ()
 		{
 			this.Tasks = new HashSet<TaskEntity>();
-			this.BusinessCards = new HashSet<BusinessCardEntity>();
+			this.Businesses = new HashSet<BusinessEntity>();
 		}
 
 		public string Name { get; set; }
 
 		public virtual ICollection<TaskEntity> Tasks { get; set; }
-		public virtual ICollection<BusinessCardEntity> BusinessCards { get; set; }
+		public virtual ICollection<BusinessEntity> Businesses { get; set; }
 	}
 }

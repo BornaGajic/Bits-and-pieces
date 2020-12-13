@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using Devbazaar.Model;
 using Devbazaar.Model.Common;
 
-namespace Devbazaar.IRestModels.IBusinessCardRest
+namespace Devbazaar.IRestModels.IBusinessRest
 {
 	public interface ICreateBusinessCardRest
 	{
-		Guid BusinessId { get; set; }
 		string Description { get; set; }
 		string About { get; set; }
 		bool Available { get; set; }
-		List<ICategory> Categories { get; set; }
+		List<Category> Categories { get; set; }
 	}
 }

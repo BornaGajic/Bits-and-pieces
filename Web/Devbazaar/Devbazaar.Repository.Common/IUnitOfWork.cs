@@ -10,8 +10,9 @@ namespace Devbazaar.Repository.Common
 {
 	public interface IUnitOfWork
 	{
-		IBusinessCardRepository BusinessCardRepository { get; set; }
 		IUserRepository UserRepository { get; set; }
+		ICategoryRepository CategoryRepository { get; set; }
+		IBusinessRepository BusinessRepository { get; set; }
 
 		Task<int> AddAsync<TEntity> (TEntity entity) where TEntity : BaseEntity;
 		Task<int> UpdateAsync<TEntity> (TEntity entity) where TEntity : BaseEntity;

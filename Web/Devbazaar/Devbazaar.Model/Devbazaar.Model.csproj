@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adress\Adress.cs" />
-    <Compile Include="BusinessCard\BusinessCard.cs" />
     <Compile Include="Business\Business.cs" />
     <Compile Include="Category\Category.cs" />
     <Compile Include="Client\Client.cs" />
@@ -84,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adress\CRUD\" />
-    <Folder Include="BusinessCard\CRUD\" />
     <Folder Include="Business\CRUD\" />
     <Folder Include="Category\CRUD\" />
     <Folder Include="ClientTask\CRUD\" />

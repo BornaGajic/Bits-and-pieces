@@ -27,13 +27,14 @@ namespace Devbazaar
 			var config = GlobalConfiguration.Configuration;
 
 			builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-			builder.RegisterType<DevbazaarDbContext>().InstancePerLifetimeScope();
+
+			builder.RegisterType<DevbazaarDbContext>().AsSelf().InstancePerRequest();
 
 			builder.RegisterModule(new RepositoryDIModule());
 			builder.RegisterModule(new ServiceDIModule());
 
 			builder.Register(context => new MapperConfiguration(cfg => {
-				cfg.AddProfile<BusinessCardProfile>();
+				cfg.AddProfile<BusinessProfile>();
 				cfg.AddProfile<UserProfile>();
 			})).AsSelf().SingleInstance();
 
@@ -45,7 +46,7 @@ namespace Devbazaar
 				return mapperConfig.CreateMapper(context.Resolve);
 			})
 			.As<IMapper>()
-			.InstancePerLifetimeScope();
+			.InstancePerRequest();
 
 			var container = builder.Build();
 			config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

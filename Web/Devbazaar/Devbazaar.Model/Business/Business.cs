@@ -7,11 +7,10 @@ using Devbazaar.Model.Common;
 
 namespace Devbazaar.Model
 {
-	public class Business : IBusiness
+	public class Business : Devbazaar.Model.User.User, IBusiness
 	{
-		public Guid Id { get; set; }
-		public string Name { get; set; }
-		public string Password { get; set; }
-		public string Email { get; set; }
+		public string Description { get; set; }
+		public string About { get; set; }
+		public bool Available { get; set; }
 	}
 }

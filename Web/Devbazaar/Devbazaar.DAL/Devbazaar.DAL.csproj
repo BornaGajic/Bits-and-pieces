@@ -82,7 +82,6 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Context\DevbazaarDbContext.cs" />
     <Compile Include="EntityModels\AdressEntity.cs" />
-    <Compile Include="EntityModels\BusinessCardEntity.cs" />
     <Compile Include="EntityModels\BusinessEntity.cs" />
     <Compile Include="EntityModels\CategoryEntity.cs" />
     <Compile Include="EntityModels\ClientEntity.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="EntityModels\UserEntity.cs" />
     <Compile Include="IBaseEntity.cs" />
     <Compile Include="IEntityModels\IAdressEntity.cs" />
-    <Compile Include="IEntityModels\IBusinessCardEntity.cs" />
     <Compile Include="IEntityModels\IBusinessEntity.cs" />
     <Compile Include="IEntityModels\ICategoryEntity.cs" />
     <Compile Include="IEntityModels\IClientEntity.cs" />
@@ -103,6 +101,26 @@
     <Compile Include="Migrations\202012111431572_UserFIX.cs" />
     <Compile Include="Migrations\202012111431572_UserFIX.designer.cs">
       <DependentUpon>202012111431572_UserFIX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012131419541_FKBusinessCardFix.cs" />
+    <Compile Include="Migrations\202012131419541_FKBusinessCardFix.designer.cs">
+      <DependentUpon>202012131419541_FKBusinessCardFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012131429188_FKBusinessCardFix2.cs" />
+    <Compile Include="Migrations\202012131429188_FKBusinessCardFix2.designer.cs">
+      <DependentUpon>202012131429188_FKBusinessCardFix2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012131620291_BusinessCardRedundancyFix.cs" />
+    <Compile Include="Migrations\202012131620291_BusinessCardRedundancyFix.designer.cs">
+      <DependentUpon>202012131620291_BusinessCardRedundancyFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012131648557_UserClientRelationshipFix.cs" />
+    <Compile Include="Migrations\202012131648557_UserClientRelationshipFix.designer.cs">
+      <DependentUpon>202012131648557_UserClientRelationshipFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012131658014_UserPasswordMaxLength.cs" />
+    <Compile Include="Migrations\202012131658014_UserPasswordMaxLength.designer.cs">
+      <DependentUpon>202012131658014_UserPasswordMaxLength.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +135,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012111431572_UserFIX.resx">
       <DependentUpon>202012111431572_UserFIX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131419541_FKBusinessCardFix.resx">
+      <DependentUpon>202012131419541_FKBusinessCardFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131429188_FKBusinessCardFix2.resx">
+      <DependentUpon>202012131429188_FKBusinessCardFix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131620291_BusinessCardRedundancyFix.resx">
+      <DependentUpon>202012131620291_BusinessCardRedundancyFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131648557_UserClientRelationshipFix.resx">
+      <DependentUpon>202012131648557_UserClientRelationshipFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131658014_UserPasswordMaxLength.resx">
+      <DependentUpon>202012131658014_UserPasswordMaxLength.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

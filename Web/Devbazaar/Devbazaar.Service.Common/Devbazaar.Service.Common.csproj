@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBusinessCardServices\IBusinessCardService.cs" />
+    <Compile Include="IBusinessServices\IBusinessService.cs" />
     <Compile Include="IUserService\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

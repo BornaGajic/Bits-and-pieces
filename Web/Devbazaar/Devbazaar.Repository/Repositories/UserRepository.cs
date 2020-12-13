@@ -15,10 +15,10 @@ namespace Devbazaar.Repository.Repositories
 		public UserRepository (DevbazaarDbContext context) : base(context)
 		{
 		}
-		public async Task<Guid> CheckExistence (string email, string username)
+		public async Task<Guid> CheckExistence (string email, string password)
 		{
 			List<UserEntity> registeredUser =  await (from user in TableAsNoTracking
-													  where user.Email == email && user.Username == username
+													  where user.Email == email && user.Password == password
 													  select user).ToListAsync();
 
 			return registeredUser.Count > 0 ? registeredUser.First().Id : Guid.Empty;

@@ -6,19 +6,19 @@ using AutoMapper;
 using Devbazaar.DAL.EntityModels;
 using Devbazaar.Model;
 using Devbazaar.Model.Common;
-using Devbazaar.RestModels.BusinessCardRest;
+using Devbazaar.RestModels.BusinessRest;
 
 namespace Devbazaar.AutoMapperProfiles
 {
-	public class BusinessCardProfile : Profile
+	public class BusinessProfile : Profile
 	{
-		public BusinessCardProfile ()
+		public BusinessProfile ()
 		{
-			CreateMap<CreateBusinessCardRest, IBusinessCard>();
-			CreateMap<IBusinessCard, BusinessCardEntity>();
+			CreateMap<CreateBusinessRest, IBusiness>();
+			CreateMap<IBusiness, BusinessEntity>();
 			CreateMap<ICategory, CategoryEntity>();
 
-			CreateMap<UpdateBusinessCardRest, IBusinessCard>();
+			CreateMap<UpdateBusinessRest, IBusiness>();
 		}
 	}
 }

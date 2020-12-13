@@ -10,9 +10,9 @@ using Devbazaar.Repository.Common.Repositories;
 
 namespace Devbazaar.Repository.Repositories
 {
-	public class BusinessCardRepository : BaseRepository<BusinessCardEntity>, IBusinessCardRepository
+	public class BusinessRepository : BaseRepository<BusinessEntity>, IBusinessRepository
 	{
-		public BusinessCardRepository (DevbazaarDbContext context) : base(context)
+		public BusinessRepository (DevbazaarDbContext context) : base(context)
 		{
 		}
 	}

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Devbazaar.Model.Common;
+using System.Web;
+using Devbazaar.IRestModels.IBusinessRest;
 
-namespace Devbazaar.Model
+namespace Devbazaar.RestModels.BusinessRest
 {
-	public class BusinessCard : IBusinessCard
+	public class UpdateBusinessRest : IUpdateBusinessCardRest
 	{
-		public Guid Id { get; set; }
 		public string Description { get; set; }
 		public string About { get; set; }
 		public bool Available { get; set; }

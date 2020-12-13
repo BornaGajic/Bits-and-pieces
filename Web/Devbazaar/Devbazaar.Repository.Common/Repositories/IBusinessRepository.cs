@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Devbazaar.Repository.Common.Repositories
 {
-	public interface IBusinessCardRepository
+	public interface IBusinessRepository
 	{
 	}
 }

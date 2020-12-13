@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Devbazaar.IRestModels.IBusinessCardRest;
+using Devbazaar.IRestModels.IBusinessRest;
 using Devbazaar.Model;
 using Devbazaar.Model.Common;
 
-namespace Devbazaar.RestModels.BusinessCardRest
+namespace Devbazaar.RestModels.BusinessRest
 {
-	public class CreateBusinessCardRest : ICreateBusinessCardRest
+	public class CreateBusinessRest : ICreateBusinessCardRest
 	{
-		public Guid BusinessId { get; set; }
 		public string Description { get; set; }
 		public string About { get; set; }
+		[Required]
 		public bool Available { get; set; }
-		public List<ICategory> Categories { get; set; }
+		[Required]
+		public List<Category> Categories { get; set; }
 	}
 }

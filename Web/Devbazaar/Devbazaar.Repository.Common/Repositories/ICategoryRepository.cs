@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Devbazaar.DAL;
+using Devbazaar.DAL.EntityModels;
 
 namespace Devbazaar.Repository.Common.Repositories
 {
-	public interface IUserRepository
+	public interface ICategoryRepository
 	{
-		Task<Guid> CheckExistence (string email, string password);
+		Task<Guid> GetIdByName (string name);
+		Task AttachAsync (CategoryEntity categoryEntity);
 	}
 }

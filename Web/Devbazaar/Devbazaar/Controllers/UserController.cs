@@ -30,7 +30,7 @@ namespace Devbazaar.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
-        public async Task<HttpResponseMessage> CreateAsync ([FromBody] CreateUserRest newUser, [FromUri] TypeOfUser tou)
+        public async Task<HttpResponseMessage> CreateAsync ([FromBody] CreateUserRest newUser, TypeOfUser tou = TypeOfUser.Business)
         {
             var user = Mapper.Map<IUser>(newUser);
 

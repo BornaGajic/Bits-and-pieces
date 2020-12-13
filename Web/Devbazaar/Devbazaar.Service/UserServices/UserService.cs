@@ -32,23 +32,24 @@ namespace Devbazaar.Service.UserServices
 		{
 			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) == Guid.Empty)
 			{
+				string encodedPassword = Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
+				string password = string.Empty;
+				foreach (byte b in encodedPassword)
+				{
+					password += String.Format("{0:x2}", b);
+				}
+
 				user.Id = Guid.NewGuid();
-				user.Password = Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
+				user.Password = password;
 
 				var userEntity = Mapper.Map<UserEntity>(user);
 
 				await UnitOfWork.AddAsync(userEntity);
 
-				switch (tou)
+				if (tou == TypeOfUser.Client)
 				{
-					case TypeOfUser.Business:
-						await UnitOfWork.AddAsync(new BusinessEntity() { Id = user.Id });
-						await UnitOfWork.CommitAsync<BusinessEntity>();
-						break;
-					case TypeOfUser.Client:
-						await UnitOfWork.AddAsync(new ClientEntity() { Id = user.Id });
-						await UnitOfWork.CommitAsync<ClientEntity>();
-						break;
+					await UnitOfWork.AddAsync<ClientEntity>(new ClientEntity(){ Id = userEntity.Id });
+					await UnitOfWork.CommitAsync<ClientEntity>();
 				}
 
 				await UnitOfWork.CommitAsync<UserEntity>();
@@ -57,13 +58,20 @@ namespace Devbazaar.Service.UserServices
 			}
 			else
 			{
-				return "User already exists";	
+				return "User already exists";
 			}
 		}
 
 		public async Task<string> LoginAsync (IUser user)
 		{
-			Guid userId = await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username);
+			string encodedPassword = Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
+			string password = string.Empty;
+			foreach (byte b in encodedPassword)
+            {
+                password += String.Format("{0:x2}", b);
+            }
+
+			Guid userId = await UnitOfWork.UserRepository.CheckExistence(user.Email, password);
 
 			return userId == Guid.Empty ? string.Empty : GenerateToken(user);
 		}
