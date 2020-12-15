@@ -32,15 +32,8 @@ namespace Devbazaar.Service.UserServices
 		{
 			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) == Guid.Empty)
 			{
-				string encodedPassword = Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
-				string password = string.Empty;
-				foreach (byte b in encodedPassword)
-				{
-					password += String.Format("{0:x2}", b);
-				}
-
 				user.Id = Guid.NewGuid();
-				user.Password = password;
+				user.Password = EncodePassword(user.Password);
 
 				var userEntity = Mapper.Map<UserEntity>(user);
 
@@ -64,19 +57,12 @@ namespace Devbazaar.Service.UserServices
 
 		public async Task<string> LoginAsync (IUser user)
 		{
-			string encodedPassword = Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
-			string password = string.Empty;
-			foreach (byte b in encodedPassword)
-            {
-                password += String.Format("{0:x2}", b);
-            }
-
-			Guid userId = await UnitOfWork.UserRepository.CheckExistence(user.Email, password);
+			Guid userId = await UnitOfWork.UserRepository.CheckExistence(user.Email, EncodePassword(user.Password));
 
 			return userId == Guid.Empty ? string.Empty : GenerateToken(user);
 		}
 
-		public async Task<bool> UpdateAsync (IUser user)
+		public async Task<string> UpdateAsync (IUser user)
 		{
 			var userEntity = Mapper.Map<UserEntity>(user);
 
@@ -90,10 +76,10 @@ namespace Devbazaar.Service.UserServices
 			{
 				Console.WriteLine(e.Message);
 
-				return false;
+				return string.Empty;
 			}
 			
-			return true;
+			return await Task.Run(() => { return GenerateToken(user); });
 		}
 
 		public async Task<bool> DeleteAsync (IUser user)
@@ -124,6 +110,19 @@ namespace Devbazaar.Service.UserServices
 			var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
+		}
+
+		private static string EncodePassword (string password)
+		{
+			string encodedPassword = Encoding.UTF8.GetString(new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(password)));
+			string encoded = string.Empty;
+
+			foreach (byte b in encodedPassword)
+            {
+                encoded += String.Format("{0:x2}", b);
+            }
+
+			return encoded;
 		}
 	}
 }

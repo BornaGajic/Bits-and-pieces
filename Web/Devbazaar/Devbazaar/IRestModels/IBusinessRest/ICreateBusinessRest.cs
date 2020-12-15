@@ -14,5 +14,6 @@ namespace Devbazaar.IRestModels.IBusinessRest
 		string About { get; set; }
 		bool Available { get; set; }
 		List<Category> Categories { get; set; }
+		List<Adress> Adresses { get; set; }
 	}
 }

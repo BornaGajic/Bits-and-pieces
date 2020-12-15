@@ -17,5 +17,6 @@ namespace Devbazaar.RestModels.BusinessRest
 		public bool Available { get; set; }
 		[Required]
 		public List<Category> Categories { get; set; }
+		public List<Adress> Adresses { get; set; }
 	}
 }

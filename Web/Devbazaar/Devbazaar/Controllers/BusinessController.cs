@@ -33,18 +33,21 @@ namespace Devbazaar.Controllers
             var business = Mapper.Map<IBusiness>(createBusinessRest);
 
             List<ICategory> categories = Mapper.Map<List<ICategory>>(createBusinessRest.Categories);
+            List<IAdress> adresses = Mapper.Map<List<IAdress>>(createBusinessRest.Adresses); 
 
             try
             {
-                await BusinessService.CreateAsync(business, categories, Guid.Parse(User.Identity.GetUserId()));
+                Guid userId = Guid.Parse(User.Identity.GetUserId());
+
+                await BusinessService.CreateAsync(business, categories, adresses, userId);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, string.Empty);
             }
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, createBusinessRest);
         }
 
         [Authorize]
@@ -66,5 +69,13 @@ namespace Devbazaar.Controllers
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
-    }
+
+		[AllowAnonymous]
+		[HttpGet]
+		[Route("")]
+		public async Task<HttpResponseMessage> PaginatedGetAsync ([FromBody] int page)
+		{
+		    throw new NotImplementedException();
+		}
+	}
 }

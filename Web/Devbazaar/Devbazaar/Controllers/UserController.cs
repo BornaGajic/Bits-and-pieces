@@ -15,7 +15,7 @@ using IUser = Devbazaar.Model.Common.IUser.IUser;
 
 namespace Devbazaar.Controllers
 {
-    [RoutePrefix("Devbazaar/Login")]
+    [RoutePrefix("Devbazaar/User")]
     public class UserController : ApiController
     {
         protected IUserService LoginService { get; set; }
@@ -81,8 +81,16 @@ namespace Devbazaar.Controllers
         public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData)
         {
             var user = Mapper.Map<IUser>(updateData);
+            string token = await LoginService.UpdateAsync(user);
 
-            return await LoginService.UpdateAsync(user) ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateResponse(HttpStatusCode.BadRequest);
+            if (!string.IsNullOrEmpty(token))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, token)
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, string.Empty);
+            }
         }
 
         [Authorize]

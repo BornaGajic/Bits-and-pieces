@@ -9,7 +9,6 @@ using Devbazaar.Model.Common;
 using AutoMapper;
 using Devbazaar.DAL.EntityModels;
 
-
 namespace Devbazaar.Service.BusinessServices
 {
 	public class BusinessService : IBusinessService
@@ -23,27 +22,41 @@ namespace Devbazaar.Service.BusinessServices
 			Mapper = mapper;
 		}
 
-		public async Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, Guid userId)
+		public async Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, List<IAdress> adresses, Guid userId)
 		{
 			var businessEntity = Mapper.Map<BusinessEntity>(newBusiness);
 			businessEntity.Id = userId;
 
-			var categoryEntified = Mapper.Map<ICollection<CategoryEntity>>(categories);
-
-			foreach (var category in categoryEntified)
+			if (categories.Count != 0)
 			{
-				category.Id = await UnitOfWork.CategoryRepository.GetIdByName(category.Name);
+				var categoryEntified = Mapper.Map<ICollection<CategoryEntity>>(categories);
 
-				await UnitOfWork.CategoryRepository.AttachAsync(category);	
-			}
+				foreach (var category in categoryEntified)
+				{
+					category.Id = await UnitOfWork.CategoryRepository.GetIdByName(category.Name);
+
+					await UnitOfWork.CategoryRepository.AttachAsync(category);	
+				}
 			
-			businessEntity.Categories = categoryEntified;
+				businessEntity.Categories = categoryEntified;
+			}
+			if (adresses.Count != 0)
+			{
+				businessEntity.Adresses = Mapper.Map<ICollection<AdressEntity>>(adresses);
+			}
 
-			await UnitOfWork.AddAsync<BusinessEntity>(businessEntity);
+			try
+			{
+				await UnitOfWork.AddAsync<BusinessEntity>(businessEntity);
 
-			await UnitOfWork.CommitAsync<BusinessEntity>();
+				await UnitOfWork.CommitAsync<BusinessEntity>();
 
-			return await Task.FromResult(1); 
+				return await Task.FromResult(1); 
+			}
+			catch (Exception e)
+			{
+				return await Task.FromResult(0);
+			}
 		}
 
 		public async Task<int> UpdateAsync (IBusiness updatedBusiness)
