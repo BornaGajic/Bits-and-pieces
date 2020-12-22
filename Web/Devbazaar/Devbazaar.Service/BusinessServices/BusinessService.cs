@@ -22,7 +22,7 @@ namespace Devbazaar.Service.BusinessServices
 			Mapper = mapper;
 		}
 
-		public async Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, List<IAdress> adresses, Guid userId)
+		public async Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, Guid userId)
 		{
 			var businessEntity = Mapper.Map<BusinessEntity>(newBusiness);
 			businessEntity.Id = userId;
@@ -40,11 +40,7 @@ namespace Devbazaar.Service.BusinessServices
 			
 				businessEntity.Categories = categoryEntified;
 			}
-			if (adresses.Count != 0)
-			{
-				businessEntity.Adresses = Mapper.Map<ICollection<AdressEntity>>(adresses);
-			}
-
+			
 			try
 			{
 				await UnitOfWork.AddAsync<BusinessEntity>(businessEntity);

@@ -17,7 +17,6 @@ namespace Devbazaar.AutoMapperProfiles
 			CreateMap<CreateBusinessRest, IBusiness>();
 			CreateMap<IBusiness, BusinessEntity>();
 			CreateMap<ICategory, CategoryEntity>();
-			CreateMap<IAdress, AdressEntity>();
 
 			CreateMap<UpdateBusinessRest, IBusiness>();
 		}

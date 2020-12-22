@@ -21,6 +21,9 @@ namespace Devbazaar.DAL.EntityModels
 		public Guid ClientId { get; set; }
 		public ClientEntity Client { get; set; }
 
+		public Guid? BusinessId { get; set; }
+		public BusinessEntity Business { get; set; }
+
 		public virtual ICollection<CategoryEntity> Categories { get; set; }
 	}
 }

@@ -15,6 +15,8 @@ namespace Devbazaar.DAL.IEntityModels
 
 		Guid ClientId { get; set; }
 		ClientEntity Client { get; set; }
+		Guid? BusinessId { get; set; }
+		BusinessEntity Business { get; set; }
 
 		ICollection<CategoryEntity> Categories { get; set; }
 	}

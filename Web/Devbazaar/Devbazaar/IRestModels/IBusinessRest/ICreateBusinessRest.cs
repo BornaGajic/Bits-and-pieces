@@ -8,12 +8,13 @@ using Devbazaar.Model.Common;
 
 namespace Devbazaar.IRestModels.IBusinessRest
 {
-	public interface ICreateBusinessCardRest
+	public interface ICreateBusinessRest
 	{
 		string Description { get; set; }
 		string About { get; set; }
 		bool Available { get; set; }
+		string Country { get; set; }
+		string City { get; set; }
 		List<Category> Categories { get; set; }
-		List<Adress> Adresses { get; set; }
 	}
 }

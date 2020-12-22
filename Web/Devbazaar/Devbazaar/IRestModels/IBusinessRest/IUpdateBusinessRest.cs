@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Devbazaar.IRestModels.IBusinessRest
 {
-	public interface IUpdateBusinessCardRest
+	public interface IUpdateBusinessRest
 	{
 		string Description { get; set; }
 		string About { get; set; }
 		bool Available { get; set; }
+		string Country { get; set; }
+		string City { get; set; }
 	}
 }

@@ -69,7 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adress\Adress.cs" />
     <Compile Include="Business\Business.cs" />
     <Compile Include="Category\Category.cs" />
     <Compile Include="Client\Client.cs" />
@@ -82,7 +81,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Adress\CRUD\" />
     <Folder Include="Business\CRUD\" />
     <Folder Include="Category\CRUD\" />
     <Folder Include="ClientTask\CRUD\" />

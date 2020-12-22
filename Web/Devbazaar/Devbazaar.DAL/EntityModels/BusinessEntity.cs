@@ -13,16 +13,17 @@ namespace Devbazaar.DAL.EntityModels
 	{
 		public BusinessEntity ()
 		{
-			this.Adresses = new HashSet<AdressEntity>();
 			this.Categories = new HashSet<CategoryEntity>();
 		}
 
 		public string Description { get; set; }
 		public string About { get; set; }
 		public bool Available { get; set; }
+		public string Country { get; set; }
+		public string City { get; set; }
 
+		public ICollection<TaskEntity> Tasks { get; set; }
 		public virtual ICollection<CategoryEntity> Categories { get; set; }
-		public virtual ICollection<AdressEntity> Adresses { get; set; }
 		public virtual UserEntity User { get; set; }
 	}
 }

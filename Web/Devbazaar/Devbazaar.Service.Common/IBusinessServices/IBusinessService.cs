@@ -9,7 +9,7 @@ namespace Devbazaar.Service.Common.IBusinessServices
 {
 	public interface IBusinessService
 	{
-		Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, List<IAdress> adresses, Guid userId);
+		Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, Guid userId);
 		Task<int> UpdateAsync (IBusiness updatedBusiness);
 	}
 }

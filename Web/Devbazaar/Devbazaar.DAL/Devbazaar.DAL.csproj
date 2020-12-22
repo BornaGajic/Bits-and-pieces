@@ -81,14 +81,12 @@
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Context\DevbazaarDbContext.cs" />
-    <Compile Include="EntityModels\AdressEntity.cs" />
     <Compile Include="EntityModels\BusinessEntity.cs" />
     <Compile Include="EntityModels\CategoryEntity.cs" />
     <Compile Include="EntityModels\ClientEntity.cs" />
     <Compile Include="EntityModels\TaskEntity.cs" />
     <Compile Include="EntityModels\UserEntity.cs" />
     <Compile Include="IBaseEntity.cs" />
-    <Compile Include="IEntityModels\IAdressEntity.cs" />
     <Compile Include="IEntityModels\IBusinessEntity.cs" />
     <Compile Include="IEntityModels\ICategoryEntity.cs" />
     <Compile Include="IEntityModels\IClientEntity.cs" />
@@ -122,6 +120,10 @@
     <Compile Include="Migrations\202012131658014_UserPasswordMaxLength.designer.cs">
       <DependentUpon>202012131658014_UserPasswordMaxLength.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012221602206_adress_deleted_business_task_relationship.cs" />
+    <Compile Include="Migrations\202012221602206_adress_deleted_business_task_relationship.designer.cs">
+      <DependentUpon>202012221602206_adress_deleted_business_task_relationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012131658014_UserPasswordMaxLength.resx">
       <DependentUpon>202012131658014_UserPasswordMaxLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221602206_adress_deleted_business_task_relationship.resx">
+      <DependentUpon>202012221602206_adress_deleted_business_task_relationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

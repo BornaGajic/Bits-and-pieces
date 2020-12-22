@@ -32,14 +32,13 @@ namespace Devbazaar.Controllers
         {
             var business = Mapper.Map<IBusiness>(createBusinessRest);
 
-            List<ICategory> categories = Mapper.Map<List<ICategory>>(createBusinessRest.Categories);
-            List<IAdress> adresses = Mapper.Map<List<IAdress>>(createBusinessRest.Adresses); 
+            List<ICategory> categories = Mapper.Map<List<ICategory>>(createBusinessRest.Categories); 
 
             try
             {
                 Guid userId = Guid.Parse(User.Identity.GetUserId());
 
-                await BusinessService.CreateAsync(business, categories, adresses, userId);
+                await BusinessService.CreateAsync(business, categories, userId);
             }
             catch (Exception e)
             {

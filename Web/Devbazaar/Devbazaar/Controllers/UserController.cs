@@ -85,7 +85,7 @@ namespace Devbazaar.Controllers
 
             if (!string.IsNullOrEmpty(token))
             {
-                return Request.CreateResponse(HttpStatusCode.OK, token)
+                return Request.CreateResponse(HttpStatusCode.OK, token);
             }
             else
             {

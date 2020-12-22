@@ -12,9 +12,11 @@ namespace Devbazaar.DAL.IEntityModels
 		string Description { get; set; }
 		string About { get; set; }
 		bool Available { get; set; }
+		string Country { get; set; }
+		string City { get; set; }
 
-		ICollection<AdressEntity> Adresses { get; set; }
 		UserEntity User { get; set; }
+		ICollection<TaskEntity> Tasks { get; set; }
 		ICollection<CategoryEntity> Categories { get; set; }
 	}
 }
