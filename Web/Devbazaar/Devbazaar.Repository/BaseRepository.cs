@@ -33,10 +33,5 @@ namespace Devbazaar.Repository
 
 		public virtual IQueryable<TEntity> Table => Entities;
 		public virtual IQueryable<TEntity> TableAsNoTracking => Entities.AsNoTracking();
-
-		public async Task<TEntity> GetByIdAsync (Guid id)
-		{
-			return await Entities.FindAsync(id);
-		}
 	}
 }

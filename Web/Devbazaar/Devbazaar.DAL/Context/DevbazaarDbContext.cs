@@ -26,6 +26,7 @@ namespace Devbazaar.DAL.Context
 
 			modelBuilder.Entity<BusinessEntity>().ToTable("Businesses").HasKey(b => b.Id).Property(p => p.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.About).IsOptional().HasMaxLength(300);
+			modelBuilder.Entity<BusinessEntity>().Property(p => p.Website).IsOptional().HasMaxLength(2083);
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.Description).IsRequired();
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.Available).IsRequired();
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.City).IsRequired().HasMaxLength(50);

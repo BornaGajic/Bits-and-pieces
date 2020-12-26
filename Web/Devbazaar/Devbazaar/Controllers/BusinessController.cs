@@ -72,9 +72,9 @@ namespace Devbazaar.Controllers
 		[AllowAnonymous]
 		[HttpGet]
 		[Route("")]
-		public async Task<HttpResponseMessage> PaginatedGetAsync ([FromBody] int page)
+		public async Task<HttpResponseMessage> PaginatedGetAsync ([FromUri] int page)
 		{
-		    throw new NotImplementedException();
+		    return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(page)); 
 		}
 	}
 }

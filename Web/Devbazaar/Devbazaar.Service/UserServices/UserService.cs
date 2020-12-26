@@ -28,9 +28,10 @@ namespace Devbazaar.Service.UserServices
 			Mapper = mapper;
 		}
 
+		// creates new user, by default it creates new Business, else it creates Client
 		public async Task<string> CreateAsync (IUser user, TypeOfUser tou)
 		{
-			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) == Guid.Empty)
+			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) != Guid.Empty)
 			{
 				user.Id = Guid.NewGuid();
 				user.Password = EncodePassword(user.Password);
@@ -47,7 +48,7 @@ namespace Devbazaar.Service.UserServices
 
 				await UnitOfWork.CommitAsync<UserEntity>();
 
-				return await Task.Run(() => { return GenerateToken(user); });
+				return await Task.Run(() => { return GenerateToken(user, tou); });
 			}
 			else
 			{
@@ -55,14 +56,21 @@ namespace Devbazaar.Service.UserServices
 			}
 		}
 
+		// returns token if User exists, else returns empty string
 		public async Task<string> LoginAsync (IUser user)
 		{
 			Guid userId = await UnitOfWork.UserRepository.CheckExistence(user.Email, EncodePassword(user.Password));
+			TypeOfUser role = TypeOfUser.Business;
 
-			return userId == Guid.Empty ? string.Empty : GenerateToken(user);
+			if (await UnitOfWork.BusinessRepository.GetByIdAsync(userId) == null)
+			{
+				role = TypeOfUser.Client;
+			}
+
+			return userId != Guid.Empty ? string.Empty : GenerateToken(user, role);
 		}
 
-		public async Task<string> UpdateAsync (IUser user)
+		public async Task<string> UpdateAsync (IUser user, TypeOfUser tou)
 		{
 			var userEntity = Mapper.Map<UserEntity>(user);
 
@@ -79,7 +87,7 @@ namespace Devbazaar.Service.UserServices
 				return string.Empty;
 			}
 			
-			return await Task.Run(() => { return GenerateToken(user); });
+			return await Task.Run(() => { return GenerateToken(user, tou); });
 		}
 
 		public async Task<bool> DeleteAsync (IUser user)
@@ -93,7 +101,7 @@ namespace Devbazaar.Service.UserServices
 			return true;
 		}
 
-		private static string GenerateToken (IUser user, int expireMinutes = 30)
+		private static string GenerateToken (IUser user, TypeOfUser role, int expireMinutes = 30)
 		{
 			var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSettings["SecretKey"]));
 			var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
@@ -103,6 +111,7 @@ namespace Devbazaar.Service.UserServices
 				new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
 				new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
 				new Claim(ClaimTypes.Email, user.Email.ToString()),
+				new Claim(ClaimTypes.Role, role.ToString())
 			};
 
 			string issuer = ConfigurationManager.AppSettings["issuer"];

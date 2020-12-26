@@ -8,7 +8,6 @@ namespace Devbazaar.Repository.Common
 {
 	public interface IBaseRepository<TEntity>
 	{
-		Task<TEntity> GetByIdAsync (Guid id);
 		IQueryable<TEntity> Table { get; }
 		IQueryable<TEntity> TableAsNoTracking { get; }
 	}

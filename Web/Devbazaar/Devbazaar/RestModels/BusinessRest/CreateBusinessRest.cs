@@ -13,6 +13,7 @@ namespace Devbazaar.RestModels.BusinessRest
 	{
 		public string Description { get; set; }
 		public string About { get; set; }
+		public string Website { get; set; }
 		[Required]
 		public bool Available { get; set; }
 		[Required]

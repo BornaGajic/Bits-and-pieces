@@ -65,5 +65,10 @@ namespace Devbazaar.Service.BusinessServices
 
 			return await Task.FromResult(1);
 		}
+
+		public async Task<IEnumerable<BusinessEntity>> PaginatedGetAsync (int page)
+		{
+			return await UnitOfWork.BusinessRepository.PaginatedGetAsync(page, 5);
+		}
 	}
 }

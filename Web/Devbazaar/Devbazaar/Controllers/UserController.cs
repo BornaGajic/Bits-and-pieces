@@ -30,7 +30,7 @@ namespace Devbazaar.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
-        public async Task<HttpResponseMessage> CreateAsync ([FromBody] CreateUserRest newUser, TypeOfUser tou = TypeOfUser.Business)
+        public async Task<HttpResponseMessage> CreateAsync ([FromBody] CreateUserRest newUser, [FromUri] TypeOfUser tou)
         {
             var user = Mapper.Map<IUser>(newUser);
 
@@ -78,10 +78,10 @@ namespace Devbazaar.Controllers
         [Authorize]
         [HttpPut]
         [Route("Update")]
-        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData)
+        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData, [FromUri] TypeOfUser tou)
         {
             var user = Mapper.Map<IUser>(updateData);
-            string token = await LoginService.UpdateAsync(user);
+            string token = await LoginService.UpdateAsync(user, tou);
 
             if (!string.IsNullOrEmpty(token))
             {
