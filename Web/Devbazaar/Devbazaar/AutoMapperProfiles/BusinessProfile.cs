@@ -15,8 +15,7 @@ namespace Devbazaar.AutoMapperProfiles
 		public BusinessProfile ()
 		{
 			CreateMap<CreateBusinessRest, IBusiness>();
-			CreateMap<IBusiness, BusinessEntity>();
-			CreateMap<ICategory, CategoryEntity>();
+			CreateMap<IBusiness, BusinessEntity>().ReverseMap();
 
 			CreateMap<UpdateBusinessRest, IBusiness>();
 		}

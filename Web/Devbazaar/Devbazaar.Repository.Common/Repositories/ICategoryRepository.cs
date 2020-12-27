@@ -7,7 +7,7 @@ using Devbazaar.DAL.EntityModels;
 
 namespace Devbazaar.Repository.Common.Repositories
 {
-	public interface ICategoryRepository
+	public interface ICategoryRepository : IBaseRepository<CategoryEntity>
 	{
 		Task<Guid> GetIdByName (string name);
 		Task AttachAsync (CategoryEntity categoryEntity);

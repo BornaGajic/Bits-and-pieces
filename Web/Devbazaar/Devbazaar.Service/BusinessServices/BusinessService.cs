@@ -8,6 +8,7 @@ using Devbazaar.Repository.Common;
 using Devbazaar.Model.Common;
 using AutoMapper;
 using Devbazaar.DAL.EntityModels;
+using System.Data.Entity;
 
 namespace Devbazaar.Service.BusinessServices
 {
@@ -66,9 +67,31 @@ namespace Devbazaar.Service.BusinessServices
 			return await Task.FromResult(1);
 		}
 
-		public async Task<IEnumerable<BusinessEntity>> PaginatedGetAsync (int page)
+		public async Task<List<IBusiness>> PaginatedGetAsync (int page)
 		{
-			return await UnitOfWork.BusinessRepository.PaginatedGetAsync(page, 5);
+			int count = 5;
+
+			var businessTable = UnitOfWork.BusinessRepository.Table;
+
+			if (page == 1)
+			{
+				businessTable = businessTable.Take(count);
+			}
+			else 
+			{
+				businessTable = businessTable.Skip((page - 1) * count).Take(count);
+			}
+			
+			var businessEntityList = await businessTable.ToListAsync();
+
+			foreach (var business in businessEntityList)
+			{
+				var categories = businessTable.Where(b => b.Id == business.Id).SelectMany(b => b.Categories);
+
+				business.Categories = await categories.ToListAsync();;
+			}
+
+			return Mapper.Map<List<IBusiness>>(businessEntityList);
 		}
 	}
 }

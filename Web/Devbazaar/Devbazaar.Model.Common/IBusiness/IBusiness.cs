@@ -11,6 +11,11 @@ namespace Devbazaar.Model.Common
 		Guid Id { get; set; }
 		string Description { get; set; }
 		string About { get; set; }
+		string Website { get; set; }
+		string Country { get; set; }
+		string City { get; set; }
 		bool Available { get; set; }
+
+		List<ICategory> Categories { get; set; }
 	}
 }

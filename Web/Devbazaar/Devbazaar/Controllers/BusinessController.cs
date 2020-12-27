@@ -71,10 +71,10 @@ namespace Devbazaar.Controllers
 
 		[AllowAnonymous]
 		[HttpGet]
-		[Route("")]
+		[Route("BusinessList")]
 		public async Task<HttpResponseMessage> PaginatedGetAsync ([FromUri] int page)
 		{
-		    return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(page)); 
+            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(page));
 		}
 	}
 }

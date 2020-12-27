@@ -36,6 +36,7 @@ namespace Devbazaar
 			builder.Register(context => new MapperConfiguration(cfg => {
 				cfg.AddProfile<BusinessProfile>();
 				cfg.AddProfile<UserProfile>();
+				cfg.AddProfile<CategoryProfile>();
 			})).AsSelf().SingleInstance();
 
 			builder.Register(c =>

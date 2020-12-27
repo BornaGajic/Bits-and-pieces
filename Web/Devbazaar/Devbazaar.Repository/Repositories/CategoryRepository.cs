@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Devbazaar.DAL.Context;
 using Devbazaar.DAL.EntityModels;
+using Devbazaar.DAL.IEntityModels;
+using Devbazaar.Repository.Common;
 using Devbazaar.Repository.Common.Repositories;
 
 namespace Devbazaar.Repository.Repositories

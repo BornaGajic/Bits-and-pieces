@@ -7,9 +7,8 @@ using Devbazaar.DAL.EntityModels;
 
 namespace Devbazaar.Repository.Common.Repositories
 {
-	public interface IBusinessRepository
+	public interface IBusinessRepository : IBaseRepository<BusinessEntity>
 	{
 		Task<BusinessEntity> GetByIdAsync (Guid id);
-		Task<IEnumerable<BusinessEntity>> PaginatedGetAsync (int page, int count);
 	}
 }

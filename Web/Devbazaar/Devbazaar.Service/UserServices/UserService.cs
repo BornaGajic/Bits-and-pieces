@@ -31,7 +31,7 @@ namespace Devbazaar.Service.UserServices
 		// creates new user, by default it creates new Business, else it creates Client
 		public async Task<string> CreateAsync (IUser user, TypeOfUser tou)
 		{
-			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) != Guid.Empty)
+			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) == Guid.Empty)
 			{
 				user.Id = Guid.NewGuid();
 				user.Password = EncodePassword(user.Password);

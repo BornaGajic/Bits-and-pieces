@@ -69,12 +69,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Devbazaar.DAL\Devbazaar.DAL.csproj">
+      <Project>{b29d5eb1-ad26-436a-ad67-130a362d5631}</Project>
+      <Name>Devbazaar.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devbazaar.Repository\Devbazaar.Repository.csproj">
+      <Project>{7f6e36cd-2947-4483-8242-9a6cde6e589d}</Project>
+      <Name>Devbazaar.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

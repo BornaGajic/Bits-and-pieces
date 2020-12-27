@@ -12,6 +12,6 @@ namespace Devbazaar.Service.Common.IBusinessServices
 	{
 		Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, Guid userId);
 		Task<int> UpdateAsync (IBusiness updatedBusiness);
-		Task<IEnumerable<BusinessEntity>> PaginatedGetAsync (int page);
+		Task<List<IBusiness>> PaginatedGetAsync (int page);
 	}
 }
