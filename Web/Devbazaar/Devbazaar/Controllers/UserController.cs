@@ -8,14 +8,14 @@ using System.Web.Http;
 using AutoMapper;
 using Devbazaar.Model.Common.IUser;
 using Devbazaar.RestModels.UserRest;
-using Devbazaar.Service.Common.IUserService;
+using Devbazaar.Service.Common.IUserServices;
 using Microsoft.AspNet.Identity;
 using static Devbazaar.Utility.Utility;
 using IUser = Devbazaar.Model.Common.IUser.IUser;
 
 namespace Devbazaar.Controllers
 {
-    [RoutePrefix("Devbazaar/User")]
+	[RoutePrefix("Devbazaar/User")]
     public class UserController : ApiController
     {
         protected IUserService LoginService { get; set; }

@@ -14,5 +14,6 @@ namespace Devbazaar.RestModels.BusinessRest
 		public bool Available { get; set; }
 		public string Country { get; set; }
 		public string City { get; set; }
+		public byte[] Logo { get; set; }
 	}
 }

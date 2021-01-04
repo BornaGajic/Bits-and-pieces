@@ -15,6 +15,7 @@ namespace Devbazaar.DAL.IEntityModels
 		bool Available { get; set; }
 		string Country { get; set; }
 		string City { get; set; }
+		byte[] Logo { get; set; }
 
 		UserEntity User { get; set; }
 		ICollection<TaskEntity> Tasks { get; set; }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Devbazaar.Model.Common.IUser;
 
-namespace Devbazaar.Model.User
+namespace Devbazaar.Model
 {
 	public class User : IUser
 	{

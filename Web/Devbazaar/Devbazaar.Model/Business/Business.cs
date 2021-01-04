@@ -7,7 +7,7 @@ using Devbazaar.Model.Common;
 
 namespace Devbazaar.Model
 {
-	public class Business : Devbazaar.Model.User.User, IBusiness
+	public class Business : User, IBusiness
 	{
 		public string Description { get; set; }
 		public string About { get; set; }
@@ -15,6 +15,7 @@ namespace Devbazaar.Model
 		public string Country { get; set; }
 		public string City { get; set; }
 		public bool Available { get; set; }
+		public byte[] Logo { get; set; }
 
 		public List<ICategory> Categories { get; set; }
 	}

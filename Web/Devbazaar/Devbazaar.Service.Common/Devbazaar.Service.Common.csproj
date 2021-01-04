@@ -70,7 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBusinessServices\IBusinessService.cs" />
-    <Compile Include="IUserService\IUserService.cs" />
+    <Compile Include="IUserServices\IUserService.cs" />
+    <Compile Include="IClientTaskServices\IClientTaskService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,5 +92,6 @@
       <Name>Devbazaar.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

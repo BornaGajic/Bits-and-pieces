@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Devbazaar.Model.Common.IUser;
 using static Devbazaar.Utility.Utility;
 
-namespace Devbazaar.Service.Common.IUserService
+namespace Devbazaar.Service.Common.IUserServices
 {
 	public interface IUserService
 	{

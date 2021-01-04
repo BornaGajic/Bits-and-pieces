@@ -9,11 +9,11 @@ using AutoMapper;
 using Devbazaar.DAL.EntityModels;
 using Devbazaar.Model.Common.IUser;
 using Devbazaar.Repository.Common;
-using Devbazaar.Service.Common.IUserService;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using static Devbazaar.Utility.Utility;
 using System.Security.Cryptography;
+using Devbazaar.Service.Common.IUserServices;
 
 namespace Devbazaar.Service.UserServices
 {

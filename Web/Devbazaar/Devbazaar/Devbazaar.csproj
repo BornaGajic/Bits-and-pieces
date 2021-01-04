@@ -214,6 +214,7 @@
     <Compile Include="AutoMapperProfiles\CategoryProfile.cs" />
     <Compile Include="AutoMapperProfiles\UserProfile.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
+    <Compile Include="Controllers\ClientTaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +225,8 @@
     <Compile Include="IRestModels\IUserRest\IDeleteUserRest.cs" />
     <Compile Include="IRestModels\IUserRest\ILoginRest.cs" />
     <Compile Include="IRestModels\IUserRest\IUpdateUserRest.cs" />
+    <Compile Include="IRestModels\IClientTaskRest\ICreateClientTaskRest.cs" />
+    <Compile Include="IRestModels\IClientTaskRest\IUpdateClientTaskRest.cs" />
     <Compile Include="OwinStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestModels\BusinessRest\CreateBusinessRest.cs" />
@@ -232,6 +235,8 @@
     <Compile Include="RestModels\UserRest\DeleteUserRest.cs" />
     <Compile Include="RestModels\UserRest\LoginRest.cs" />
     <Compile Include="RestModels\UserRest\UpdateUserRest.cs" />
+    <Compile Include="RestModels\UserTaskRest\CreateUserTaskRest.cs" />
+    <Compile Include="RestModels\UserTaskRest\UpdateUserTaskRest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

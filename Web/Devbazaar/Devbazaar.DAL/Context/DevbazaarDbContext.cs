@@ -31,6 +31,7 @@ namespace Devbazaar.DAL.Context
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.Available).IsRequired();
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.City).IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.Country).IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<BusinessEntity>().Property(p => p.Logo).IsOptional();
 			modelBuilder.Entity<BusinessEntity>().HasMany<CategoryEntity>(b => b.Categories).WithMany(c => c.Businesses).Map(bc => {
 				bc.MapLeftKey("BusinessRefId");
 				bc.MapRightKey("CategoryRefId");
