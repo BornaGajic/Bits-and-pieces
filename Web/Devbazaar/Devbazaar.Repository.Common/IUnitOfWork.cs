@@ -13,6 +13,7 @@ namespace Devbazaar.Repository.Common
 		IUserRepository UserRepository { get; set; }
 		ICategoryRepository CategoryRepository { get; set; }
 		IBusinessRepository BusinessRepository { get; set; }
+		IClientTaskRepository ClientTaskRepository { get; set; }
 
 		Task<int> AddAsync<TEntity> (TEntity entity) where TEntity : BaseEntity;
 		Task<int> UpdateAsync<TEntity> (TEntity entity) where TEntity : BaseEntity;

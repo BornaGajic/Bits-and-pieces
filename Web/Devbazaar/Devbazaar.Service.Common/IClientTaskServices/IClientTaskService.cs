@@ -11,6 +11,6 @@ namespace Devbazaar.Service.Common.IClientTaskServices
 	{
 		Task<bool> CreateAsync (IClientTask newTask);
 		Task<bool> UpdateAsync (IClientTask updatedTask);
-		Task<bool> DeleteAsync (IClientTask task);
+		Task<bool> DeleteAsync (Guid taskId);
 	}
 }

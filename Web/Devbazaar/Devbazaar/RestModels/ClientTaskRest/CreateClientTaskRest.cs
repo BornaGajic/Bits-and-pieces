@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using Devbazaar.IRestModels.IClientTaskRest;
 
-namespace Devbazaar.RestModels.UserTaskRest
+namespace Devbazaar.RestModels.ClientTaskRest
 {
-	public class CreateUserTaskRest : ICreateClientTaskRest
+	public class CreateClientTaskRest : ICreateClientTaskRest
 	{
 		[Required]
 		public string Description { get; set; }

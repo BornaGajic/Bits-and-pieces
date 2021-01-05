@@ -5,11 +5,10 @@ using System.Linq;
 using System.Web;
 using Devbazaar.IRestModels.IClientTaskRest;
 
-namespace Devbazaar.RestModels.UserTaskRest
+namespace Devbazaar.RestModels.ClientTaskRest
 {
-	public class UpdateUserTaskRest : IUpdateClientTaskRest
+	public class UpdateClientTaskRest : IUpdateClientTaskRest
 	{
-		[Required]
 		public string Description { get; set; }
 		public int LowPrice { get; set; }
 		public int HighPrice { get; set; }

@@ -9,5 +9,6 @@ namespace Devbazaar.Repository.Common.Repositories
 {
 	public interface IClientTaskRepository : IBaseRepository<TaskEntity> 
 	{
+		Task<TaskEntity> GetByIdAsync (Guid id);
 	}
 }

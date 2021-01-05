@@ -37,6 +37,7 @@ namespace Devbazaar
 				cfg.AddProfile<BusinessProfile>();
 				cfg.AddProfile<UserProfile>();
 				cfg.AddProfile<CategoryProfile>();
+				cfg.AddProfile<ClientTaskProfile>();
 			})).AsSelf().SingleInstance();
 
 			builder.Register(c =>
