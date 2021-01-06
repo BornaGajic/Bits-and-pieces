@@ -13,5 +13,9 @@ namespace Devbazaar.Model
 		public string Description { get; set; }
 		public int LowPrice { get; set; }
 		public int HighPrice { get; set; }
+		public DateTime DateAdded { get; set; }
+
+		public Guid ClientId { get; set; }
+		public Guid? BusinessId { get; set; }
 	}
 }

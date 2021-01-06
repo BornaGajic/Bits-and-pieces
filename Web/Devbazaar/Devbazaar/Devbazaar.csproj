@@ -258,6 +258,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Devbazaar.Common\Devbazaar.Common.csproj">
+      <Project>{712f50f3-0ccb-4c7e-b783-5959bcc5b64e}</Project>
+      <Name>Devbazaar.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Devbazaar.DAL\Devbazaar.DAL.csproj">
       <Project>{b29d5eb1-ad26-436a-ad67-130a362d5631}</Project>
       <Name>Devbazaar.DAL</Name>

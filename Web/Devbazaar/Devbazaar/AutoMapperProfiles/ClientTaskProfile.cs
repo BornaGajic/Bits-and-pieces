@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using Devbazaar.DAL.EntityModels;
-using Devbazaar.IRestModels.IClientTaskRest;
+using Devbazaar.RestModels.ClientTaskRest;
 using Devbazaar.Model.Common;
 
 namespace Devbazaar.AutoMapperProfiles
@@ -13,9 +13,9 @@ namespace Devbazaar.AutoMapperProfiles
 	{
 		public ClientTaskProfile ()
 		{
-			CreateMap<ICreateClientTaskRest, IClientTask>();
-			CreateMap<IUpdateClientTaskRest, IClientTask>();
-			CreateMap<IClientTask, TaskEntity>();
+			CreateMap<CreateClientTaskRest, IClientTask>();
+			CreateMap<UpdateClientTaskRest, IClientTask>();
+			CreateMap<IClientTask, TaskEntity>().ReverseMap();
 			
 		}
 	}

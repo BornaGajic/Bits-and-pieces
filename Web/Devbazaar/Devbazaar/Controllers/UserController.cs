@@ -60,6 +60,7 @@ namespace Devbazaar.Controllers
         public async Task<HttpResponseMessage> LoginAsync ([FromBody] LoginRest loginData)
         {
             var user = Mapper.Map<IUser>(loginData);
+            user.Id = Guid.Parse(User.Identity.GetUserId());
 
             try
             {
@@ -78,18 +79,29 @@ namespace Devbazaar.Controllers
         [Authorize]
         [HttpPut]
         [Route("Update")]
-        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData, [FromUri] TypeOfUser tou)
+        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData)
         {
-            var user = Mapper.Map<IUser>(updateData);
-            string token = await LoginService.UpdateAsync(user, tou);
-
-            if (!string.IsNullOrEmpty(token))
+            var item = new Dictionary<string, object>();
+            foreach (var property in typeof(UpdateUserRest).GetProperties())
             {
-                return Request.CreateResponse(HttpStatusCode.OK, token);
+                var value = property.GetValue(updateData);
+                if (value != null)
+                {
+                    item[property.Name] = property.GetValue(updateData);
+                }
+            }
+
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            int result = await LoginService.UpdateAsync(item, userId);
+
+            if (result == 1)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, string.Empty);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 

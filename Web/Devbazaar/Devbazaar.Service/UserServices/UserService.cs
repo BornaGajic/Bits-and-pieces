@@ -14,6 +14,7 @@ using System.Security.Claims;
 using static Devbazaar.Utility.Utility;
 using System.Security.Cryptography;
 using Devbazaar.Service.Common.IUserServices;
+using System.Data.Entity;
 
 namespace Devbazaar.Service.UserServices
 {
@@ -70,13 +71,21 @@ namespace Devbazaar.Service.UserServices
 			return userId != Guid.Empty ? string.Empty : GenerateToken(user, role);
 		}
 
-		public async Task<string> UpdateAsync (IUser user, TypeOfUser tou)
+		public async Task<int> UpdateAsync (Dictionary<string, object> item, Guid userId)
 		{
-			var userEntity = Mapper.Map<UserEntity>(user);
+			var entity = await (from u in UnitOfWork.UserRepository.TableAsNoTracking where u.Id == userId select u).SingleAsync();	
 
+			foreach (var prop in typeof(BusinessEntity).GetProperties())
+			{
+				if (item.ContainsKey(prop.Name))
+				{
+					prop.SetValue(entity, item[prop.Name]);
+				}
+			}
+			
 			try
 			{
-				await UnitOfWork.UpdateAsync<UserEntity>(userEntity);
+				await UnitOfWork.UpdateAsync<UserEntity>(entity);
 
 				await UnitOfWork.CommitAsync<UserEntity>();
 			}
@@ -84,10 +93,10 @@ namespace Devbazaar.Service.UserServices
 			{
 				Console.WriteLine(e.Message);
 
-				return string.Empty;
+				return await Task.FromResult(0);
 			}
 			
-			return await Task.Run(() => { return GenerateToken(user, tou); });
+			return await Task.FromResult(1);
 		}
 
 		public async Task<bool> DeleteAsync (IUser user)

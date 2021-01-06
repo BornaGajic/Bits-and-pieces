@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using Devbazaar.Common.PageData.Business;
 using Devbazaar.Model.Common;
 using Devbazaar.RestModels.BusinessRest;
 using Devbazaar.Service.Common.IBusinessServices;
@@ -54,11 +56,21 @@ namespace Devbazaar.Controllers
         [Route("Update")]
         public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateBusinessRest updateBusinessRest)
         {
-            var businessCard = Mapper.Map<IBusiness>(updateBusinessRest);
+            var item = new Dictionary<string, object>();
+            foreach (var property in typeof(UpdateBusinessRest).GetProperties())
+            {
+                var value = property.GetValue(updateBusinessRest);
+                if (value != null)
+                {
+                    item[property.Name] = property.GetValue(updateBusinessRest);
+                }
+            }
+
+            Guid businessId = Guid.Parse(User.Identity.GetUserId());
 
             try
             {
-                await BusinessService.UpdateAsync(businessCard);
+                await BusinessService.UpdateAsync(item, businessId);
             }
             catch (Exception e)
             {
@@ -71,10 +83,20 @@ namespace Devbazaar.Controllers
 
 		[AllowAnonymous]
 		[HttpGet]
-		[Route("BusinessList")]
-		public async Task<HttpResponseMessage> PaginatedGetAsync ([FromUri] int page)
+		[Route("Businesses")]
+		public async Task<HttpResponseMessage> PaginatedGetAsync ([FromBody] BusinessPage pageData)
 		{
-            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(page));
+            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(pageData));
+		}
+
+        [Authorize]
+		[HttpGet]
+		[Route("MyBusinesses")]
+		public async Task<HttpResponseMessage> SelfPaginatedGetAsync ([FromBody] BusinessPage pageData)
+		{
+            Guid userId = Guid.Parse(User.Identity.GetUserId());
+
+            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(pageData, userId));
 		}
 	}
 }

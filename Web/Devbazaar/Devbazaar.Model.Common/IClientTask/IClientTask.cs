@@ -12,5 +12,9 @@ namespace Devbazaar.Model.Common
 		string Description { get; set; }
 		int LowPrice { get; set; }
 		int HighPrice { get; set; }
+		DateTime DateAdded { get; set; }
+
+		Guid ClientId { get; set; }
+		Guid? BusinessId { get; set; }
 	}
 }

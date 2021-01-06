@@ -10,5 +10,7 @@ namespace Devbazaar.Utility
 			Client = 1,
 			Business = 2
 		};
+
+		public static int PageItemLimit = 5;
 	}
 }

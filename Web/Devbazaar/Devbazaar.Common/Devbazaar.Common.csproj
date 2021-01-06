@@ -69,7 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Page.cs" />
+    <Compile Include="PageData\Business\BusinessPage.cs" />
+    <Compile Include="PageData\ClientTask\ClientTaskPage.cs" />
+    <Compile Include="PageData\Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -86,5 +88,6 @@
       <Name>Devbazaar.Repository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

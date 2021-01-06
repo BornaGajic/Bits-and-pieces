@@ -8,12 +8,12 @@ namespace Devbazaar.RestModels.BusinessRest
 {
 	public class UpdateBusinessRest : IUpdateBusinessRest
 	{
-		public string Description { get; set; }
-		public string About { get; set; }
-		public string Website { get; set; }
-		public bool Available { get; set; }
-		public string Country { get; set; }
-		public string City { get; set; }
-		public byte[] Logo { get; set; }
+		public string Description { get; set; } = null;
+		public string About { get; set; } = null;
+		public string Website { get; set; } = null;
+		public bool? Available { get; set; } = null;
+		public string Country { get; set; } = null;
+		public string City { get; set; } = null;
+		public byte[] Logo { get; set; } = null;
 	}
 }

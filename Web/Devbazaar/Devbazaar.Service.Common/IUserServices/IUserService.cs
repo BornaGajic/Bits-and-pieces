@@ -12,7 +12,7 @@ namespace Devbazaar.Service.Common.IUserServices
 	{
 		Task<string> CreateAsync (IUser user, TypeOfUser tou);
 		Task<string> LoginAsync (IUser user);
-		Task<string> UpdateAsync (IUser user, TypeOfUser tou);
+		Task<int> UpdateAsync (Dictionary<string, object> item, Guid userId);
 		Task<bool> DeleteAsync (IUser user);
 	}
 }

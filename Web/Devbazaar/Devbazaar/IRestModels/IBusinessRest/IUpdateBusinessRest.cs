@@ -11,7 +11,7 @@ namespace Devbazaar.IRestModels.IBusinessRest
 		string Description { get; set; }
 		string About { get; set; }
 		string Website { get; set; }
-		bool Available { get; set; }
+		bool? Available { get; set; }
 		string Country { get; set; }
 		string City { get; set; }
 		byte[] Logo { get; set; }

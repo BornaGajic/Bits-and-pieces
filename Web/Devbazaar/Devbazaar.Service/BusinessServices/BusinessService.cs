@@ -9,6 +9,7 @@ using Devbazaar.Model.Common;
 using AutoMapper;
 using Devbazaar.DAL.EntityModels;
 using System.Data.Entity;
+using Devbazaar.Common.PageData.Business;
 
 namespace Devbazaar.Service.BusinessServices
 {
@@ -52,34 +53,69 @@ namespace Devbazaar.Service.BusinessServices
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine(e.Message);
+
 				return await Task.FromResult(0);
 			}
 		}
 
-		public async Task<int> UpdateAsync (IBusiness updatedBusiness)
+		public async Task<int> UpdateAsync (Dictionary<string, object> item, Guid businessId)
 		{
-			var entity = Mapper.Map<BusinessEntity>(updatedBusiness);
+			var entity = await (from business in UnitOfWork.BusinessRepository.TableAsNoTracking where business.Id == businessId select business).SingleAsync();
 
-			await UnitOfWork.UpdateAsync<BusinessEntity>(entity);
+			foreach (var prop in typeof(BusinessEntity).GetProperties())
+			{
+				if (item.ContainsKey(prop.Name))
+				{
+					prop.SetValue(entity, item[prop.Name]);
+				}
+			}
 			
+			await UnitOfWork.UpdateAsync<BusinessEntity>(entity);
 			await UnitOfWork.CommitAsync<BusinessEntity>();
 
 			return await Task.FromResult(1);
 		}
 
-		public async Task<List<IBusiness>> PaginatedGetAsync (int page)
+		public async Task<List<IBusiness>> PaginatedGetAsync (BusinessPage pageData, Guid? userId = null)
 		{
-			int count = 5;
+			var businessTable = UnitOfWork.BusinessRepository.Table;	
+		
+			int count = Utility.Utility.PageItemLimit;
+			
+			if (userId != null)
+			{
+				businessTable = from business in businessTable where business.Id == userId select business;
+			}
+			
+			// filter
+			if (pageData.Availability.HasValue)
+			{
+				businessTable = from business in businessTable where business.Available == pageData.Availability select business;
+			}
+			if (!string.IsNullOrEmpty(pageData.City)) 
+			{
+				businessTable = from business in businessTable where business.City == pageData.City select business;
+			}
+			if (!string.IsNullOrEmpty(pageData.Country)) 
+			{
+				businessTable = from business in businessTable where business.City == pageData.Country select business;
+			}
+				
+			// sort
+			if (pageData.NameAsc.HasValue)
+			{
+				businessTable = pageData.NameAsc.Value ? businessTable.OrderBy(p => p.User.Username)
+													   : businessTable.OrderByDescending(p => p.User.Username);
+			}
 
-			var businessTable = UnitOfWork.BusinessRepository.Table;
-
-			if (page == 1)
+			if (pageData.PageNumber == 1)
 			{
 				businessTable = businessTable.Take(count);
 			}
 			else 
 			{
-				businessTable = businessTable.Skip((page - 1) * count).Take(count);
+				businessTable = businessTable.Skip((pageData.PageNumber - 1) * count).Take(count);
 			}
 			
 			var businessEntityList = await businessTable.ToListAsync();
@@ -88,7 +124,11 @@ namespace Devbazaar.Service.BusinessServices
 			{
 				var categories = businessTable.Where(b => b.Id == business.Id).SelectMany(b => b.Categories);
 
-				business.Categories = await categories.ToListAsync();;
+				business.Categories = await categories.ToListAsync();
+
+				var user = businessTable.Where(b => b.Id == business.Id).Select(b => b.User);
+
+				business.User = (await (user).ToListAsync()).First();
 			}
 
 			return Mapper.Map<List<IBusiness>>(businessEntityList);

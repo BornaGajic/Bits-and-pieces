@@ -12,12 +12,11 @@ namespace Devbazaar.DAL.IEntityModels
 		string Description { get; set; }
 		int LowPrice { get; set; }
 		int HighPrice { get; set; }
+		DateTime DateAdded { get; set; }
 
 		Guid ClientId { get; set; }
 		ClientEntity Client { get; set; }
 		Guid? BusinessId { get; set; }
 		BusinessEntity Business { get; set; }
-
-		ICollection<CategoryEntity> Categories { get; set; }
 	}
 }

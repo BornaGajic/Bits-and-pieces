@@ -17,14 +17,18 @@ namespace Devbazaar.Repository.Repositories
 		{
 		}
 
-		public async Task<Guid> CheckExistence (string email, string password)
+		public async Task<Guid> CheckExistence (string email, string username)
 		{
-			List<UserEntity> registeredUser =  await (from user in TableAsNoTracking
-													  where user.Email == email && user.Password == password
-													  select user).ToListAsync();
+			var x = from user in TableAsNoTracking where user.Email == email && user.Username == username select user;
+			
+			var registeredUser =  await (x).ToListAsync();
 
+			{}
 
-			return registeredUser.Count > 0 ? registeredUser.First().Id : Guid.Empty;
+			if (registeredUser != null)
+				return registeredUser.Count > 0 ? registeredUser.First().Id : Guid.Empty;
+			else
+				return Guid.Empty;
 		}
 	}
 }

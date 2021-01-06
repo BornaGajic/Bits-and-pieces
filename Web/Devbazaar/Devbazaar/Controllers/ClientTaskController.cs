@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using Devbazaar.Common.PageData.ClientTask;
 using Devbazaar.Model.Common;
 using Devbazaar.RestModels.ClientTaskRest;
 using Devbazaar.Service.Common.IClientTaskServices;
@@ -32,9 +33,12 @@ namespace Devbazaar.Controllers
         {
             var newClientTask = Mapper.Map<IClientTask>(newTask);
 
+            newClientTask.ClientId = Guid.Parse(User.Identity.GetUserId());
+            newClientTask.DateAdded = DateTime.Now;
+
             if (await ClientTaskService.CreateAsync(newClientTask))
             {
-                return Request.CreateResponse(HttpStatusCode.OK);    
+                return Request.CreateResponse(HttpStatusCode.OK); 
             }
             else
             {
@@ -45,11 +49,21 @@ namespace Devbazaar.Controllers
         [Authorize]
         [Route("Update")]
         [HttpPut]
-        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateClientTaskRest newTask)
+        public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateClientTaskRest updatedTask)
         {
-            var updatedClientTask = Mapper.Map<IClientTask>(newTask);
+            var item = new Dictionary<string, object>();
+            foreach (var property in typeof(UpdateClientTaskRest).GetProperties())
+            {
+                var value = property.GetValue(updatedTask);
+                if (value != null)
+                {
+                    item[property.Name] = property.GetValue(updatedTask);
+                }
+            }
 
-            if (await ClientTaskService.UpdateAsync(updatedClientTask))
+            Guid clientTaskId = Guid.Parse(User.Identity.GetUserId());
+
+            if (await ClientTaskService.UpdateAsync(item, clientTaskId))
             {
                 return Request.CreateResponse(HttpStatusCode.OK);    
             }
@@ -72,6 +86,24 @@ namespace Devbazaar.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
+        }
+
+        [AllowAnonymous]
+        [Route("Tasks")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> PaginatedGetAsync ([FromBody] ClientTaskPage pageData)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, await ClientTaskService.PaginatedGetAsync(pageData));
+        }
+
+        [Authorize]
+        [Route("MyTasks")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> SelfPaginatedGetASync ([FromBody] ClientTaskPage pageData)
+        {
+            Guid clientId = Guid.Parse(User.Identity.GetUserId());
+
+            return Request.CreateResponse(HttpStatusCode.OK, await ClientTaskService.PaginatedGetAsync(pageData, clientId));
         }
     }
 }

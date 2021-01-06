@@ -11,7 +11,6 @@ namespace Devbazaar.DAL.IEntityModels
 	{
 		string Name { get; set; }
 
-		ICollection<TaskEntity> Tasks { get; set; }
 		ICollection<BusinessEntity> Businesses { get; set; }
 	}
 }

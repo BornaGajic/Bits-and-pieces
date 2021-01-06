@@ -132,6 +132,10 @@
     <Compile Include="Migrations\202101041603421_logoColumn.designer.cs">
       <DependentUpon>202101041603421_logoColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101061055137_Task-Category-redundancy.cs" />
+    <Compile Include="Migrations\202101061055137_Task-Category-redundancy.designer.cs">
+      <DependentUpon>202101061055137_Task-Category-redundancy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -169,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101041603421_logoColumn.resx">
       <DependentUpon>202101041603421_logoColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061055137_Task-Category-redundancy.resx">
+      <DependentUpon>202101061055137_Task-Category-redundancy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
