@@ -11,6 +11,9 @@ using Devbazaar.DAL.EntityModels;
 using System.Data.Entity;
 using Devbazaar.Common.PageData.Business;
 using Devbazaar.Common.IPageData.Business;
+using Devbazaar.Common.IPageData.ClientTask;
+using Devbazaar.Common.PageData;
+using Devbazaar.Common.PageData.ClientTask;
 
 namespace Devbazaar.Service.BusinessServices
 {
@@ -149,6 +152,11 @@ namespace Devbazaar.Service.BusinessServices
 			}
 
 			return businessReturnTypes;
+		}
+
+		public async Task<List<IClientTaskReturnType>> AcquiredTasks (ClientTaskPage pageData, Guid businessId)
+		{
+			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, null, businessId);
 		}
 	}
 }

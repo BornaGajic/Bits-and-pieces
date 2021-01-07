@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Devbazaar.Common.PageData.Business;
+using Devbazaar.Common.PageData.ClientTask;
 using Devbazaar.Model.Common;
 using Devbazaar.RestModels.BusinessRest;
 using Devbazaar.Service.Common.IBusinessServices;
@@ -79,6 +80,25 @@ namespace Devbazaar.Controllers
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("Tasks")]
+        public async Task<HttpResponseMessage> AcquiredTasks ([FromBody] ClientTaskPage pageData)
+        {
+            Guid businessId = Guid.Parse(User.Identity.GetUserId());
+
+            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.AcquiredTasks(pageData, businessId));
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Search")]
+        public async Task<HttpResponseMessage> SearchAsync ()
+        {
+            throw new NotImplementedException();
         }
 
 		[AllowAnonymous]
