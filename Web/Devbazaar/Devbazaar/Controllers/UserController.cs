@@ -60,7 +60,6 @@ namespace Devbazaar.Controllers
         public async Task<HttpResponseMessage> LoginAsync ([FromBody] LoginRest loginData)
         {
             var user = Mapper.Map<IUser>(loginData);
-            user.Id = Guid.Parse(User.Identity.GetUserId());
 
             try
             {

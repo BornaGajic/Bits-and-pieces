@@ -11,6 +11,8 @@ using Devbazaar.Service.Common.IUserServices;
 using AutoMapper;
 using Devbazaar.Service.Common.IClientTaskServices;
 using Devbazaar.Service.ClientTaskServices;
+using Devbazaar.Common.PageData.ClientTask;
+using Devbazaar.Common.IPageData.ClientTask;
 
 namespace Devbazaar.Service
 {

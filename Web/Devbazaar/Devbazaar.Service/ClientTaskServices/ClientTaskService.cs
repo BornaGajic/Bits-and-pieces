@@ -10,6 +10,7 @@ using Devbazaar.Repository.Common;
 using Devbazaar.DAL.EntityModels;
 using System.Data.Entity;
 using Devbazaar.Common.PageData.ClientTask;
+using Devbazaar.Common.IPageData.ClientTask;
 
 namespace Devbazaar.Service.ClientTaskServices
 {
@@ -91,7 +92,7 @@ namespace Devbazaar.Service.ClientTaskServices
 			return true;
 		}
 
-		public async Task<List<IClientTask>> PaginatedGetAsync (ClientTaskPage pageData, Guid? clientId = null)
+		public async Task<List<IClientTaskReturnType>> PaginatedGetAsync (ClientTaskPage pageData, Guid? clientId = null)
 		{
 			var clientTasksTable = UnitOfWork.ClientTaskRepository.Table;
 			var pageItemCount = Utility.Utility.PageItemLimit;
@@ -106,26 +107,24 @@ namespace Devbazaar.Service.ClientTaskServices
 							   where clientTask.LowPrice >= pageData.LowPrice &&
 									 clientTask.HighPrice <= pageData.HighPrice   
 							   select clientTask;
-
-			if (pageData.NewestDate.Value == true)
+			
+			if (pageData.OldestDate.HasValue)
 			{
-				clientTasksTable = clientTasksTable.OrderByDescending(p => p.DateAdded);
-			}
-			else if (pageData.NewestDate.Value == false)
-			{
-				clientTasksTable = clientTasksTable.OrderBy(p => p.DateAdded);
-			}
-
-			if (pageData.PageNumber == 1)
-			{
-				clientTasksTable = clientTasksTable.Take(pageItemCount);
+				clientTasksTable = clientTasksTable.OrderBy(p => DbFunctions.CreateTime(p.DateAdded.Hour, p.DateAdded.Minute, p.DateAdded.Second))
+												   .ThenBy(p => DbFunctions.CreateDateTime(p.DateAdded.Year, p.DateAdded.Month, null, null, null, null));
 			}
 			else
 			{
-				clientTasksTable = clientTasksTable.Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount);
+				clientTasksTable = clientTasksTable.OrderByDescending(p => DbFunctions.CreateTime(p.DateAdded.Hour, p.DateAdded.Minute, p.DateAdded.Second))
+												   .ThenByDescending(p => DbFunctions.CreateDateTime(p.DateAdded.Year, p.DateAdded.Month, null, null, null, null));
 			}
+			
+			clientTasksTable = pageData.PageNumber == 1 ? clientTasksTable.Take(pageItemCount) 
+														: clientTasksTable.Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount);
 
 			var clientTaskEntityList = await clientTasksTable.ToListAsync();
+
+			var clientTaskReturnTypes = new List<IClientTaskReturnType>();
 
 			foreach (var task in clientTaskEntityList)
 			{
@@ -135,9 +134,23 @@ namespace Devbazaar.Service.ClientTaskServices
 
 				task.Client = (await client.ToListAsync()).First();
 				task.Client.User = (await user.ToListAsync()).First();
+
+				clientTaskReturnTypes.Add(
+					new ClientTaskReturnType ()
+					{
+						Description = task.Description,
+						LowPrice = task.LowPrice,
+						HighPrice = task.HighPrice,
+						Username = task.Client.User.Username,
+						Email = task.Client.User.Email,
+						DateAdded = task.DateAdded,
+						ClientId = task.ClientId,
+						ClientTaskId = task.Id
+					}
+				);
 			}
 
-			return Mapper.Map<List<IClientTask>>(clientTaskEntityList);
+			return Mapper.Map<List<IClientTaskReturnType>>(clientTaskReturnTypes);
 		}
 	}
 }

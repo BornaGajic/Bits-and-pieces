@@ -13,7 +13,7 @@ namespace Devbazaar.AutoMapperProfiles
 	{
 		public CategoryProfile ()
 		{
-			CreateMap<Category, ICategory>();
+			CreateMap<Category, ICategory>().ReverseMap();
 			CreateMap<ICategory, CategoryEntity>().ReverseMap();
 		}
 	}

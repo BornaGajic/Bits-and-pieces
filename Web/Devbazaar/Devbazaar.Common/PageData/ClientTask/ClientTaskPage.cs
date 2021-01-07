@@ -13,6 +13,6 @@ namespace Devbazaar.Common.PageData.ClientTask
 		public int HighPrice { get; set; } = int.MaxValue;
 
 		// sort
-		public bool? NewestDate { get; set; }
+		public bool? OldestDate { get; set; } = null;
 	}
 }

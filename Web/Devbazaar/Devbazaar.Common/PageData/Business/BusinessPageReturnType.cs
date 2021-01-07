@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
-using Devbazaar.IRestModels.IBusinessRest;
-using Devbazaar.Model;
+using System.Text;
+using System.Threading.Tasks;
+using Devbazaar.Common.IPageData.Business;
 using Devbazaar.Model.Common;
 
-namespace Devbazaar.RestModels.BusinessRest
+namespace Devbazaar.Common.PageData.Business
 {
-	public class CreateBusinessRest : ICreateBusinessRest
+	public class BusinessPageReturnType : IBusinessPageReturnType
 	{
+		public string Username { get; set; }
+		public string Email { get; set; }
 		public string Description { get; set; }
 		public string About { get; set; }
 		public string Website { get; set; }
-		[Required]
 		public bool Available { get; set; }
-		[Required]
 		public string Country { get; set; }
-		[Required]
 		public string City { get; set; }
-
 		public string Logo { get; set; }
-		[Required]
-		public List<Category> Categories { get; set; }
+
+		public List<ICategory> Categories { get; set; }
 	}
 }

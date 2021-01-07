@@ -68,7 +68,7 @@ namespace Devbazaar.Service.UserServices
 				role = TypeOfUser.Client;
 			}
 
-			return userId != Guid.Empty ? string.Empty : GenerateToken(user, role);
+			return userId == Guid.Empty ? string.Empty : GenerateToken(user, role);
 		}
 
 		public async Task<int> UpdateAsync (Dictionary<string, object> item, Guid userId)

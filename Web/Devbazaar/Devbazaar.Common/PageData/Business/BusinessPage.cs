@@ -9,11 +9,11 @@ namespace Devbazaar.Common.PageData.Business
 	public class BusinessPage : Page
 	{
 		// filter
-		public bool? Availability { get; set; }
+		public bool? Availability { get; set; } = null;
 		public string City { get; set; } = string.Empty;
 		public string Country { get; set; } = string.Empty;
 
 		// sort
-		public bool? NameAsc { get; set; }
+		public bool? NameAsc { get; set; } = null;
 	}
 }

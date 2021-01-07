@@ -10,6 +10,7 @@ using AutoMapper;
 using Devbazaar.DAL.EntityModels;
 using System.Data.Entity;
 using Devbazaar.Common.PageData.Business;
+using Devbazaar.Common.IPageData.Business;
 
 namespace Devbazaar.Service.BusinessServices
 {
@@ -77,11 +78,12 @@ namespace Devbazaar.Service.BusinessServices
 			return await Task.FromResult(1);
 		}
 
-		public async Task<List<IBusiness>> PaginatedGetAsync (BusinessPage pageData, Guid? userId = null)
+		public async Task<List<IBusinessPageReturnType>> PaginatedGetAsync (BusinessPage pageData, Guid? userId = null)
 		{
 			var businessTable = UnitOfWork.BusinessRepository.Table;	
 		
 			int count = Utility.Utility.PageItemLimit;
+			int pageItemCount = Utility.Utility.PageItemLimit;
 			
 			if (userId != null)
 			{
@@ -108,17 +110,16 @@ namespace Devbazaar.Service.BusinessServices
 				businessTable = pageData.NameAsc.Value ? businessTable.OrderBy(p => p.User.Username)
 													   : businessTable.OrderByDescending(p => p.User.Username);
 			}
+			else
+			{
+				businessTable = businessTable.OrderByDescending(p => p.User.Username);
+			}
 
-			if (pageData.PageNumber == 1)
-			{
-				businessTable = businessTable.Take(count);
-			}
-			else 
-			{
-				businessTable = businessTable.Skip((pageData.PageNumber - 1) * count).Take(count);
-			}
-			
+			businessTable = pageData.PageNumber == 1 ? businessTable.Take(pageItemCount)
+													 : businessTable.Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount);
+
 			var businessEntityList = await businessTable.ToListAsync();
+			var businessReturnTypes = new List<IBusinessPageReturnType>();
 
 			foreach (var business in businessEntityList)
 			{
@@ -128,10 +129,26 @@ namespace Devbazaar.Service.BusinessServices
 
 				var user = businessTable.Where(b => b.Id == business.Id).Select(b => b.User);
 
-				business.User = (await (user).ToListAsync()).First();
+				business.User = await user.SingleAsync();
+
+				businessReturnTypes.Add(
+					new BusinessPageReturnType()
+					{
+						Description = business.Description,
+						About = business.About,
+						Available = business.Available,
+						Categories = Mapper.Map<List<ICategory>>(business.Categories),
+						City = business.City,
+						Country = business.Country,
+						Email = business.User.Email,
+						Username = business.User.Username,
+						Website = business.Website, 
+						Logo = business.Logo
+					}
+				);
 			}
 
-			return Mapper.Map<List<IBusiness>>(businessEntityList);
+			return businessReturnTypes;
 		}
 	}
 }

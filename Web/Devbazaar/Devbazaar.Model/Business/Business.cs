@@ -15,7 +15,7 @@ namespace Devbazaar.Model
 		public string Country { get; set; }
 		public string City { get; set; }
 		public bool Available { get; set; }
-		public byte[] Logo { get; set; }
+		public string Logo { get; set; }
 
 		public List<ICategory> Categories { get; set; }
 	}

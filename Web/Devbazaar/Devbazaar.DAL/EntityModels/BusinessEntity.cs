@@ -22,7 +22,7 @@ namespace Devbazaar.DAL.EntityModels
 		public bool Available { get; set; }
 		public string Country { get; set; }
 		public string City { get; set; }
-		public byte[] Logo { get; set; }
+		public string Logo { get; set; }
 
 		public ICollection<TaskEntity> Tasks { get; set; }
 		public virtual ICollection<CategoryEntity> Categories { get; set; }
