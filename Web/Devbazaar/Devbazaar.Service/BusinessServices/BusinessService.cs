@@ -81,42 +81,19 @@ namespace Devbazaar.Service.BusinessServices
 			return await Task.FromResult(1);
 		}
 
-		public async Task<List<IBusinessPageReturnType>> PaginatedGetAsync (BusinessPage pageData, Guid? userId = null)
+		public async Task<List<IClientTaskReturnType>> AcquiredTasks (ClientTaskPage pageData, Guid businessId)
 		{
-			var businessTable = UnitOfWork.BusinessRepository.Table;	
+			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, null, businessId);
+		}
+
+		public async Task<List<IBusinessPageReturnType>> PaginatedGetAsync (BusinessPage pageData)
+		{
+			var businessTable = UnitOfWork.BusinessRepository.Table;
 		
 			int count = Utility.Utility.PageItemLimit;
 			int pageItemCount = Utility.Utility.PageItemLimit;
 			
-			if (userId != null)
-			{
-				businessTable = from business in businessTable where business.Id == userId select business;
-			}
-			
-			// filter
-			if (pageData.Availability.HasValue)
-			{
-				businessTable = from business in businessTable where business.Available == pageData.Availability select business;
-			}
-			if (!string.IsNullOrEmpty(pageData.City)) 
-			{
-				businessTable = from business in businessTable where business.City == pageData.City select business;
-			}
-			if (!string.IsNullOrEmpty(pageData.Country)) 
-			{
-				businessTable = from business in businessTable where business.City == pageData.Country select business;
-			}
-				
-			// sort
-			if (pageData.NameAsc.HasValue)
-			{
-				businessTable = pageData.NameAsc.Value ? businessTable.OrderBy(p => p.User.Username)
-													   : businessTable.OrderByDescending(p => p.User.Username);
-			}
-			else
-			{
-				businessTable = businessTable.OrderByDescending(p => p.User.Username);
-			}
+			ApplyPageSeasoning(pageData, businessTable);
 
 			businessTable = pageData.PageNumber == 1 ? businessTable.Take(pageItemCount)
 													 : businessTable.Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount);
@@ -126,13 +103,19 @@ namespace Devbazaar.Service.BusinessServices
 
 			foreach (var business in businessEntityList)
 			{
-				var categories = businessTable.Where(b => b.Id == business.Id).SelectMany(b => b.Categories);
-
-				business.Categories = await categories.ToListAsync();
-
 				var user = businessTable.Where(b => b.Id == business.Id).Select(b => b.User);
 
 				business.User = await user.SingleAsync();
+
+				// continue if 'search string' is not empty and current Username does not contain search string.
+				if (!string.IsNullOrEmpty(pageData.Username) && !business.User.Username.Contains(pageData.Username))
+				{
+					continue;
+				}
+
+				var categories = businessTable.Where(b => b.Id == business.Id).SelectMany(b => b.Categories);
+
+				business.Categories = await categories.ToListAsync();
 
 				businessReturnTypes.Add(
 					new BusinessPageReturnType()
@@ -154,9 +137,33 @@ namespace Devbazaar.Service.BusinessServices
 			return businessReturnTypes;
 		}
 
-		public async Task<List<IClientTaskReturnType>> AcquiredTasks (ClientTaskPage pageData, Guid businessId)
+		private void ApplyPageSeasoning (BusinessPage pageData, IQueryable<BusinessEntity> businessTable)
 		{
-			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, null, businessId);
+			// filter
+			if (pageData.Availability.HasValue)
+			{
+				businessTable = from business in businessTable where business.Available == pageData.Availability select business;
+			}
+			if (!string.IsNullOrEmpty(pageData.City)) 
+			{
+				businessTable = from business in businessTable where business.City == pageData.City select business;
+			}
+			if (!string.IsNullOrEmpty(pageData.Country)) 
+			{
+				businessTable = from business in businessTable where business.City == pageData.Country select business;
+			}
+			
+				
+			// sort
+			if (pageData.NameAsc.HasValue)
+			{
+				businessTable = pageData.NameAsc.Value ? businessTable.OrderBy(p => p.User.Username)
+													   : businessTable.OrderByDescending(p => p.User.Username);
+			}
+			else
+			{
+				businessTable = businessTable.OrderByDescending(p => p.User.Username);
+			}	
 		}
 	}
 }

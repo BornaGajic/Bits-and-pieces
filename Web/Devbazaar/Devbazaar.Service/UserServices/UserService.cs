@@ -63,12 +63,18 @@ namespace Devbazaar.Service.UserServices
 			Guid userId = await UnitOfWork.UserRepository.CheckExistence(user.Email, EncodePassword(user.Password));
 			TypeOfUser role = TypeOfUser.Business;
 
-			if (await UnitOfWork.BusinessRepository.GetByIdAsync(userId) == null)
+			if (userId == Guid.Empty)
+			{
+				return string.Empty;
+			}
+			else if (await UnitOfWork.BusinessRepository.GetByIdAsync(userId) == null)
 			{
 				role = TypeOfUser.Client;
 			}
 
-			return userId == Guid.Empty ? string.Empty : GenerateToken(user, role);
+			user.Id = userId;
+
+			return GenerateToken(user, role);
 		}
 
 		public async Task<int> UpdateAsync (Dictionary<string, object> item, Guid userId)

@@ -9,6 +9,6 @@ namespace Devbazaar.Common.PageData
 {
 	public class Page
 	{
-		public int PageNumber { get; set; }
+		public int PageNumber { get; set; } = 1;
 	}
 }

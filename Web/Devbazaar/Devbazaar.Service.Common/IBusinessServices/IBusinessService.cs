@@ -16,7 +16,8 @@ namespace Devbazaar.Service.Common.IBusinessServices
 	{
 		Task<int> CreateAsync (IBusiness newBusiness, List<ICategory> categories, Guid userId);
 		Task<int> UpdateAsync (Dictionary<string, object> item, Guid businessId);
-		Task<List<IBusinessPageReturnType>> PaginatedGetAsync (BusinessPage pageData, Guid? userId = null);
+		Task<List<IBusinessPageReturnType>> PaginatedGetAsync (BusinessPage pageData);
 		Task<List<IClientTaskReturnType>> AcquiredTasks (ClientTaskPage pageData, Guid businessId);
+		
 	}
 }

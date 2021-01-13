@@ -92,15 +92,6 @@ namespace Devbazaar.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.AcquiredTasks(pageData, businessId));
         }
 
-
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("Search")]
-        public async Task<HttpResponseMessage> SearchAsync ()
-        {
-            throw new NotImplementedException();
-        }
-
 		[AllowAnonymous]
 		[HttpGet]
 		[Route("Businesses")]
@@ -109,14 +100,5 @@ namespace Devbazaar.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(pageData));
 		}
 
-        [Authorize]
-		[HttpGet]
-		[Route("MyBusinesses")]
-		public async Task<HttpResponseMessage> SelfPaginatedGetAsync ([FromBody] BusinessPage pageData)
-		{
-            Guid userId = Guid.Parse(User.Identity.GetUserId());
-
-            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(pageData, userId));
-		}
 	}
 }
