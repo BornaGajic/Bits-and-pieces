@@ -1,4 +1,4 @@
-## Devbazaar
+## Devbazaar :construction:
 Idea behind Devbazaar is self-promoting of small IT companies/businesses through online business cards.
 Besides that, clients can post "tasks" which companies can acquire.
 
