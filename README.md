@@ -1,1 +1,1 @@
-Welcome to my Git repository :)!
+Welcome to my Git repository :smiley:!
