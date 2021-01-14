@@ -85,7 +85,19 @@ namespace Devbazaar.Service.ClientTaskServices
 
 		public async Task<List<IClientTaskReturnType>> PaginatedGetAsync (ClientTaskPage pageData, Guid? clientId = null)
 		{
-			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, clientId);	
+			var clientTaskReturnTypes = await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, clientId);	
+
+			var userTable = UnitOfWork.UserRepository.Table;
+
+			foreach (var clientTaskReturnType in clientTaskReturnTypes)
+			{
+				var userEntity = await (from user in userTable where clientTaskReturnType.ClientId == user.Id select user).SingleAsync();
+
+				clientTaskReturnType.Email = userEntity.Email;
+				clientTaskReturnType.Username = userEntity.Username;
+			}
+
+			return clientTaskReturnTypes;
 		}
 	}
 }

@@ -103,14 +103,26 @@ namespace Devbazaar.Service.BusinessServices
 
 		public async Task<List<IClientTaskReturnType>> AcquiredClientTasksAsync (ClientTaskPage pageData, Guid businessId)
 		{
-			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, null, businessId);
+			var clientTaskReturnTypes = await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, null, businessId);
+
+			var userTable = UnitOfWork.UserRepository.Table;
+
+			foreach (var clientTaskReturnType in clientTaskReturnTypes)
+			{
+				var userEntity = await (from user in userTable where clientTaskReturnType.ClientId == user.Id select user).SingleAsync();
+
+				clientTaskReturnType.Email = userEntity.Email;
+				clientTaskReturnType.Username = userEntity.Username;
+			}
+
+			return clientTaskReturnTypes;
 		}
 
 		public async Task<List<IBusinessReturnType>> PaginatedGetAsync (BusinessPage pageData)
 		{
 			var businessTable = UnitOfWork.BusinessRepository.Table;
 
-			var businessList = await ApplyPageSeasoningAsync(pageData, businessTable);
+			var businessList = await ApplyPageSeasoningAsync(pageData);
 			var businessPage = new List<IBusinessReturnType>();
 
 			foreach (var business in businessList)
@@ -126,10 +138,11 @@ namespace Devbazaar.Service.BusinessServices
 			return businessPage;
 		}
 
-		private async Task<List<BusinessReturnTypeDTO>> ApplyPageSeasoningAsync (BusinessPage pageData, IQueryable<BusinessEntity> businessTable)
+		private async Task<List<BusinessReturnTypeDTO>> ApplyPageSeasoningAsync (BusinessPage pageData)
 		{
 			var userTable = UnitOfWork.UserRepository.Table;
-			int count = Utility.Utility.PageItemLimit;
+			var businessTable = UnitOfWork.BusinessRepository.Table;
+
 			int pageItemCount = Utility.Utility.PageItemLimit;
 			
 			string likeUsername = string.IsNullOrEmpty(pageData.Username) ? "%" : "%" + pageData.Username + "%"; 

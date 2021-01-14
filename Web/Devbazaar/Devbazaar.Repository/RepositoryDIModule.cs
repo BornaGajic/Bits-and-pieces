@@ -18,6 +18,7 @@ namespace Devbazaar.Repository
 			builder.RegisterType<UserRepository>().As<IUserRepository>();
 			builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
 			builder.RegisterType<ClientTaskRepository>().As<IClientTaskRepository>();
+			builder.RegisterType<ClientRepository>().As<IClientRepository>();
 
 			builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 		}

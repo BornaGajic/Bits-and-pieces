@@ -15,7 +15,7 @@ namespace Devbazaar.Common.PageData.ClientTask
 		public DateTime DateAdded { get; set; }
 		public string Username { get; set; }
 		public string Email { get; set; }
-		public Guid ClientId { get; set; }
-		public Guid ClientTaskId { get; set; }
+		public Guid? ClientId { get; set; }
+		public Guid? ClientTaskId { get; set; }
 	}
 }

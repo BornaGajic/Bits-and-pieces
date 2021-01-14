@@ -19,18 +19,21 @@ namespace Devbazaar.Repository
 		public ICategoryRepository CategoryRepository { get; set; }
 		public IBusinessRepository BusinessRepository { get; set; }
 		public IClientTaskRepository ClientTaskRepository { get; set; }
+		public IClientRepository ClientRepository { get; set; }
 
 		public UnitOfWork (DevbazaarDbContext context, 
 														IUserRepository userRepository,
 														ICategoryRepository categoryRepository,
 														IBusinessRepository businessRepository,
-														IClientTaskRepository clientTaskRepository)
+														IClientTaskRepository clientTaskRepository,
+														IClientRepository clientRepository)
 		{
 			DbContext = context;
 			UserRepository = userRepository;
 			CategoryRepository = categoryRepository;
 			BusinessRepository = businessRepository;
 			ClientTaskRepository = clientTaskRepository;
+			ClientRepository = clientRepository;
 		}
 
 		public virtual Task<int> AddAsync<TEntity> (TEntity entity) where TEntity : BaseEntity
