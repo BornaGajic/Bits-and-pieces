@@ -48,17 +48,10 @@ namespace Devbazaar.Service.ClientTaskServices
 		{
 			try
 			{
-				var entity = await (from task in UnitOfWork.ClientTaskRepository.TableAsNoTracking where task.Id == clientTaskId select task).SingleAsync();
+				var clientTaskEntity = await UnitOfWork.ClientTaskRepository.UpdateAsync(item, clientTaskId);
 
-				foreach (var prop in typeof(BusinessEntity).GetProperties())
-				{
-					if (item.ContainsKey(prop.Name))
-					{
-						prop.SetValue(entity, item[prop.Name]);
-					}
-				}
-
-				await UnitOfWork.UpdateAsync<TaskEntity>(entity);
+				await UnitOfWork.UpdateAsync<TaskEntity>(clientTaskEntity);
+				await UnitOfWork.CommitAsync<TaskEntity>();
 			}
 			catch (Exception e)
 			{
@@ -66,9 +59,7 @@ namespace Devbazaar.Service.ClientTaskServices
 
 				return false;
 			}
-
-			await UnitOfWork.CommitAsync<TaskEntity>();
-
+			
 			return true;
 		}
 
@@ -94,69 +85,7 @@ namespace Devbazaar.Service.ClientTaskServices
 
 		public async Task<List<IClientTaskReturnType>> PaginatedGetAsync (ClientTaskPage pageData, Guid? clientId = null)
 		{
-			var clientTasksTable = UnitOfWork.ClientTaskRepository.Table;
-			var pageItemCount = Utility.Utility.PageItemLimit;
-
-			if (clientId != null)
-			{
-				clientTasksTable = from clientTask in clientTasksTable where clientTask.ClientId == clientId select clientTask;
-			}
-
-			ApplyPageSeasoning(pageData, clientTasksTable);
-
-			clientTasksTable = pageData.PageNumber == 1 ? clientTasksTable.Take(pageItemCount) 
-														: clientTasksTable.Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount);
-
-			var clientTaskEntityList = await clientTasksTable.ToListAsync();
-
-			var clientTaskReturnTypes = new List<IClientTaskReturnType>();
-
-			foreach (var task in clientTaskEntityList)
-			{
-				//var client = clientTasksTable.Where(b => b.ClientId == task.ClientId).Select(b => b.Client);
-				
-				//var user = clientTasksTable.Where(b => b.ClientId == task.ClientId).Select(b => b.Client.User);
-
-				//task.Client = await client.SingleAsync();
-				//task.Client.User = await user.SingleAsync();
-
-				clientTaskReturnTypes.Add(
-					new ClientTaskReturnType ()
-					{
-						Description = task.Description,
-						LowPrice = task.LowPrice,
-						HighPrice = task.HighPrice,
-						Username = task.Client.User.Username,
-						Email = task.Client.User.Email,
-						DateAdded = task.DateAdded,
-						ClientId = task.ClientId,
-						ClientTaskId = task.Id
-					}
-				);
-			}
-
-			return Mapper.Map<List<IClientTaskReturnType>>(clientTaskReturnTypes);
-		}
-
-		private void ApplyPageSeasoning (ClientTaskPage pageData, IQueryable<TaskEntity> clientTasksTable)
-		{
-			// filter
-			clientTasksTable = from clientTask in clientTasksTable 
-							   where clientTask.LowPrice >= pageData.LowPrice &&
-									 clientTask.HighPrice <= pageData.HighPrice   
-							   select clientTask;
-			
-			// sort
-			if (pageData.OldestDate.HasValue)
-			{
-				clientTasksTable = clientTasksTable.OrderBy(p => DbFunctions.CreateTime(p.DateAdded.Hour, p.DateAdded.Minute, p.DateAdded.Second))
-												   .ThenBy(p => DbFunctions.CreateDateTime(p.DateAdded.Year, p.DateAdded.Month, null, null, null, null));
-			}
-			else
-			{
-				clientTasksTable = clientTasksTable.OrderByDescending(p => DbFunctions.CreateTime(p.DateAdded.Hour, p.DateAdded.Minute, p.DateAdded.Second))
-												   .ThenByDescending(p => DbFunctions.CreateDateTime(p.DateAdded.Year, p.DateAdded.Month, null, null, null, null));
-			}
+			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, clientId);	
 		}
 	}
 }

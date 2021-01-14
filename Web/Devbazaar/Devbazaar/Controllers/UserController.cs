@@ -18,12 +18,12 @@ namespace Devbazaar.Controllers
 	[RoutePrefix("Devbazaar/User")]
     public class UserController : ApiController
     {
-        protected IUserService LoginService { get; set; }
+        protected IUserService UserService { get; set; }
         protected IMapper Mapper { get; set; }
 
-        public UserController (IUserService loginService, IMapper mapper)
+        public UserController (IUserService userService, IMapper mapper)
         {
-             LoginService = loginService;
+             UserService = userService;
              Mapper = mapper;
         }
 
@@ -37,7 +37,7 @@ namespace Devbazaar.Controllers
             string token;
             try
             {
-                token = await LoginService.CreateAsync(user, tou);
+                token = await UserService.CreateAsync(user, tou);
 
                 if (token == "User already exists")
                 {
@@ -63,7 +63,7 @@ namespace Devbazaar.Controllers
 
             try
             {
-                string token = await LoginService.LoginAsync(user);
+                string token = await UserService.LoginAsync(user);
 
                 return string.IsNullOrEmpty(token) ? Request.CreateResponse(HttpStatusCode.NotFound) : Request.CreateResponse(HttpStatusCode.OK, token);
             }
@@ -92,9 +92,9 @@ namespace Devbazaar.Controllers
 
             var userId = Guid.Parse(User.Identity.GetUserId());
 
-            int result = await LoginService.UpdateAsync(item, userId);
+            var result = await UserService.UpdateAsync(item, userId);
 
-            if (result == 1)
+            if (result != false)
             {
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -113,7 +113,7 @@ namespace Devbazaar.Controllers
 
             try
             {
-                await LoginService.DeleteAsync(user);
+                await UserService.DeleteAsync(user);
             }
             catch (Exception e)
             {

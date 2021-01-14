@@ -69,10 +69,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPageData\Business\IBusinessPageReturnType.cs" />
+    <Compile Include="DTO\Business\BusinessReturnTypeDTO.cs" />
+    <Compile Include="IPageData\Business\IBusinessReturnType.cs" />
     <Compile Include="IPageData\ClientTask\IClientTaskReturnType.cs" />
     <Compile Include="PageData\Business\BusinessPage.cs" />
-    <Compile Include="PageData\Business\BusinessPageReturnType.cs" />
+    <Compile Include="PageData\Business\BusinessReturnType.cs" />
     <Compile Include="PageData\ClientTask\ClientTaskPage.cs" />
     <Compile Include="PageData\ClientTask\ClientTaskReturnType.cs" />
     <Compile Include="PageData\Page.cs" />

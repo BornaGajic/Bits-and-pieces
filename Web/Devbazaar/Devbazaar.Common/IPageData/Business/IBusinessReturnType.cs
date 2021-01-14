@@ -7,8 +7,9 @@ using Devbazaar.Model.Common;
 
 namespace Devbazaar.Common.IPageData.Business
 {
-	public interface IBusinessPageReturnType
+	public interface IBusinessReturnType
 	{
+		Guid Id { get; set; }
 		string Username { get; set; }
 		string Email { get; set; }
 		string Description { get; set; }

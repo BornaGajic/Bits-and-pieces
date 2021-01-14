@@ -14,6 +14,7 @@ using Devbazaar.Common.IPageData.Business;
 using Devbazaar.Common.IPageData.ClientTask;
 using Devbazaar.Common.PageData;
 using Devbazaar.Common.PageData.ClientTask;
+using Devbazaar.Common.DTO.Business;
 
 namespace Devbazaar.Service.BusinessServices
 {
@@ -81,89 +82,82 @@ namespace Devbazaar.Service.BusinessServices
 			return await Task.FromResult(1);
 		}
 
-		public async Task<List<IClientTaskReturnType>> AcquiredTasks (ClientTaskPage pageData, Guid businessId)
+		public async Task<bool> AcquireClientTaskAsync (Guid businessId, Guid clientTaskId)
+		{
+			try
+			{
+				var entity = await UnitOfWork.ClientTaskRepository.UpdateAsync(new Dictionary<string, object>(){ {"BusinessId", businessId} }, clientTaskId);
+
+				await UnitOfWork.UpdateAsync<TaskEntity>(entity);
+				await UnitOfWork.CommitAsync<TaskEntity>();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+
+				return false;
+			}
+
+			return true;
+		}
+
+		public async Task<List<IClientTaskReturnType>> AcquiredClientTasksAsync (ClientTaskPage pageData, Guid businessId)
 		{
 			return await UnitOfWork.ClientTaskRepository.PaginatedGetAsync(pageData, null, businessId);
 		}
 
-		public async Task<List<IBusinessPageReturnType>> PaginatedGetAsync (BusinessPage pageData)
+		public async Task<List<IBusinessReturnType>> PaginatedGetAsync (BusinessPage pageData)
 		{
 			var businessTable = UnitOfWork.BusinessRepository.Table;
-		
+
+			var businessList = await ApplyPageSeasoningAsync(pageData, businessTable);
+			var businessPage = new List<IBusinessReturnType>();
+
+			foreach (var business in businessList)
+			{
+				var categories = businessTable.Where(b => b.Id == business.Id).SelectMany(b => b.Categories);
+
+				var businessReturnType = Mapper.Map<BusinessReturnType>(business);
+				businessReturnType.Categories = Mapper.Map<List<ICategory>>(await categories.ToListAsync());
+
+				businessPage.Add(businessReturnType);
+			}
+
+			return businessPage;
+		}
+
+		private async Task<List<BusinessReturnTypeDTO>> ApplyPageSeasoningAsync (BusinessPage pageData, IQueryable<BusinessEntity> businessTable)
+		{
+			var userTable = UnitOfWork.UserRepository.Table;
 			int count = Utility.Utility.PageItemLimit;
 			int pageItemCount = Utility.Utility.PageItemLimit;
 			
-			ApplyPageSeasoning(pageData, businessTable);
+			string likeUsername = string.IsNullOrEmpty(pageData.Username) ? "%" : "%" + pageData.Username + "%"; 
+			string likeCountry = string.IsNullOrEmpty(pageData.Country) ? "%" : "%" + pageData.Country + "%";
+			string likeCity = string.IsNullOrEmpty(pageData.City) ? "%" : "%" + pageData.City + "%";
 
-			businessTable = pageData.PageNumber == 1 ? businessTable.Take(pageItemCount)
-													 : businessTable.Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount);
+			var query = await (from business in businessTable
+							   join user in userTable
+							   on business.Id equals user.Id
+							   where 
+								  DbFunctions.Like(user.Username, likeUsername) &&
+								  DbFunctions.Like(business.Country, likeCountry) &&
+								  DbFunctions.Like(business.City, likeCity)
+							   orderby user.Username descending
+							   select new BusinessReturnTypeDTO {
+								  Id = business.Id,
+								  Description = business.Description,
+								  About = business.About,
+								  Available = business.Available,
+								  City = business.City,
+								  Country = business.Country,
+								  Email = user.Email,
+								  Username = user.Username,
+								  Website = business.Website, 
+								  Logo = business.Logo
+							   }).Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount).ToListAsync();
 
-			var businessEntityList = await businessTable.ToListAsync();
-			var businessReturnTypes = new List<IBusinessPageReturnType>();
-
-			foreach (var business in businessEntityList)
-			{
-				var user = businessTable.Where(b => b.Id == business.Id).Select(b => b.User);
-
-				business.User = await user.SingleAsync();
-
-				// continue if 'search string' is not empty and current Username does not contain search string.
-				if (!string.IsNullOrEmpty(pageData.Username) && !business.User.Username.Contains(pageData.Username))
-				{
-					continue;
-				}
-
-				var categories = businessTable.Where(b => b.Id == business.Id).SelectMany(b => b.Categories);
-
-				business.Categories = await categories.ToListAsync();
-
-				businessReturnTypes.Add(
-					new BusinessPageReturnType()
-					{
-						Description = business.Description,
-						About = business.About,
-						Available = business.Available,
-						Categories = Mapper.Map<List<ICategory>>(business.Categories),
-						City = business.City,
-						Country = business.Country,
-						Email = business.User.Email,
-						Username = business.User.Username,
-						Website = business.Website, 
-						Logo = business.Logo
-					}
-				);
-			}
-
-			return businessReturnTypes;
-		}
-
-		private void ApplyPageSeasoning (BusinessPage pageData, IQueryable<BusinessEntity> businessTable)
-		{
-			// filter
-			if (pageData.Availability.HasValue)
-			{
-				businessTable = from business in businessTable where business.Available == pageData.Availability select business;
-			}
-			if (!string.IsNullOrEmpty(pageData.City)) 
-			{
-				businessTable = from business in businessTable where business.City == pageData.City select business;
-			}
-			if (!string.IsNullOrEmpty(pageData.Country)) 
-			{
-				businessTable = from business in businessTable where business.City == pageData.Country select business;
-			}
-			
-				
-			// sort
-			if (pageData.NameAsc.HasValue)
-			{
-				businessTable = pageData.NameAsc.Value ? businessTable.OrderBy(p => p.User.Username)
-													   : businessTable.OrderByDescending(p => p.User.Username);
-			}
-			else
-			{
-				businessTable = businessTable.OrderByDescending(p => p.User.Username);
-			}	
+			return query;
 		}
 	}
 }

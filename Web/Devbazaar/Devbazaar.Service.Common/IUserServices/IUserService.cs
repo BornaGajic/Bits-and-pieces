@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Devbazaar.DAL.EntityModels;
 using Devbazaar.Model.Common.IUser;
 using static Devbazaar.Utility.Utility;
 
@@ -12,7 +13,7 @@ namespace Devbazaar.Service.Common.IUserServices
 	{
 		Task<string> CreateAsync (IUser user, TypeOfUser tou);
 		Task<string> LoginAsync (IUser user);
-		Task<int> UpdateAsync (Dictionary<string, object> item, Guid userId);
+		Task<bool> UpdateAsync (Dictionary<string, object> item, Guid userId);
 		Task<bool> DeleteAsync (IUser user);
 	}
 }

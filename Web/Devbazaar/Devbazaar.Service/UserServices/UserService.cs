@@ -77,7 +77,7 @@ namespace Devbazaar.Service.UserServices
 			return GenerateToken(user, role);
 		}
 
-		public async Task<int> UpdateAsync (Dictionary<string, object> item, Guid userId)
+		public async Task<bool> UpdateAsync (Dictionary<string, object> item, Guid userId)
 		{
 			var entity = await (from u in UnitOfWork.UserRepository.TableAsNoTracking where u.Id == userId select u).SingleAsync();	
 
@@ -99,10 +99,10 @@ namespace Devbazaar.Service.UserServices
 			{
 				Console.WriteLine(e.Message);
 
-				return await Task.FromResult(0);
+				return false;
 			}
 			
-			return await Task.FromResult(1);
+			return true;
 		}
 
 		public async Task<bool> DeleteAsync (IUser user)

@@ -83,13 +83,28 @@ namespace Devbazaar.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        [Route("Tasks")]
-        public async Task<HttpResponseMessage> AcquiredTasks ([FromBody] ClientTaskPage pageData)
+        [HttpPut]
+        [Route("Acquire")]
+        public async Task<HttpResponseMessage> AcquireClientTaskAsync ([FromUri] Guid clientTaskId)
         {
             Guid businessId = Guid.Parse(User.Identity.GetUserId());
 
-            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.AcquiredTasks(pageData, businessId));
+            if (await BusinessService.AcquireClientTaskAsync(businessId, clientTaskId))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("Tasks")]
+        public async Task<HttpResponseMessage> AcquiredClientTasks ([FromBody] ClientTaskPage pageData)
+        {
+            Guid businessId = Guid.Parse(User.Identity.GetUserId());
+
+            return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.AcquiredClientTasksAsync(pageData, businessId));
         }
 
 		[AllowAnonymous]
