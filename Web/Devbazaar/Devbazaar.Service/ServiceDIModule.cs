@@ -13,6 +13,8 @@ using Devbazaar.Service.Common.IClientTaskServices;
 using Devbazaar.Service.ClientTaskServices;
 using Devbazaar.Common.PageData.ClientTask;
 using Devbazaar.Common.IPageData.ClientTask;
+using Devbazaar.Service.ClientServices;
+using Devbazaar.Service.Common.IClientServices;
 
 namespace Devbazaar.Service
 {
@@ -23,6 +25,7 @@ namespace Devbazaar.Service
 			builder.RegisterType<BusinessService>().As<IBusinessService>();
 			builder.RegisterType<UserService>().As<IUserService>();
 			builder.RegisterType<ClientTaskService>().As<IClientTaskService>();
+			builder.RegisterType<ClientService>().As<IClientService>();
 		}
 	}
 }

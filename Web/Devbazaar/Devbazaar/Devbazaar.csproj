@@ -212,9 +212,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AutoMapperProfiles\BusinessProfile.cs" />
     <Compile Include="AutoMapperProfiles\CategoryProfile.cs" />
+    <Compile Include="AutoMapperProfiles\ClientProfile.cs" />
     <Compile Include="AutoMapperProfiles\ClientTaskProfile.cs" />
     <Compile Include="AutoMapperProfiles\UserProfile.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ClientTaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -222,6 +224,7 @@
     </Compile>
     <Compile Include="IRestModels\IBusinessRest\ICreateBusinessRest.cs" />
     <Compile Include="IRestModels\IBusinessRest\IUpdateBusinessRest.cs" />
+    <Compile Include="IRestModels\IClientRest\IUpdateClientRest.cs" />
     <Compile Include="IRestModels\IClientTaskRest\IDeleteClientTaskRest.cs" />
     <Compile Include="IRestModels\IUserRest\ICreateUserRest.cs" />
     <Compile Include="IRestModels\IUserRest\IDeleteUserRest.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestModels\BusinessRest\CreateBusinessRest.cs" />
     <Compile Include="RestModels\BusinessRest\UpdateBusinessRest.cs" />
+    <Compile Include="RestModels\ClientRest\UpdateClientRest.cs" />
     <Compile Include="RestModels\ClientTaskRest\DeleteClientTaskRest.cs" />
     <Compile Include="RestModels\UserRest\CreateUserRest.cs" />
     <Compile Include="RestModels\UserRest\DeleteUserRest.cs" />

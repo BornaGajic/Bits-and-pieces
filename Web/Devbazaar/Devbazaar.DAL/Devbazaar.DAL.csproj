@@ -140,6 +140,10 @@
     <Compile Include="Migrations\202101070923040_logoToBase64String.designer.cs">
       <DependentUpon>202101070923040_logoToBase64String.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101272011479_Favourites.cs" />
+    <Compile Include="Migrations\202101272011479_Favourites.designer.cs">
+      <DependentUpon>202101272011479_Favourites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -183,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101070923040_logoToBase64String.resx">
       <DependentUpon>202101070923040_logoToBase64String.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101272011479_Favourites.resx">
+      <DependentUpon>202101272011479_Favourites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

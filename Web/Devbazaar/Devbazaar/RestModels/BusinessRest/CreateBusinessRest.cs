@@ -20,8 +20,8 @@ namespace Devbazaar.RestModels.BusinessRest
 		public string Country { get; set; }
 		[Required]
 		public string City { get; set; }
-
-		public string Logo { get; set; }
+		[Required]
+		public int PostalCode { get; set; }
 		[Required]
 		public List<Category> Categories { get; set; }
 	}

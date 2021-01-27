@@ -10,6 +10,9 @@ namespace Devbazaar.DAL.EntityModels
 	public class ClientEntity : BaseEntity, IClientEntity
 	{
 		public virtual UserEntity User { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
 		public ICollection<TaskEntity> Tasks { get; set; }
+		public virtual ICollection<BusinessEntity> Businesses { get; set; }
 	}
 }

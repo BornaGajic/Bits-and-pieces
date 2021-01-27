@@ -30,7 +30,7 @@ namespace Devbazaar.Service.UserServices
 		}
 
 		// creates new user, by default it creates new Business, else it creates Client
-		public async Task<string> CreateAsync (IUser user, TypeOfUser tou)
+		public async Task<string> CreateAsync (IUser user, TypeOfUser typeOfUser)
 		{
 			if (await UnitOfWork.UserRepository.CheckExistence(user.Email, user.Username) == Guid.Empty)
 			{
@@ -41,7 +41,7 @@ namespace Devbazaar.Service.UserServices
 
 				await UnitOfWork.AddAsync(userEntity);
 
-				if (tou == TypeOfUser.Client)
+				if (typeOfUser == TypeOfUser.Client)
 				{
 					await UnitOfWork.AddAsync<ClientEntity>(new ClientEntity(){ Id = userEntity.Id });
 					await UnitOfWork.CommitAsync<ClientEntity>();
@@ -49,7 +49,7 @@ namespace Devbazaar.Service.UserServices
 
 				await UnitOfWork.CommitAsync<UserEntity>();
 
-				return await Task.Run(() => { return GenerateToken(user, tou); });
+				return await Task.Run(() => { return GenerateToken(user, typeOfUser); });
 			}
 			else
 			{
@@ -77,22 +77,21 @@ namespace Devbazaar.Service.UserServices
 			return GenerateToken(user, role);
 		}
 
-		public async Task<bool> UpdateAsync (Dictionary<string, object> item, Guid userId)
+		public async Task<bool> UpdateAsync (Dictionary<string, object> changedValues, Guid userId)
 		{
-			var entity = await (from u in UnitOfWork.UserRepository.TableAsNoTracking where u.Id == userId select u).SingleAsync();	
+			var userEntity = await (from u in UnitOfWork.UserRepository.TableAsNoTracking where u.Id == userId select u).SingleAsync();	
 
-			foreach (var prop in typeof(BusinessEntity).GetProperties())
+			foreach (var prop in typeof(UserEntity).GetProperties())
 			{
-				if (item.ContainsKey(prop.Name))
+				if (changedValues.ContainsKey(prop.Name))
 				{
-					prop.SetValue(entity, item[prop.Name]);
+					prop.SetValue(userEntity, changedValues[prop.Name]);
 				}
 			}
 			
 			try
 			{
-				await UnitOfWork.UpdateAsync<UserEntity>(entity);
-
+				await UnitOfWork.UpdateAsync<UserEntity>(userEntity);
 				await UnitOfWork.CommitAsync<UserEntity>();
 			}
 			catch (Exception e)

@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBusinessServices\IBusinessService.cs" />
+    <Compile Include="IClientServices\IClientService.cs" />
     <Compile Include="IUserServices\IUserService.cs" />
     <Compile Include="IClientTaskServices\IClientTaskService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

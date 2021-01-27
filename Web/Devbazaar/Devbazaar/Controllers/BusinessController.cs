@@ -56,13 +56,13 @@ namespace Devbazaar.Controllers
         [Route("Update")]
         public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateBusinessRest updateBusinessRest)
         {
-            var item = new Dictionary<string, object>();
+            var updatedBusiness = new Dictionary<string, object>();
             foreach (var property in typeof(UpdateBusinessRest).GetProperties())
             {
                 var value = property.GetValue(updateBusinessRest);
                 if (value != null)
                 {
-                    item[property.Name] = property.GetValue(updateBusinessRest);
+                    updatedBusiness[property.Name] = property.GetValue(updateBusinessRest);
                 }
             }
 
@@ -70,7 +70,7 @@ namespace Devbazaar.Controllers
 
             try
             {
-                await BusinessService.UpdateAsync(item, businessId);
+                await BusinessService.UpdateAsync(updatedBusiness, businessId);
             }
             catch (Exception e)
             {
@@ -114,5 +114,9 @@ namespace Devbazaar.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, await BusinessService.PaginatedGetAsync(pageData));
 		}
 
+        /* TO-DO:
+         * `Popular this week` -> popularity by number of times a business was favourited. Updates by itself every week.
+         * Add option to update business categories.
+         */
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Devbazaar.Utility.Utility;
 
 namespace Devbazaar.IRestModels.IUserRest
 {
@@ -11,5 +12,6 @@ namespace Devbazaar.IRestModels.IUserRest
 		string Username { get; set; }
 		string Email { get; set; }
 		string Password { get; set; }
+		string Logo { get; set; }
 	}
 }

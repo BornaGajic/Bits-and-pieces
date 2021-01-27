@@ -15,7 +15,6 @@ namespace Devbazaar.Model.Common
 		string Country { get; set; }
 		string City { get; set; }
 		bool Available { get; set; }
-		string Logo { get; set; }
 
 		List<ICategory> Categories { get; set; }
 	}

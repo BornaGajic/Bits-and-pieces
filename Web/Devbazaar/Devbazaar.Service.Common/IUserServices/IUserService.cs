@@ -11,7 +11,7 @@ namespace Devbazaar.Service.Common.IUserServices
 {
 	public interface IUserService
 	{
-		Task<string> CreateAsync (IUser user, TypeOfUser tou);
+		Task<string> CreateAsync (IUser user, TypeOfUser typeOfUser);
 		Task<string> LoginAsync (IUser user);
 		Task<bool> UpdateAsync (Dictionary<string, object> item, Guid userId);
 		Task<bool> DeleteAsync (IUser user);

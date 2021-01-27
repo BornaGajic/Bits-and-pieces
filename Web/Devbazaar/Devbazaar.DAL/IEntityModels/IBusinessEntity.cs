@@ -15,10 +15,11 @@ namespace Devbazaar.DAL.IEntityModels
 		bool Available { get; set; }
 		string Country { get; set; }
 		string City { get; set; }
-		string Logo { get; set; } // base64 string
+		int PostalCode { get; set; } // base64 string
 
 		UserEntity User { get; set; }
 		ICollection<TaskEntity> Tasks { get; set; }
 		ICollection<CategoryEntity> Categories { get; set; }
+		ICollection<ClientEntity> Clients { get; set; }
 	}
 }

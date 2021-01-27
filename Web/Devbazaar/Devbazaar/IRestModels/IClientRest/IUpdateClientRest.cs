@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Devbazaar.Model.Common
+namespace Devbazaar.IRestModels.IClientRest
 {
-	public interface IClient
+	public interface IUpdateClientRest
 	{
 		string FirstName { get; set; }
 		string LastName { get; set; }

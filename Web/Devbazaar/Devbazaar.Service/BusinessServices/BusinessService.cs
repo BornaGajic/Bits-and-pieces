@@ -64,15 +64,15 @@ namespace Devbazaar.Service.BusinessServices
 			}
 		}
 
-		public async Task<int> UpdateAsync (Dictionary<string, object> item, Guid businessId)
+		public async Task<int> UpdateAsync (Dictionary<string, object> updatedBusiness, Guid businessId)
 		{
 			var entity = await (from business in UnitOfWork.BusinessRepository.TableAsNoTracking where business.Id == businessId select business).SingleAsync();
 
 			foreach (var prop in typeof(BusinessEntity).GetProperties())
 			{
-				if (item.ContainsKey(prop.Name))
+				if (updatedBusiness.ContainsKey(prop.Name))
 				{
-					prop.SetValue(entity, item[prop.Name]);
+					prop.SetValue(entity, updatedBusiness[prop.Name]);
 				}
 			}
 			
@@ -164,10 +164,10 @@ namespace Devbazaar.Service.BusinessServices
 								  Available = business.Available,
 								  City = business.City,
 								  Country = business.Country,
+								  PostalCode = business.PostalCode,
 								  Email = user.Email,
 								  Username = user.Username,
 								  Website = business.Website, 
-								  Logo = business.Logo
 							   }).Skip((pageData.PageNumber - 1) * pageItemCount).Take(pageItemCount).ToListAsync();
 
 			return query;

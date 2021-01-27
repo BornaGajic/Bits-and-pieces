@@ -16,7 +16,7 @@ namespace Devbazaar.IRestModels.IBusinessRest
 		bool Available { get; set; }
 		string Country { get; set; }
 		string City { get; set; }
-		string Logo { get; set; }
+		int PostalCode { get; set; }
 		List<Category> Categories { get; set; }
 	}
 }

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Devbazaar.Model.Common;
+using System.Web;
+using Devbazaar.IRestModels.IClientRest;
 
-namespace Devbazaar.Model
+namespace Devbazaar.RestModels.ClientRest
 {
-	public class Client : User, IClient
+	public class UpdateClientRest : IUpdateClientRest
 	{
 		public string FirstName { get; set; }
 		public string LastName { get; set; }

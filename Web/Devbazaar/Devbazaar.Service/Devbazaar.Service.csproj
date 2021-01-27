@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessServices\BusinessService.cs" />
+    <Compile Include="ClientServices\ClientService.cs" />
     <Compile Include="UserServices\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceDIModule.cs" />

@@ -31,7 +31,7 @@ namespace Devbazaar.DAL.Context
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.Available).IsRequired();
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.City).IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<BusinessEntity>().Property(p => p.Country).IsRequired().HasMaxLength(50);
-			modelBuilder.Entity<BusinessEntity>().Property(p => p.Logo).IsOptional();
+			modelBuilder.Entity<BusinessEntity>().Property(p => p.PostalCode).IsRequired();
 			modelBuilder.Entity<BusinessEntity>().HasMany<CategoryEntity>(b => b.Categories).WithMany(c => c.Businesses).Map(bc => {
 				bc.MapLeftKey("BusinessRefId");
 				bc.MapRightKey("CategoryRefId");
@@ -44,6 +44,13 @@ namespace Devbazaar.DAL.Context
 
 			modelBuilder.Entity<ClientEntity>().ToTable("Clients");
 			modelBuilder.Entity<ClientEntity>().HasKey(p => p.Id).Property(p => p.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+			modelBuilder.Entity<ClientEntity>().Property(p => p.FirstName).IsRequired();
+			modelBuilder.Entity<ClientEntity>().Property(p => p.LastName).IsRequired();
+			modelBuilder.Entity<ClientEntity>().HasMany<BusinessEntity>(p => p.Businesses).WithMany(b => b.Clients).Map(fav => {
+				fav.MapLeftKey("FavClientRefId");
+				fav.MapRightKey("FavBusinessRefId");
+				fav.ToTable("Favourites");
+			});
 
 			modelBuilder.Entity<TaskEntity>().ToTable("Tasks");
 			modelBuilder.Entity<TaskEntity>().HasKey(p => p.Id).Property(p => p.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -58,6 +65,7 @@ namespace Devbazaar.DAL.Context
 			modelBuilder.Entity<UserEntity>().Property(p => p.Username).IsRequired().HasMaxLength(50);
 			modelBuilder.Entity<UserEntity>().Property(p => p.Password).IsRequired();
 			modelBuilder.Entity<UserEntity>().Property(p => p.Email).IsRequired().HasMaxLength(50);
+			modelBuilder.Entity<UserEntity>().Property(p => p.Logo).IsOptional();
 			modelBuilder.Entity<UserEntity>().HasOptional(u => u.Client).WithRequired(uc => uc.User).WillCascadeOnDelete();
 			modelBuilder.Entity<UserEntity>().HasOptional(u => u.Business).WithRequired(uc => uc.User).WillCascadeOnDelete();
 		}

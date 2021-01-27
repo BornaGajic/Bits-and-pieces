@@ -80,19 +80,19 @@ namespace Devbazaar.Controllers
         [Route("Update")]
         public async Task<HttpResponseMessage> UpdateAsync ([FromBody] UpdateUserRest updateData)
         {
-            var item = new Dictionary<string, object>();
+            var changedValues = new Dictionary<string, object>();
             foreach (var property in typeof(UpdateUserRest).GetProperties())
             {
                 var value = property.GetValue(updateData);
                 if (value != null)
                 {
-                    item[property.Name] = property.GetValue(updateData);
+                    changedValues[property.Name] = property.GetValue(updateData);
                 }
             }
 
             var userId = Guid.Parse(User.Identity.GetUserId());
 
-            var result = await UserService.UpdateAsync(item, userId);
+            var result = await UserService.UpdateAsync(changedValues, userId);
 
             if (result != false)
             {

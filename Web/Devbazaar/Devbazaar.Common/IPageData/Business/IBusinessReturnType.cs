@@ -18,7 +18,7 @@ namespace Devbazaar.Common.IPageData.Business
 		bool Available { get; set; }
 		string Country { get; set; }
 		string City { get; set; }
-		string Logo { get; set; }
+		int PostalCode { get; set; }
 
 		List<ICategory> Categories { get; set; }
 	}

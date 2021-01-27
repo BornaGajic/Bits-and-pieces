@@ -17,6 +17,6 @@ namespace Devbazaar.Common.DTO.Business
 		public bool Available { get; set; }
 		public string Country { get; set; }
 		public string City { get; set; }
-		public string Logo { get; set; }
+		public int PostalCode { get; set; }
 	}
 }
