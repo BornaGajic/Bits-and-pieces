@@ -1,0 +1,105 @@
+\documentclass{../../OM_style}
+
+%\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+%\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
+\newcommand{\DepartmentName}{Odjel za matematiku}
+\newcommand{\CourseName}{Strojno učenje}
+\newcommand{\CourseURL}{www.mathos.unios.hr/index.php/587}
+\newcommand{\LectureName}{}
+\newcommand{\LectureDate}{4. ožujka 2021.}
+\newcommand{\Lecturer}{}
+\newcommand{\LectureType}{Zadaća 2}
+
+
+
+\lstset{language=C++,
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}
+}
+
+
+\begin{document}
+
+\setcounter{chapter}{1}
+\pagestyle{OM_lecture}
+
+
+\begin{center}
+\rule{10cm}{0.3pt}\\
+\bigskip
+{\LARGE Zadaci}\\
+\rule{10cm}{0.3pt}
+\end{center}
+
+
+
+
+\begin{zadatak} \hfill \\
+Zadan vam je model perceptrona sa parametrima $\theta =[\theta_1 ,\theta_2]= [2.5, 3]$. \\
+Skicirajte (nacrtajte) klasifikacijsku hiperravninu (pravac) definiran ovim parametrima. Klasificira li ispravno ovaj model sljedeće podatke
+$$X= [(0,-0.8), (-1,0), (-0.5, -0.5), (0,1), (0.5,0.8)]$$
+sa pripadnim oznakama klasa 
+$$y = [-1,-1,-1,-1,1]. $$
+\end{zadatak}
+
+\begin{zadatak} \hfill \\
+Kao što smo na vježbama radili, pomoću perceptrona implementirajte logičke XNOR, NAND i NOR. 
+\end{zadatak}
+
+\begin{zadatak} \hfill \\
+Vaš zadatak će biti implementirati perceptron koji će rješavati problem klasifikacije podataka s obzirom na jednu od dvije klase $\{ 1, -1\}$. \\
+Na predavanju je pokazan perceptron algoritam za podatke koji su linearno separabilni kroz ishodište. Drugim riječima, definirali smo da su podaci $\{ (x^{(i)}, y^{(i)}) : i=1,\cdots,m\}$ linearno separabilni kroz ishodište ako postoji $\theta = [\theta_1, \cdots, \theta_n]$ takav da je $y^{(i)} \theta ^T x^{(i)} > 0$, $\forall i = 1,\cdots, m$. \\ U zadaći želimo ovaj koncept generalizirati tako da separabilnost ne bude nužno kroz ishodište.\\
+ Tada možemo reći da će podaci  $\{ (x^{(i)}, y^{(i)}) : i=1,\cdots,m\}$ biti linearno separabilni ako postoji $\theta = [\theta_0, \theta_1, \cdots, \theta_n]$ takav da je $y^{(i)} \theta ^T x^{(i)} > 0$, $\forall i = 1,\cdots, m$, pri čemu je svaki podatak oblika $x^{(i)} = [1, x_1^{(i)}, \cdots, x_n^{(i)}]$.
+ 
+\begin{enumerate}[label=\alph*)]
+\item implementirajte algoritam perceptrona koji na ulazu ima  argumente: \\ $X \in \mathbb{R}^{(m\times (n+1))} $ i $y \in \mathbb{R}^{(m\times 1)} $, gdje je $m$ ukupan broj ulaznih podataka, a $n$ broj varijabli ulaznog podatka. Algoritam treba vratiti vektor parametera $\theta \in \mathbb{R}^{(n+1)\times 1}$ i broj $k$ koji predstavlja koliko je puta ažurirana vrijednost $\theta$. \\
+Kao što je pokazano na predavanju, algoritam treba ciklički prolaziti kroz podatke i prilagođavati parametre. 
+\item Učitajte podatke koji su vam dani \textit{X\_a.csv} i \textit{y\_a.csv} te na njima pokrenite algoritam iz prethodnog zadatke. Ispište dobivenu vrijednost parametara $\theta$ i broj ažuriranja $k$. To ponovite na podacima \textit{X\_b.csv} i \textit{y\_b.csv}
+
+(\textit{Dalje ćemo u zadacima govoriti paralelno za oba skupa podataka i uvesti oznake s indeksima $a$ tj. $b$ koje će se odnositi na podatke iz  \textit{X\_a.csv}} tj. \textit{X\_b.csv})
+
+%\item Neka su $\theta_a$ parametari dobiveni od podataka iz \textit{X\_a.csv} i neka su $\theta_b$ parametri dobiveni od podataka \textit{X\_b.csv}. Izračunajte kut između dobivenih vektora $\theta_a$ i  vektora [$2,1,0$]$^{T}$ te između $\theta_b$ i  vektora [$2,1,0$]$^{T}$ . 
+\item Izračunajte vrijednosti $\gamma_{geom}^a$ i  $\gamma_{geom}^b$ vašeg klasifikatora, tj. najmanju udaljenost podatka do hiperravnine određene formulom $\theta_a ^{T} x = 0$ odnosno hiperravnine $\theta_b ^{T} x = 0$ za podatke iz drugog skupa. 
+\item Vizualizirajte podatke $X_a$ i dobiveni dobiveni pravac $\theta_a x = 0$ te analogno podatke $X_b$ i pravac $\theta_b x = 0$. Na oba grafička prikaza treba biti naznačeno pripadanje podataka jednoj od dvije klase. (Npr. drugim bojama i sl.\href{https://www.researchgate.net/profile/Francois_Kawala/publication/285653348/figure/fig5/AS:669589956460558@1536654094794/This-illustration-present-a-binary-classification-that-is-performed-on-two-features.png}{primjer})
+\item Na temelju zadatka 3. i 4. interpretirajte koji je od ova dva problema teži za klasificirati. 
+\item U analizi ovog algoritma, napravljena je pretpotstavka o tome kako su norme svih podataka ograničene s nekim brojem $R$. Izračunajte te brojeve $R$ za vaše skupove podataka. 
+
+\end{enumerate}
+\end{zadatak}
+\newpage
+
+
+\begin{zadatak}\hfill \\
+U datotekama i su vam zadani podaci koje koje je potrebno klasificirati perceptron algoritmom. 
+\begin{enumerate}[label=\alph*)]
+
+        \item Učitajte podatke \textit{2X\_a}, \textit{2y\_a} vizualizirajte ih. 
+        \item Odredite kojom biste klasom funkcija mogli separirati ove podatke. Parametre funkcije iz te klase trebate pronaći koristeći perceptron algoritam. 
+    
+
+\end{enumerate}
+\end{zadatak}
+
+
+\begin{zadatak}\hfill \\
+Nadogradite implementaciju perceptron algoritma tako da u svakoj iteraciji vizualizirate podatke i dobiveni pravac koji separira te podatke. \\
+Pokrenite algoritam na podacima koje ćete dobiti koristeći ugrađenu funkciju iz scikit-learn \textit{make\_blobs} sa sljedećim parametrima: \\ make\_blobs(n\_samples=500, n\_features=2, centers=2, random\_state=4).\\
+
+\noindent Opišite dobiveni rezultat. 
+
+\end{zadatak}
+
+\end{document}
