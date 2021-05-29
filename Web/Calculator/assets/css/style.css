@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+#clickableStuff .row
+{
+    height: 90px;
+}
+
+#clickableStuff div
+{
+    height: 70px;
+    
+    border-radius: 5px;
+    
+    font-size: 35px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.col
+{
+    overflow: hidden;
+}
+
+#clickableStuff div .col-4, .col-8, .col-3
+{
+    align-self: center;
+
+    line-height: 65px;
+}
+
+.numbers
+{
+    background-color: #6c757d;
+}
+
+.operations
+{
+    background-color: #343a40;
+}
