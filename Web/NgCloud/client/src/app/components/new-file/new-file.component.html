@@ -1,0 +1,24 @@
+<h4 class="display-4">New File</h4>
+<p class="lead">Upload a new file</p>
+
+<div class="row pb-3">
+  <div class="col">
+      <button class="btn btn-primary btn-lg" (click)="goToAllFiles()">All Files</button>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6 col">
+    <form [formGroup]="form" (ngSubmit)="upload()">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Enter filename" formControlName="name">
+      </div>
+      <div>
+        <button class="btn btn-success" type="submit" [disabled]="form.invalid">Upload</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

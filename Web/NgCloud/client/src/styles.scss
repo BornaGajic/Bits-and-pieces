@@ -1,0 +1,11 @@
+html {
+    display: flex;
+    height: 100%;
+}
+
+body {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+@import "../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";

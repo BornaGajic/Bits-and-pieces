@@ -1,0 +1,8 @@
+:host {
+    height: 100%;
+    background-color: pink;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
