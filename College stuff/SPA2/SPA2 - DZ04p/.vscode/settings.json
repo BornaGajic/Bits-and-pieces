@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "stack": "cpp",
+        "queue": "cpp",
+        "utility": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "string": "cpp",
+        "istream": "cpp"
+    }
+}

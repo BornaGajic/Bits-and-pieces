@@ -1,0 +1,32 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "g++.exe build active file",
+            "command": "E:\\Haskell\\8.4.3\\mingw\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${file}",
+                "-std=c++17",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "E:\\Haskell\\8.4.3\\mingw\\bin"
+            }
+        },
+        {
+            "type": "shell",
+            "label": "cl.exe build active file",
+            "command": "cl.exe",
+            "args": [
+                "/Zi",
+                "/EHsc",
+                "/Fe:",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${file}"
+            ]
+        }
+    ],
+    "version": "2.0.0"
+}
